@@ -8,16 +8,16 @@ import 'react-notion-x/src/styles.css'
 import 'katex/dist/katex.min.css'
 
 // used for code syntax highlighting (optional)
-import 'prismjs/themes/prism-coy.css'
+// import 'prismjs/themes/prism-coy.css'
 
 // this might be better for dark mode
 // import 'prismjs/themes/prism-okaidia.css'
 
 // global style overrides for notion
-import 'styles/notion.css'
+import 'styles/notion.scss'
 
 // global style overrides for prism theme (optional)
-import 'styles/prism-theme.css'
+import 'styles/prism-theme.scss'
 
 import * as React from 'react'
 import * as Fathom from 'fathom-client'
@@ -25,18 +25,13 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import posthog from 'posthog-js'
 
-import { bootstrap } from 'lib/bootstrap-client'
 import {
-  isServer,
   fathomId,
   fathomConfig,
   posthogId,
   posthogConfig
 } from 'lib/config'
 
-if (!isServer) {
-  bootstrap()
-}
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
