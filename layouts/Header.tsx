@@ -1,7 +1,7 @@
 import * as React from 'react'
 import cs from 'clsx'
-import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
-import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
+import { RiMoonFill } from '@react-icons/all-files/ri/RiMoonFill'
+import { RiSunFill } from '@react-icons/all-files/ri/RiSunFill'
 import { Header, Breadcrumbs, Search, useNotionContext } from 'react-notion-x'
 import * as types from 'notion-types'
 
@@ -27,7 +27,7 @@ const ToggleThemeButton = () => {
       className={cs('breadcrumb', 'button', !hasMounted && styles.hidden)}
       onClick={onToggleTheme}
     >
-      {hasMounted && isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
+      {hasMounted && isDarkMode ? <RiSunFill /> : <RiMoonFill />}
     </div>
   )
 }

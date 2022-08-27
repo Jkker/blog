@@ -1,3 +1,3 @@
-import { ErrorPage } from 'components'
+import { ErrorPage } from '@/layouts'
 
 export default ErrorPage

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { PageHead } from './PageHead'
+import { PageHTMLHead } from './PageHTMLHead'
 
 import styles from './styles.module.css'
 
@@ -8,7 +8,7 @@ export const ErrorPage: React.FC<{ statusCode: number }> = ({ statusCode }) => {
 
   return (
     <>
-      <PageHead title={title} />
+      <PageHTMLHead title={title} />
 
       <div className={styles.container}>
         <main className={styles.main}>

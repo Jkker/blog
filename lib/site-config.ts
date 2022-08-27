@@ -13,6 +13,8 @@ export interface SiteConfig {
   twitter?: string
   github?: string
   linkedin?: string
+  telegram?: string
+  email?: string
   newsletter?: string
   youtube?: string
   zhihu?: string
@@ -32,6 +34,7 @@ export interface SiteConfig {
 
   navigationStyle?: types.NavigationStyle
   navigationLinks?: Array<NavigationLink>
+  [key: string]: any
 }
 
 export interface NavigationLink {

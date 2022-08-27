@@ -16,38 +16,42 @@ const gray = {
 }
 
 module.exports = {
-  content: ['./pages/**/*.js', './components/**/*.js', './layouts/**/*.js'],
+  content: [
+    './pages/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    './layouts/**/*.{js,jsx,ts,tsx}',
+  ],
   darkMode: ['class', '.dark-mode'], // or 'media' or 'class'
   theme: {
     extend: {
       borderRadius: {
         DEFAULT: '.5rem',
-        lg: '1rem'
+        lg: '1rem',
       },
       boxShadow: {
-        md: '0px 9px 24px rgb(0 0 0 / 6%)'
+        md: '0px 9px 24px rgb(0 0 0 / 6%)',
       },
       colors: {
         gray,
         day: {
-          DEFAULT: gray['50']
+          DEFAULT: gray['50'],
         },
         night: {
-          DEFAULT: gray['900']
+          DEFAULT: gray['900'],
         },
         hexo: {
           background: gray['50'],
           'background-dark': gray['900'],
           'black-gray': gray['800'],
-          'light-gray': gray['10']
+          'light-gray': gray['10'],
         },
-        primary: colors.blue
+        primary: colors.blue,
       },
       fontFamily: {
         sans: ['Lexend', 'Noto Sans SC', ...defaultTheme.fontFamily.sans],
-        mono: ['Jetbrains Mono', ...defaultTheme.fontFamily.mono]
-      }
-    }
+        mono: ['Jetbrains Mono', ...defaultTheme.fontFamily.mono],
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 }

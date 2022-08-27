@@ -13,6 +13,8 @@ import posthog from 'posthog-js'
 
 import { posthogId, posthogConfig } from 'lib/config'
 
+import { GlobalContextProvider } from '@/utils/useGlobal'
+
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
@@ -34,5 +36,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  return (
+    <GlobalContextProvider>
+      <Component {...pageProps} />
+    </GlobalContextProvider>
+  )
 }
