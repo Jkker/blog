@@ -1,5 +1,5 @@
 import * as React from 'react'
-import cs from 'classnames'
+import cs from 'clsx'
 
 import * as config from 'lib/config'
 

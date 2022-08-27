@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/no-head-element */
 import * as React from 'react'
 import { withOGImage } from 'next-api-og-image'
 
@@ -134,6 +136,7 @@ export default withOGImage<'query', 'id'>({
                     style={{
                       objectPosition: imageObjectPosition || undefined
                     }}
+                    alt={title}
                   />
                 )}
               </div>

@@ -1,54 +1,26 @@
-// global styles shared across the entire site
-import 'styles/global.css'
-
-// core styles shared by all of react-notion-x (required)
-import 'react-notion-x/src/styles.css'
-
-// used for rendering equations (optional)
+import '@fontsource/noto-sans-sc/400.css'
+import '@fontsource/noto-sans-sc/700.css'
+import '@fontsource/jetbrains-mono/400.css'
+import '@fontsource/lexend/400.css'
+import '@fontsource/lexend/700.css'
 import 'katex/dist/katex.min.css'
-
-// used for code syntax highlighting (optional)
-// import 'prismjs/themes/prism-coy.css'
-
-// this might be better for dark mode
-// import 'prismjs/themes/prism-okaidia.css'
-
-// global style overrides for notion
-import 'styles/notion.scss'
-
-// global style overrides for prism theme (optional)
-import 'styles/prism-theme.scss'
+import '@/styles/global.css'
 
 import * as React from 'react'
-import * as Fathom from 'fathom-client'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import posthog from 'posthog-js'
 
-import {
-  fathomId,
-  fathomConfig,
-  posthogId,
-  posthogConfig
-} from 'lib/config'
-
+import { posthogId, posthogConfig } from 'lib/config'
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   React.useEffect(() => {
     function onRouteChangeComplete() {
-      if (fathomId) {
-        Fathom.trackPageview()
-      }
-
       if (posthogId) {
         posthog.capture('$pageview')
       }
-    }
-
-    if (fathomId) {
-      Fathom.load(fathomId, fathomConfig)
     }
 
     if (posthogId) {

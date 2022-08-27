@@ -1,0 +1,54 @@
+:root {
+  --scrollbarBG: transparent;
+  --thumbBG: #9c9a9caa;
+  --notion-font: Lexend, Noto Sans SC, ui-sans-serif, system-ui,
+    -apple-system BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.dark-mode {
+  --fg-color: #fcfcfa;
+  /* --fg-color-0: rgba(255, 255, 255, 0.6); */
+
+  /* --bg-color: #19181a;
+  --bg-color-0: #221f22;
+  --bg-color-1: #2d2a2e;
+  --bg-color-2: #403e41; */
+  --bg-color: #222022;
+  --bg-color-0: #2d2a2e;
+  --bg-color-1: #19181a;
+  --bg-color-2: rgba(135, 131, 120, 0.15);
+
+  --notion-red: #ff6188;
+  --notion-pink: #ff78c7;
+  --notion-blue: #78dce8;
+  --notion-purple: #ab9df2;
+  --notion-teal: #a9dc76;
+  --notion-yellow: #ffd866;
+  --notion-orange: #fc9867;
+  --notion-brown: #ba8974;
+  --notion-gray: #c1c0c0;
+  --notion-red_background: #ff6188bb;
+  --notion-pink_background: #ff78c7bb;
+  --notion-blue_background: #78dce8bb;
+  --notion-purple_background: #ab9df2bb;
+  --notion-teal_background: #a9dc76bb;
+  --notion-yellow_background: #ffd866bb;
+  --notion-orange_background: #fc9867bb;
+  --notion-brown_background: #ba8974bb;
+  --notion-gray_background: #2d2a2ebb;
+  --notion-red_background_co: #ff618865;
+  --notion-pink_background_co: #ff78c765;
+  --notion-blue_background_co: #78dce865;
+  --notion-purple_background_co: #ab9df265;
+  --notion-teal_background_co: #a9dc7665;
+  --notion-yellow_background_co: #ffd86665;
+  --notion-orange_background_co: #fc986765;
+  --notion-brown_background_co: #ba897465;
+  --notion-gray_background_co: #403e41;
+
+  --scrollbarBG: transparent;
+  --thumbBG: #727072;
+  --select-color-2: #78dce859;
+}
