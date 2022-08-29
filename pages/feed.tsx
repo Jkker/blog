@@ -4,7 +4,7 @@ import {
   getBlockParentPage,
   getBlockTitle,
   getPageProperty,
-  idToUuid
+  idToUuid,
 } from 'notion-utils'
 import { ExtendedRecordMap } from 'notion-types'
 
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     site_url: config.host,
     feed_url: `${config.host}/feed.xml`,
     language: config.language,
-    ttl: ttlMinutes
+    ttl: ttlMinutes,
   })
 
   for (const pagePath of Object.keys(siteMap.canonicalPageMap)) {
@@ -78,9 +78,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       enclosure: socialImageUrl
         ? {
             url: socialImageUrl,
-            type: 'image/jpeg'
+            type: 'image/jpeg',
           }
-        : undefined
+        : undefined,
     })
   }
 

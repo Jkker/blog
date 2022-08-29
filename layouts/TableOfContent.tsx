@@ -21,7 +21,7 @@ export const TableOfContent: React.FC<{
       throttle(() => {
         const target =
           typeof window !== 'undefined' &&
-          document.querySelector('.notion-page')
+          document.getElementById('main-container')
         if (target) {
           const clientHeight = target.clientHeight
           const scrollY = window.pageYOffset

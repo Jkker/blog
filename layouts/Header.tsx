@@ -1,20 +1,17 @@
+import BreadCrumbs from '@/components/BreadCrumbs'
 import Button from '@/components/Button'
 import Collapse from '@/components/Collapse'
-import Link from '@/components/Link'
 import Rotate from '@/components/Rotate'
 import ToggleThemeButton from '@/components/ToggleThemeButton'
 import navigationLinks from '@/data/navLinks'
 import Avatar from '@/public/avatar.jpg'
 import useClickOutside from '@/utils/useClickOutside'
-import useScroll from '@/utils/useScroll'
 import cx from 'clsx'
 import throttle from 'lodash.throttle'
 import Image from 'next/image'
 import * as React from 'react'
 import { RiCloseFill, RiMenuFill } from 'react-icons/ri'
-import type { BreadCrumb } from '@/utils/useGlobal'
-import { isUrl } from '@/utils/link'
-import BreadCrumbs from '@/components/BreadCrumbs'
+
 let windowTop = 0
 
 const AvatarIcon = ({ className = '' }) => (
@@ -34,12 +31,13 @@ const AvatarIcon = ({ className = '' }) => (
       />
     }
   >
-    Blog
+    Jerry K Jia
   </Button>
 )
 
 export const Header = ({ breadcrumbs = [], showNav, setShowNav }) => {
   const navRef = React.useRef()
+  const breadCrumbRef = React.useRef<HTMLUListElement>()
 
   const [transparent, setTransparent] = React.useState(false)
   const [showMenu, setShowMenu] = React.useState(false)
@@ -47,28 +45,29 @@ export const Header = ({ breadcrumbs = [], showNav, setShowNav }) => {
   const closeMenu = () => setShowMenu(false)
 
   useClickOutside(navRef, closeMenu)
-  // 监听滚动
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const scrollTrigger = React.useCallback(
-    throttle(() => {
-      const scrollS = window.scrollY
-      const header = document.querySelector('#header')
-      const showNav =
-        scrollS <= windowTop ||
-        scrollS < 5 ||
-        (header && scrollS <= header.clientHeight) // 非首页无大图时影藏顶部 滚动条置顶时隐藏
-      const navTransparent =
-        scrollS < document.documentElement.clientHeight - 12 || scrollS < 300 // 透明导航条的条件
 
-      setTransparent(header && navTransparent)
+  // 监听滚动
+  React.useEffect(() => {
+    const contentTop = document
+      .getElementById('main-container')
+      .getBoundingClientRect().top
+
+    const scrollTrigger = throttle(() => {
+      const scrollS = window.scrollY
+      const showNav = scrollS <= windowTop || scrollS < contentTop // 非首页无大图时影藏顶部 滚动条置顶时隐藏
+      const navTransparent = scrollS < contentTop / 2 // 透明导航条的条件
+
+      setTransparent(navTransparent)
       setShowNav(showNav)
       if (!showNav) closeMenu()
       windowTop = scrollS
-    }, 100),
-    []
-  )
-  // scrollTrigger()
-  useScroll(scrollTrigger, [])
+    }, 100)
+
+    document.addEventListener('scroll', scrollTrigger)
+    return () => {
+      document.removeEventListener('scroll', scrollTrigger)
+    }
+  }, [setShowNav])
 
   const links = React.useMemo(
     () =>
@@ -96,9 +95,9 @@ export const Header = ({ breadcrumbs = [], showNav, setShowNav }) => {
     <>
       <header
         className={cx(
-          'fixed top-0 left-0 w-full z-30 transform duration-200',
+          'fixed top-0 left-0 w-full z-30 transform ',
           showMenu ? 'rounded-b-lg shadow-xl' : 'shadow-md',
-          transparent
+          transparent && !showMenu
             ? 'text-white bg-none shadow-none bg-transparent'
             : 'text-black dark:text-gray-50 bg-white/60 dark:bg-gray-800/70 acrylic shadow-md',
           showNav ? 'top-0' : '-top-20'
@@ -107,14 +106,17 @@ export const Header = ({ breadcrumbs = [], showNav, setShowNav }) => {
         ref={navRef}
       >
         <nav className='flex items-center justify-between px-2 py-1 lg:px-8'>
-          <ul className='items-center divide-spacer list-none hidden sm:flex'>
+          <ul
+            className='items-center divide-spacer list-none hidden sm:flex flex-shrink-1 overflow-auto relative'
+            ref={breadCrumbRef}
+          >
             <li className='flex items-center flex-shrink-0'>
               <AvatarIcon />
             </li>
             <BreadCrumbs breadcrumbs={breadcrumbs} />
           </ul>
           <AvatarIcon className='flex sm:hidden' />
-          <div className='flex gap-1 items-center justify-end'>
+          <div className='flex gap-1 items-center justify-end flex-shrink-0'>
             <div className='gap-1 items-center hidden sm:flex'>{links}</div>
             <ToggleThemeButton color='transparent' rounded />
             {/* <Search block={block} title={null} /> */}
@@ -138,7 +140,7 @@ export const Header = ({ breadcrumbs = [], showNav, setShowNav }) => {
           className='sm:hidden shadow-lg dark:shadow-lg z-20 self-start  w-full'
         >
           <div className='px-2 pb-2 text-black dark:text-gray-200 shadow-md rounded-b'>
-            <BreadCrumbs breadcrumbs={breadcrumbs} />
+            {/* <BreadCrumbs breadcrumbs={breadcrumbs} /> */}
 
             {links}
           </div>

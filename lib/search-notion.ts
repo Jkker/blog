@@ -8,7 +8,7 @@ import * as types from './types'
 
 export const searchNotion = pMemoize(searchNotionImpl, {
   cacheKey: (args) => args[0]?.query,
-  cache: new ExpiryMap(10000)
+  cache: new ExpiryMap(10000),
 })
 
 async function searchNotionImpl(
@@ -18,8 +18,8 @@ async function searchNotionImpl(
     method: 'POST',
     body: JSON.stringify(params),
     headers: {
-      'content-type': 'application/json'
-    }
+      'content-type': 'application/json',
+    },
   })
     .then((res) => {
       if (res.ok) {

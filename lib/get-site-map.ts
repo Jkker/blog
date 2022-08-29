@@ -1,10 +1,10 @@
+import { getAllPagesInSpace } from 'notion-utils'
 import pMemoize from 'p-memoize'
-import { getAllPagesInSpace, uuidToId } from 'notion-utils'
 
-import { includeNotionIdInUrls } from './config'
-import { notion } from './notion-api'
-import { getCanonicalPageId } from './get-canonical-page-id'
 import * as config from './config'
+import { includeNotionIdInUrls } from './config'
+import { getCanonicalPageId } from './get-canonical-page-id'
+import { notion } from './notion-api'
 import * as types from './types'
 
 const uuid = !!includeNotionIdInUrls
@@ -17,12 +17,12 @@ export async function getSiteMap(): Promise<types.SiteMap> {
 
   return {
     site: config.site,
-    ...partialSiteMap
+    ...partialSiteMap,
   } as types.SiteMap
 }
 
 const getAllPages = pMemoize(getAllPagesImpl, {
-  cacheKey: (...args) => JSON.stringify(args)
+  cacheKey: (...args) => JSON.stringify(args),
 })
 
 async function getAllPagesImpl(
@@ -30,7 +30,7 @@ async function getAllPagesImpl(
   rootNotionSpaceId: string
 ): Promise<Partial<types.SiteMap>> {
   const getPage = async (pageId: string, ...args) => {
-    console.log('\nnotion getPage', uuidToId(pageId))
+    // console.log('\nnotion getPage', uuidToId(pageId))
     return notion.getPage(pageId, ...args)
   }
 
@@ -48,7 +48,7 @@ async function getAllPagesImpl(
       }
 
       const canonicalPageId = getCanonicalPageId(pageId, recordMap, {
-        uuid
+        uuid,
       })
 
       if (map[canonicalPageId]) {
@@ -57,14 +57,14 @@ async function getAllPagesImpl(
         console.warn('error duplicate canonical page id', {
           canonicalPageId,
           pageId,
-          existingPageId: map[canonicalPageId]
+          existingPageId: map[canonicalPageId],
         })
 
         return map
       } else {
         return {
           ...map,
-          [canonicalPageId]: pageId
+          [canonicalPageId]: pageId,
         }
       }
     },
@@ -73,6 +73,6 @@ async function getAllPagesImpl(
 
   return {
     pageMap,
-    canonicalPageMap
+    canonicalPageMap,
   }
 }

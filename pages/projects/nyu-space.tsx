@@ -4,35 +4,15 @@ import dict from '@/data/Slots-2022sp.json'
 
 import { Layout } from '@/layouts'
 import dayjs from '@/lib/dayjs'
-import { domain, rootNotionPageId } from 'lib/config'
-import { resolveNotionPage } from 'lib/resolve-notion-page'
-import { PageProps, Params } from 'lib/types'
+import Cover from '@/public/images/nyu.jpg'
 import { GetStaticProps } from 'next'
 import { useEffect, useMemo, useState } from 'react'
 
-export const getStaticProps: GetStaticProps<PageProps, Params> = async (
-  context
-) => {
-  const rawPageId = (context.params?.pageId ?? rootNotionPageId) as string
-
-  try {
-    const props = await resolveNotionPage(domain, rawPageId)
-
-    return {
-      props: {
-        ...props,
-        buildings: Object.keys(dict),
-      },
-      revalidate: 10,
-    }
-  } catch (err) {
-    console.error('page error', domain, rawPageId, err)
-
-    // we don't want to publish the error version of this page, so
-    // let next.js know explicitly that incremental SSG failed
-    throw err
-  }
-}
+export const getStaticProps: GetStaticProps = async (context) => ({
+  props: {
+    buildings: Object.keys(dict),
+  },
+})
 
 const WEEKDAYS = [
   'Monday',
@@ -77,7 +57,7 @@ export default function FindSpace({ buildings, ...props }) {
   }, [building])
 
   return (
-    <Layout title='NYU Unoccupied Space Finder' coverImage='/images/nyu.jpg'>
+    <Layout title='NYU Unoccupied Space Finder' coverImage={Cover}>
       <div className='space-y-4 md:space-y-8 w-full p-2'>
         <p className='pb-2 font-bold p-1'>
           Find a place to chill-out when you are on campus.

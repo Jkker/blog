@@ -1,23 +1,19 @@
+import Button from '@/components/Button'
 import { Layout } from '@/layouts'
-import { domain, rootNotionPageId } from 'lib/config'
-import { resolveNotionPage } from 'lib/resolve-notion-page'
-import { PageProps, Params } from 'lib/types'
-import { GetStaticProps } from 'next'
+import Cover from '@/public/images/nyu.jpg'
 import {
   FaCopy as CopyIcon,
   FaDownload as DownloadIcon,
   FaGithub,
   FaGoogle,
 } from 'react-icons/fa'
-import Button from '@/components/Button'
 
 export default function NyuCal(props) {
-  // const toast = useToast()
   return (
     <Layout
       {...props}
       title='NYU Academic Calendar Subscriber'
-      coverImage='/images/nyu.jpg'
+      coverImage={Cover}
     >
       <div className=' pt-6 mx-3 flex-center text-black dark:text-gray-100'>
         <div className='card space-y-responsive w-full'>
@@ -97,22 +93,4 @@ export default function NyuCal(props) {
       </div>
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps<PageProps, Params> = async (
-  context
-) => {
-  const rawPageId = (context.params?.pageId ?? rootNotionPageId) as string
-
-  try {
-    const props = await resolveNotionPage(domain, rawPageId)
-
-    return { props, revalidate: 10 }
-  } catch (err) {
-    console.error('page error', domain, rawPageId, err)
-
-    // we don't want to publish the error version of this page, so
-    // let next.js know explicitly that incremental SSG failed
-    throw err
-  }
 }

@@ -19,7 +19,7 @@ try {
 
 const siteConfig: SiteConfig = {
   ...rawSiteConfig,
-  ...siteConfigOverrides
+  ...siteConfigOverrides,
 }
 
 export function getSiteConfig<T>(key: string, defaultValue?: T): T {

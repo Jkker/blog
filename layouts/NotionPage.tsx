@@ -19,7 +19,6 @@ import type { TableOfContentsEntry } from 'notion-utils'
 // components
 import { Loading } from './Loading'
 import { Page404 } from './Page404'
-import { PageHTMLHead } from './PageHTMLHead'
 import { TableOfContent } from './TableOfContent'
 
 // -----------------------------------------------------------------------------
@@ -107,22 +106,11 @@ export const NotionPage: React.FC<
     socialImage: string
     tableOfContent: TableOfContentsEntry[]
   }
-> = ({
-  title,
-  description: socialDescription,
-  canonicalPageUrl,
-  socialImage,
-  tableOfContent,
-  recordMap,
-  pageId,
-  site,
-  error,
-}) => {
+> = ({ tableOfContent, recordMap, pageId, site, error }) => {
   const router = useRouter()
 
   const components = React.useMemo(
     () => ({
-      // nextImage: Image,
       nextLink: Link,
       Code,
       Collection,
@@ -130,9 +118,6 @@ export const NotionPage: React.FC<
       Pdf,
       Modal,
       Tweet,
-      // propertyLastEditedTimeValue,
-      // propertyTextValue,
-      // propertyDateValue,
     }),
     []
   )
@@ -151,18 +136,10 @@ export const NotionPage: React.FC<
 
   return (
     <>
-      <PageHTMLHead
-        pageId={pageId}
-        site={site}
-        title={title}
-        description={socialDescription}
-        image={socialImage}
-        url={canonicalPageUrl}
-      />
-      <div className='p-4 bg-white dark:bg-gray-800 max-w-full lg:max-w-3xl w-full rounded shadow-md'>
+      <div className='flex flex-col lg:gap-4 max-w-full lg:max-w-3xl w-full'>
         <NotionRenderer
           components={components}
-          recordMap={recordMap}
+          recordMap={recordMap as any}
           rootPageId={site.rootNotionPageId}
           rootDomain={site.domain}
           previewImages={!!recordMap.preview_images}
@@ -170,10 +147,10 @@ export const NotionPage: React.FC<
           showTableOfContents={false}
           mapPageUrl={siteMapPageUrl}
           mapImageUrl={mapImageUrl}
-          searchNotion={config.isSearchEnabled ? searchNotion : null}
-          className=''
+          // searchNotion={(config.isSearchEnabled as any) ? searchNotion : null}
+          className='lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'
         />
-        <div className='p-4 bg-white dark:bg-gray-800'>
+        <div className='lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'>
           <Comment />
         </div>
       </div>

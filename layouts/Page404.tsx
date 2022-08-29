@@ -26,6 +26,7 @@ export const Page404: React.FC<types.PageProps> = ({ site, pageId, error }) => {
             )
           )}
 
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src='/404.png'
             alt='404 Not Found'

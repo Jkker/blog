@@ -13,7 +13,7 @@ export async function getPreviewImageMap(
   recordMap: ExtendedRecordMap
 ): Promise<PreviewImageMap> {
   const urls: string[] = getPageImageUrls(recordMap, {
-    mapImageUrl
+    mapImageUrl,
   })
     .concat([defaultPageIcon, defaultPageCover])
     .filter(Boolean)
@@ -26,7 +26,7 @@ export async function getPreviewImageMap(
         return [cacheKey, await getPreviewImage(url, { cacheKey })]
       },
       {
-        concurrency: 8
+        concurrency: 8,
       }
     )
   )
@@ -56,7 +56,7 @@ async function createPreviewImage(
     const previewImage = {
       originalWidth: result.metadata.originalWidth,
       originalHeight: result.metadata.originalHeight,
-      dataURIBase64: result.metadata.dataURIBase64
+      dataURIBase64: result.metadata.dataURIBase64,
     }
 
     try {

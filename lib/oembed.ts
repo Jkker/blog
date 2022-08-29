@@ -6,7 +6,7 @@ export const oembed = async ({
   url,
   maxWidth,
   maxHeight,
-  dark = false
+  dark = false,
 }: {
   url: string
   maxWidth?: number
@@ -58,6 +58,6 @@ export const oembed = async ({
     // thumbnail_height: 600,
     width,
     height,
-    html: `<iframe src="${embedUrl}" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts" width="${width}" height="${height}" frameborder="0"></iframe>`
+    html: `<iframe src="${embedUrl}" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts" width="${width}" height="${height}" frameborder="0"></iframe>`,
   }
 }

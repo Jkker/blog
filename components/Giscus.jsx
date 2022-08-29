@@ -13,9 +13,7 @@ const GiscusComponent = ({ className = undefined }) => {
   }, [setHasComment])
 
   return (
-    <section
-      className={className ?? 'p-4 bg-white dark:bg-gray-800 rounded shadow-md'}
-    >
+    <section className={className ?? ''}>
       <giscus-widget
         repo='Jkker/blog'
         repoid='R_kgDOH3Dd5A'

@@ -16,6 +16,7 @@ export const ErrorPage: React.FC<{ statusCode: number }> = ({ statusCode }) => {
 
           {statusCode && <p>Error code: {statusCode}</p>}
 
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src='/error.png' alt='Error' className={styles.errorImage} />
         </main>
       </div>

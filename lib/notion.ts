@@ -8,7 +8,7 @@ import { getPreviewImageMap } from './preview-images'
 import {
   isPreviewImageSupportEnabled,
   navigationStyle,
-  navigationLinks
+  navigationLinks,
 } from './config'
 
 const getNavigationLinkPages = pMemoize(
@@ -25,10 +25,10 @@ const getNavigationLinkPages = pMemoize(
             chunkLimit: 1,
             fetchMissingBlocks: false,
             fetchCollections: false,
-            signFileUrls: false
+            signFileUrls: false,
           }),
         {
-          concurrency: 4
+          concurrency: 4,
         }
       )
     }

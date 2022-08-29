@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 
-const Collapse = props => {
+const Collapse = (props) => {
   const { id, className } = props
   const collapseRef = useRef(null)
-  const collapseSection = element => {
+  const collapseSection = (element) => {
     const sectionHeight = element.scrollHeight
     const currentHeight = element.style.height
     if (currentHeight === '0px') {
@@ -16,7 +16,7 @@ const Collapse = props => {
       })
     })
   }
-  const expandSection = element => {
+  const expandSection = (element) => {
     const sectionHeight = element.scrollHeight
     element.style.height = sectionHeight + 'px'
     const clearTime = setTimeout(() => {
@@ -33,7 +33,12 @@ const Collapse = props => {
     }
   }, [props.isOpen])
   return (
-    <div id={id} ref={collapseRef} style={{ height: '0px' }} className={'overflow-hidden duration-200 ' + className}>
+    <div
+      id={id}
+      ref={collapseRef}
+      style={{ height: '0px' }}
+      className={'overflow-hidden duration-200 ' + className}
+    >
       {props.children}
     </div>
   )

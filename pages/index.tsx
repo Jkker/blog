@@ -14,6 +14,7 @@ import {
   normalizeUrl,
   parsePageId,
 } from 'notion-utils'
+import defaultCoverImage from '@/data/defaultCoverImage'
 
 export const getStaticProps = async () => {
   try {
@@ -53,23 +54,29 @@ export const getStaticProps = async () => {
           block,
           recordMap
         )
-        const tags = getPageProperty<string[]>('Tags', block, recordMap).filter(
-          (t) => t && t.length > 0
-        )
+        const tags = getPageProperty<string[]>(
+          'Tags',
+          block,
+          recordMap
+        )?.filter?.((t) => t && t.length > 0)
         const date =
           getPageProperty<number>('Published', block, recordMap) ??
           block.created_time
-        const src = mapImageUrl(block.format?.page_cover, block)
-        const previewImage =
-          recordMap?.preview_images?.[src] ??
-          recordMap?.preview_images?.[normalizeUrl(src)]
+        const coverImageSrc = mapImageUrl(block.format?.page_cover, block)
+
+        const coverImage = coverImageSrc
+          ? {
+              src: coverImageSrc,
+              ...(recordMap?.preview_images?.[coverImageSrc] ??
+                recordMap?.preview_images?.[normalizeUrl(coverImageSrc)]),
+            }
+          : defaultCoverImage
 
         return {
           id,
           collectionId,
           title,
-          image: src,
-          previewImage,
+          coverImage,
           tags: tags.map((t) => ({
             name: t,
             color: tagColorMap[t],
@@ -95,7 +102,7 @@ export const getStaticProps = async () => {
 }
 
 export default function NotionDomainPage(props) {
-  console.log(`🚀 props`, props)
+  // console.log(`🚀 props`, props)
   const { locale } = useRouter()
 
   const date = dayjs(props.date).format(
@@ -103,8 +110,12 @@ export default function NotionDomainPage(props) {
   )
 
   return (
-    <Layout {...props}>
-      <div className='space-y-4 p-4'>
+    <Layout
+      {...props}
+      title={props.site.name}
+      description={props.site.description}
+    >
+      <div className='space-y-4'>
         {props.postList.map((post) => (
           <BlogPostCard key={post.id} {...post} date={date} />
         ))}

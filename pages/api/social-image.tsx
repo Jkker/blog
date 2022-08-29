@@ -8,7 +8,7 @@ import {
   getBlockIcon,
   getPageProperty,
   isUrl,
-  parsePageId
+  parsePageId,
 } from 'notion-utils'
 import { PageBlock } from 'notion-types'
 
@@ -93,7 +93,7 @@ export default withOGImage<'query', 'id'>({
       const date =
         isBlogPost && dateUpdated
           ? `${dateUpdated.toLocaleString('en-US', {
-              month: 'long'
+              month: 'long',
             })} ${dateUpdated.getFullYear()}`
           : undefined
       const detail = date || config.domain
@@ -134,7 +134,7 @@ export default withOGImage<'query', 'id'>({
                     src={image}
                     className='rhs'
                     style={{
-                      objectPosition: imageObjectPosition || undefined
+                      objectPosition: imageObjectPosition || undefined,
                     }}
                     alt={title}
                   />
@@ -144,14 +144,14 @@ export default withOGImage<'query', 'id'>({
           </body>
         </html>
       )
-    }
+    },
   },
   cacheControl: 'max-age=0, s-maxage=86400, stale-while-revalidate=3600',
   type: 'jpeg',
   quality: 75,
   dev: {
-    inspectHtml: debugInspectHtml
-  }
+    inspectHtml: debugInspectHtml,
+  },
 })
 
 const style = `

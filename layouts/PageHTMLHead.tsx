@@ -78,7 +78,9 @@ export const PageHTMLHead: React.FC<
 
       <meta property='og:title' content={title} />
       <meta name='twitter:title' content={title} />
-      <title>{title}</title>
+      <title>
+        {title} | {site?.name}
+      </title>
     </Head>
   )
 }

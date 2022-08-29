@@ -8,11 +8,10 @@ const BlogPostCard = ({
   date,
   description,
   index,
-  image,
   url,
   title,
   tags,
-  previewImage,
+  coverImage,
 }) => {
   return (
     <Link href={url}>
@@ -60,9 +59,9 @@ const BlogPostCard = ({
 
         <div className='w-full rounded-t-xl lg:rounded-r-xl lg:rounded-tl-none cursor-pointer duration-200 transform overflow-hidden h-52 lg:h-64 relative'>
           <Image
-            src={image}
+            src={coverImage.src}
             alt={title}
-            blurDataURL={previewImage.dataURIBase64}
+            blurDataURL={coverImage.dataURIBase64}
             layout='fill'
             objectFit='cover'
             priority={index < 3 ? true : false}

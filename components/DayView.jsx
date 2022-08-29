@@ -1,5 +1,12 @@
 import cx from 'clsx'
-import { createContext, useContext, useRef, forwardRef, useEffect } from 'react'
+import {
+  createContext,
+  useContext,
+  useRef,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react'
 // const getColorFromTitle = (title: string) => {}
 
 const WeekDayViewContext = createContext(null)
@@ -15,7 +22,7 @@ const BG_COLORS = [
   'bg-indigo-400',
   'bg-purple-400',
   'bg-fuchsia-400',
-  'bg-rose-400'
+  'bg-rose-400',
 ]
 
 const TEXT_COLORS = [
@@ -30,7 +37,7 @@ const TEXT_COLORS = [
   'text-indigo-700',
   'text-purple-700',
   'text-fuchsia-700',
-  'text-rose-700'
+  'text-rose-700',
 ]
 
 const getBgColor = (title) =>
@@ -50,7 +57,7 @@ const EventBlock = ({ title = '', start, end, className = '' }) => {
   const {
     blockWidth,
     blockHeight,
-    startHour: dayStartHour
+    startHour: dayStartHour,
   } = useWeekDayViewContext()
   const [startH, startM] = start.split(':')
   const [endH, endM] = end.split(':')
@@ -68,11 +75,11 @@ const EventBlock = ({ title = '', start, end, className = '' }) => {
         height: height,
         margin: 6,
         marginTop: top,
-        width: blockWidth - 12
+        width: blockWidth - 12,
       }}
     >
-      <h4 className="event-block-title">{title}</h4>
-      <div className="event-block-time">
+      <h4 className='event-block-title'>{title}</h4>
+      <div className='event-block-time'>
         {start} - {end}
       </div>
     </div>
@@ -94,7 +101,7 @@ const NowIndicator = forwardRef((props, ref) => {
     scheduleContainerWidth,
     scheduleContainerHeight,
     blockHeight,
-    startHour: dayStartHour
+    startHour: dayStartHour,
   } = useWeekDayViewContext()
   const now = new Date()
   const nowHour = now.getHours() + now.getMinutes() / 60
@@ -102,7 +109,7 @@ const NowIndicator = forwardRef((props, ref) => {
   return (
     <mark
       className={cx(
-        'bg-white/70  h-1 absolute z-20 acrylic rounded shadow shadow-white'
+        'bg-white/70 h-1 absolute z-20 acrylic rounded shadow shadow-white'
         // 'before:block before:w-2 before:h-2 before:bg-red-400 before:-mp-1 before:-mt-1 before:position-absolute'
       )}
       style={{
@@ -112,7 +119,7 @@ const NowIndicator = forwardRef((props, ref) => {
             : top > scheduleContainerHeight
             ? scheduleContainerHeight
             : top,
-        width: scheduleContainerWidth
+        width: scheduleContainerWidth,
       }}
       ref={ref}
     >
@@ -151,14 +158,14 @@ export const DaySchedule = ({ title, events }) => {
             borderColor,
             blockHeightTW,
             {
-              'border-r': idx !== times.length - 1
+              'border-r': idx !== times.length - 1,
             }
           )}
         ></div>
       ))}
       <div className={cx('events absolute left-0 flex-none	')}>
         <div className={cx('', blockHeightTW)}></div>
-        <div className="relative">
+        <div className='relative'>
           {events.map(([start, end]) => (
             <EventBlock
               key={start + end}
@@ -182,7 +189,7 @@ export function DayViewContainer({
   blockWidth = 192 / 2,
   minDuration = 30,
   children,
-  className = ''
+  className = '',
 }) {
   const times = []
   // for (let hour = startHour; hour <= endHour; hour++) {
@@ -203,19 +210,20 @@ export function DayViewContainer({
   const blockHeightTW = `h-${blockHeight / 4}` || 'h-12'
   const blockWidthTW = `w-${blockWidth / 4}` || 'w-24'
   const scheduleContainerRef = useRef(null)
-  const scheduleContainerWidth = scheduleContainerRef.current?.offsetWidth ?? 0
+  const [scheduleContainerWidth, setScheduleContainerWidth] = useState(0)
+  // const scheduleContainerWidth = scheduleContainerRef.current?.offsetWidth ?? 0
   const scheduleContainerHeight =
     scheduleContainerRef.current?.offsetHeight ?? 0
   const nowIndicatorRef = useRef(null)
   useEffect(() => {
-    nowIndicatorRef.current?.scrollIntoView()
-  }, [])
+    setScheduleContainerWidth(scheduleContainerRef.current?.offsetWidth ?? 0)
+  }, [scheduleContainerRef.current?.offsetWidth])
 
   return (
     <div className={cx('flex w-full overflow-auto relative', className)}>
       {/* Time Scale */}
-      <div className="sticky left-0 bg-white/70 dark:bg-gray-900/60 acrylic z-30 flex flex-none  h-full">
-        <div className="time-scale flex flex-col flex-none pl-2 text-right pr-1 -mt-3 w-auto">
+      <div className='sticky left-0 bg-white/70 dark:bg-gray-900/60 acrylic z-30 flex flex-none  h-full'>
+        <div className='time-scale flex flex-col flex-none pl-2 text-right pr-1 -mt-3 w-auto'>
           <div className={cx('flex-none', blockHeightTW)}></div>
           {/* <div className={cx('w-1', blockHeightTW)}></div> */}
           {times.map((t) => (
@@ -231,13 +239,13 @@ export function DayViewContainer({
           ))}
         </div>
         {/* Marks */}
-        <div className="time-marks flex flex-col flex-none w-2">
+        <div className='time-marks flex flex-col flex-none w-2'>
           <div className={cx('border-r', borderColor, blockHeightTW)}></div>
           {times.map((t, idx) => (
             <div
               key={t}
               className={cx(blockHeightTW, borderColor, 'border-t', {
-                'border-r': idx !== times.length - 1
+                'border-r': idx !== times.length - 1,
               })}
             >
               {/* {t} */}
@@ -257,7 +265,7 @@ export function DayViewContainer({
           times,
           minDuration,
           scheduleContainerWidth,
-          scheduleContainerHeight
+          scheduleContainerHeight,
         }}
       >
         <div className={cx('flex relative')} ref={scheduleContainerRef}>

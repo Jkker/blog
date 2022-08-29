@@ -6,14 +6,13 @@
  */
 
 import { parsePageId } from 'notion-utils'
-import posthog from 'posthog-js'
 import { getEnv, getSiteConfig } from './get-config-value'
 import { NavigationLink } from './site-config'
 import {
+  NavigationStyle,
   PageUrlOverridesInverseMap,
   PageUrlOverridesMap,
-  NavigationStyle,
-  Site
+  Site,
 } from './types'
 
 export const rootNotionPageId: string = parsePageId(
@@ -131,7 +130,7 @@ export const apiBaseUrl = `/api`
 
 export const api = {
   searchNotion: `${apiBaseUrl}/search-notion`,
-  getSocialImage: `${apiBaseUrl}/social-image`
+  getSocialImage: `${apiBaseUrl}/social-image`,
 }
 
 // ----------------------------------------------------------------------------
@@ -141,25 +140,25 @@ export const site: Site = {
   name,
   rootNotionPageId,
   rootNotionSpaceId,
-  description
+  description,
 }
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID
 export const fathomConfig = fathomId
   ? {
-      excludedDomains: ['localhost', 'localhost:3000']
+      excludedDomains: ['localhost', 'localhost:3000'],
     }
   : undefined
 
 export const posthogId = process.env.NEXT_PUBLIC_POSTHOG_ID
-export const posthogConfig: posthog.Config = {
-  api_host: 'https://app.posthog.com'
+export const posthogConfig = {
+  api_host: 'https://app.posthog.com',
 }
 
 function cleanPageUrlMap(
   pageUrlMap: PageUrlOverridesMap,
   {
-    label
+    label,
   }: {
     label: string
   }
@@ -186,7 +185,7 @@ function cleanPageUrlMap(
 
     return {
       ...acc,
-      [path]: uuid
+      [path]: uuid,
     }
   }, {})
 }
@@ -199,7 +198,7 @@ function invertPageUrlOverrides(
 
     return {
       ...acc,
-      [pageId]: uri
+      [pageId]: uri,
     }
   }, {})
 }

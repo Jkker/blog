@@ -1,21 +1,22 @@
-import * as React from 'react'
-import { GetStaticProps } from 'next'
-import { isDev, domain } from 'lib/config'
+import defaultCoverImage from '@/data/defaultCoverImage'
+import { Layout, NotionPage } from '@/layouts'
+import { isUrl } from '@/utils/link'
+import * as config from 'lib/config'
+import { domain, isDev } from 'lib/config'
 import { getSiteMap } from 'lib/get-site-map'
+import { mapImageUrl } from 'lib/map-image-url'
+import { getCanonicalPageUrl, mapPageUrl } from 'lib/map-page-url'
 import { resolveNotionPage } from 'lib/resolve-notion-page'
 import { PageBlock, PageProps, Params } from 'lib/types'
-import { NotionPage, Layout } from '@/layouts'
+import { GetStaticProps } from 'next'
 import {
-  formatDate,
   getBlockTitle,
+  getPageBreadcrumbs,
   getPageProperty,
   getPageTableOfContents,
-  getPageBreadcrumbs,
+  normalizeUrl,
+  parsePageId,
 } from 'notion-utils'
-import { getCanonicalPageUrl, mapPageUrl } from 'lib/map-page-url'
-import * as config from 'lib/config'
-import { mapImageUrl } from 'lib/map-image-url'
-import { isUrl } from '@/utils/link'
 
 export const getStaticProps: GetStaticProps<PageProps, Params> = async (
   context
@@ -27,6 +28,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
       domain,
       rawPageId
     )
+
     const canonicalPageUrl =
       !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
@@ -35,7 +37,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
 
     const socialImage = mapImageUrl(
       getPageProperty<string>('Social Image', block, recordMap) ||
-        (block as PageBlock).format?.page_cover ||
+        block.format?.page_cover ||
         config.defaultPageCover,
       block
     )
@@ -47,15 +49,35 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     const tableOfContent = getPageTableOfContents(block as PageBlock, recordMap)
     const title = getBlockTitle(block, recordMap) || site.name
 
-    const breadcrumbs = getPageBreadcrumbs(recordMap, pageId).map(
-      ({ title, icon, active, pageId }) => ({
+    const breadcrumbs = getPageBreadcrumbs(recordMap, pageId)
+      .filter(
+        ({ pageId }) => !(pageId === parsePageId(config.rootNotionPageId))
+      )
+      .map(({ title, icon, active, pageId }) => ({
         title,
         icon: isUrl(icon) ? mapImageUrl(icon, block) : icon,
         active,
         url: mapPageUrl(site, recordMap)(pageId),
-      })
-    )
+        pageId,
+      }))
 
+    const coverImageSrc = mapImageUrl(block.format?.page_cover, block)
+    const coverImage = coverImageSrc
+      ? {
+          src: coverImageSrc,
+          ...(recordMap?.preview_images?.[coverImageSrc] ??
+            recordMap?.preview_images?.[normalizeUrl(coverImageSrc)]),
+        }
+      : defaultCoverImage
+    const tags =
+      getPageProperty<string[]>('Tags', block, recordMap)?.filter?.(
+        (t) => t && t.length > 0
+      ) ?? []
+
+    const date =
+      getPageProperty<number>('Published', block, recordMap) ??
+      block.created_time ??
+      new Date().getTime()
     const is404 = error || !site || !block
 
     return {
@@ -71,6 +93,9 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
         site,
         breadcrumbs,
         is404,
+        coverImage,
+        tags,
+        date,
       },
       revalidate: 10,
     }
@@ -103,14 +128,25 @@ export async function getStaticPaths() {
     fallback: true,
   }
 
-  console.log(staticPaths.paths)
   return staticPaths
 }
 
 export default function NotionDomainDynamicPage(props) {
-  console.log('NotionDomainDynamicPage', props)
+  // console.log('NotionDomainDynamicPage', props)
   return (
-    <Layout hasToc={true} breadcrumbs={props.breadcrumbs}>
+    <Layout
+      hasToc={true}
+      breadcrumbs={props.breadcrumbs}
+      coverImage={props.coverImage}
+      title={props.title}
+      date={props.date}
+      tags={props.tags}
+      pageId={props.pageId}
+      site={props.site}
+      description={props.socialDescription}
+      socialImage={props.socialImage}
+      url={props.canonicalPageUrl}
+    >
       <NotionPage {...props} />
     </Layout>
   )

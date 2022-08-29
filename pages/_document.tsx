@@ -1,28 +1,21 @@
 import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { IconContext } from '@react-icons/all-files'
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <IconContext.Provider value={{ style: { verticalAlign: 'middle' } }}>
-        <Html lang='en'>
-          <Head>
-            <link rel='shortcut icon' href='/favicon.ico' />
-            <link
-              rel='icon'
-              type='image/ico'
-              sizes='32x32'
-              href='favicon.ico'
-            />
+      <Html lang='en'>
+        <Head>
+          <link rel='shortcut icon' href='/favicon.ico' />
+          <link rel='icon' type='image/ico' sizes='32x32' href='favicon.ico' />
 
-            {/* <link rel='manifest' href='/manifest.json' /> */}
-          </Head>
+          {/* <link rel='manifest' href='/manifest.json' /> */}
+        </Head>
 
-          <body>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
+        <body>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
 /** Inlined version of noflash.js from use-dark-mode */
 ;(function () {
   var storageKey = 'darkMode'
@@ -57,15 +50,14 @@ export default class MyDocument extends Document {
     localStorage.setItem(storageKey, JSON.stringify(isDarkMode))
   }
 })();
-`
-              }}
-            />
-            <Main />
+`,
+            }}
+          />
+          <Main />
 
-            <NextScript />
-          </body>
-        </Html>
-      </IconContext.Provider>
+          <NextScript />
+        </body>
+      </Html>
     )
   }
 }

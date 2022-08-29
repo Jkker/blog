@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     res.write(JSON.stringify({ error: 'method not allowed' }))
     res.end()
     return {
-      props: {}
+      props: {},
     }
   }
 
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   res.end()
 
   return {
-    props: {}
+    props: {},
   }
 }
 

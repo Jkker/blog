@@ -2,11 +2,10 @@ import Button from '@/components/Button'
 import { isUrl } from '@/utils/link'
 import Image from 'next/image'
 import React from 'react'
-import cx from 'clsx'
 
 function BreadCrumbs({ breadcrumbs, className = '' }) {
   const breadCrumbs = React.useMemo(() => {
-    const b = breadcrumbs.slice(1, -1).map(({ icon, url, title }, index) => (
+    const b = breadcrumbs.slice(0, -1).map(({ icon, url, title }, index) => (
       <li className='flex items-center' key={index}>
         <Button
           href={url}
@@ -31,7 +30,7 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
     if (curr)
       b.push(
         <li
-          className='whitespace-nowrap text-sm block text-gray-600/80 dark:text-gray-300/80 p-2 flex-shrink-1 overflow-hidden text-ellipsis max-w-full'
+          className='whitespace-nowrap text-sm text-gray-600/80 dark:text-gray-300/80 p-2 flex-shrink-1 flex items-center sm:justify-center gap-1.5 overflow-hidden text-ellipsis max-w-full'
           // gap={1}
           key={breadcrumbs.length}
         >
@@ -41,12 +40,13 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
               src={curr.icon}
               width={26}
               height={26}
-              className='mr-1.5'
             />
           ) : curr.icon ? (
-            <span className='mr-1.5'>{curr.icon}</span>
+            <span>{curr.icon}</span>
           ) : null}
-          {curr.title}
+          <span className='overflow-hidden text-ellipsis max-w-full'>
+            {curr.title}
+          </span>
         </li>
       )
     return b

@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     res.end()
 
     return {
-      props: {}
+      props: {},
     }
   }
 
@@ -37,7 +37,7 @@ Sitemap: ${host}/sitemap.xml
   res.end()
 
   return {
-    props: {}
+    props: {},
   }
 }
 
