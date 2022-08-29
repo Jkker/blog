@@ -6,10 +6,10 @@ import { RiListCheck } from 'react-icons/ri'
 import useGlobal from '@/utils/useGlobal'
 
 export const TableOfContent: React.FC<{
-  toc: Array<TableOfContentsEntry>
+  tableOfContent: Array<TableOfContentsEntry>
   className?: string
   mobile?: boolean
-}> = ({ toc, className, mobile = true }) => {
+}> = ({ tableOfContent }) => {
   const { isMobileTocVisible } = useGlobal()
 
   const [activeSection, setActiveSection] = React.useState(null)
@@ -84,14 +84,14 @@ export const TableOfContent: React.FC<{
     <div
       className={cs(
         'text-gray-900 dark:text-gray-100 space-y-2',
-        'fixed lg:sticky z-40 flex-1 flex flex-col items-center self-start',
-        'right-10 bottom-24 lg:bottom-0 lg:top-4 lg:right-0',
+        'fixed lg:sticky z-20 flex-0 flex flex-col self-start',
+        'right-10 bottom-24 lg:bottom-0 lg:top-16 lg:right-0',
         'transition-opacity duration-200 ease-in-out',
         'p-4',
         'acrylic bg-white/70 dark:bg-gray-800/80 shadow-md rounded lg:bg-white lg:dark:bg-gray-800',
         isMobileTocVisible || 'mobile-hidden'
       )}
-      id="toc"
+      id='tableOfContent'
     >
       <h3 className='uppercase text-black dark:text-white text-xl whitespace-nowrap my-1 font-light flex items-center gap-1'>
         <RiListCheck />
@@ -106,7 +106,7 @@ export const TableOfContent: React.FC<{
         </div>
       </div>
       <nav className='max-h-[400px] overflow-y-auto'>
-        {toc.map((tocItem) => {
+        {tableOfContent.map((tocItem) => {
           const id = uuidToId(tocItem.id)
 
           return (

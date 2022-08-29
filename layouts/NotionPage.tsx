@@ -1,8 +1,6 @@
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { PageBlock } from 'notion-types'
 import * as React from 'react'
 
 import TweetEmbed from 'react-tweet-embed'
@@ -13,15 +11,10 @@ import { NotionRenderer } from 'react-notion-x'
 // utils
 import * as config from 'lib/config'
 import { mapImageUrl } from 'lib/map-image-url'
-import { getCanonicalPageUrl, mapPageUrl } from 'lib/map-page-url'
+import { mapPageUrl } from 'lib/map-page-url'
 import { searchNotion } from 'lib/search-notion'
 import * as types from 'lib/types'
-import {
-  formatDate,
-  getBlockTitle,
-  getPageProperty,
-  getPageTableOfContents,
-} from 'notion-utils'
+import type { TableOfContentsEntry } from 'notion-utils'
 
 // components
 import { Loading } from './Loading'
@@ -106,52 +99,24 @@ const Tweet = ({ id }: { id: string }) => {
   return <TweetEmbed tweetId={id} />
 }
 
-const propertyLastEditedTimeValue = (
-  { block, pageHeader },
-  defaultFn: () => React.ReactNode
-) => {
-  if (pageHeader && block?.last_edited_time) {
-    return `Last updated ${formatDate(block?.last_edited_time, {
-      month: 'long',
-    })}`
+export const NotionPage: React.FC<
+  types.PageProps & {
+    title: string
+    description: string
+    canonicalPageUrl: string
+    socialImage: string
+    tableOfContent: TableOfContentsEntry[]
   }
-
-  return defaultFn()
-}
-
-const propertyDateValue = (
-  { data, schema, pageHeader },
-  defaultFn: () => React.ReactNode
-) => {
-  if (pageHeader && schema?.name?.toLowerCase() === 'published') {
-    const publishDate = data?.[0]?.[1]?.[0]?.[1]?.start_date
-
-    if (publishDate) {
-      return `Published ${formatDate(publishDate, {
-        month: 'long',
-      })}`
-    }
-  }
-
-  return defaultFn()
-}
-
-const propertyTextValue = (
-  { schema, pageHeader },
-  defaultFn: () => React.ReactNode
-) => {
-  if (pageHeader && schema?.name?.toLowerCase() === 'author') {
-    return <b>{defaultFn()}</b>
-  }
-
-  return defaultFn()
-}
-
-export const NotionPage: React.FC<types.PageProps> = ({
-  site,
+> = ({
+  title,
+  description: socialDescription,
+  canonicalPageUrl,
+  socialImage,
+  tableOfContent,
   recordMap,
-  error,
   pageId,
+  site,
+  error,
 }) => {
   const router = useRouter()
 
@@ -173,62 +138,16 @@ export const NotionPage: React.FC<types.PageProps> = ({
   )
 
   const siteMapPageUrl = React.useMemo(() => {
-    const params: any = {}
-
-    const searchParams = new URLSearchParams(params)
-    return mapPageUrl(site, recordMap, searchParams)
+    return mapPageUrl(site, recordMap)
   }, [site, recordMap])
-
-  const keys = Object.keys(recordMap?.block || {})
-  const block = recordMap?.block?.[keys[0]]?.value
-
-  const isBlogPost =
-    block?.type === 'page' && block?.parent_table === 'collection'
-
-  const showTableOfContents = !!isBlogPost
-  const minTableOfContentsItems = 3
 
   if (router.isFallback) {
     return <Loading />
   }
 
-  if (error || !site || !block) {
+  if (error) {
     return <Page404 site={site} pageId={pageId} error={error} />
   }
-
-  const title = getBlockTitle(block, recordMap) || site.name
-
-  console.log('notion page', {
-    isDev: config.isDev,
-    title,
-    pageId,
-    rootNotionPageId: site.rootNotionPageId,
-    recordMap,
-  })
-
-  if (!config.isServer) {
-    // add important objects to the window global for easy debugging
-    const g = window as any
-    g.pageId = pageId
-    g.recordMap = recordMap
-    g.block = block
-  }
-
-  const canonicalPageUrl =
-    !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
-
-  const socialImage = mapImageUrl(
-    getPageProperty<string>('Social Image', block, recordMap) ||
-      (block as PageBlock).format?.page_cover ||
-      config.defaultPageCover,
-    block
-  )
-
-  const socialDescription =
-    getPageProperty<string>('Description', block, recordMap) ||
-    config.description
-
-  const toc = getPageTableOfContents(block as types.PageBlock, recordMap)
 
   return (
     <>
@@ -248,8 +167,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
           rootDomain={site.domain}
           previewImages={!!recordMap.preview_images}
           showCollectionViewDropdown={false}
-          showTableOfContents={showTableOfContents}
-          minTableOfContentsItems={minTableOfContentsItems}
+          showTableOfContents={false}
           mapPageUrl={siteMapPageUrl}
           mapImageUrl={mapImageUrl}
           searchNotion={config.isSearchEnabled ? searchNotion : null}
@@ -259,9 +177,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
           <Comment />
         </div>
       </div>
-      {toc.length > 0 && (
+      {tableOfContent.length > 0 && (
         <div className=''>
-          <TableOfContent toc={toc} mobile />
+          <TableOfContent tableOfContent={tableOfContent} mobile />
         </div>
       )}
     </>

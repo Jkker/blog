@@ -16,7 +16,7 @@ const BlogPostCard = ({
 }) => {
   return (
     <Link href={url}>
-      <a className='w-full shadow-md hover:shadow-lg rounded-xl bg-white dark:bg-hexo-black-gray flex flex-col-reverse lg:flex-row justify-between duration-300 relative'>
+      <a className='w-full shadow-md hover:shadow-lg rounded-xl bg-white dark:bg-gray-800 flex flex-col-reverse lg:flex-row justify-between duration-300 relative'>
         <div className='lg:p-8 p-4 flex flex-col w-full'>
           <h2
             className={`replace cursor-pointer text-2xl font-sans leading-tight text-gray-700 dark:text-gray-100 hover-text-primary`}
@@ -46,7 +46,7 @@ const BlogPostCard = ({
           <div className='text-gray-400 dark:text-gray-300 justify-between flex gap-2'>
             {/* <Link href={category} passHref>
               <a className='cursor-pointer font-light text-sm  hover-text-primary transform whitespace-nowrap'>
-                <i className='mr-1 far fa-folder' />
+                <span className='mr-1 far fa-folder' />
                 {category}
               </a>
             </Link> */}

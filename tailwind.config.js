@@ -4,15 +4,25 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
 const gray = {
-  ...colors.neutral,
-  // 300: '#c1c0c0',
-  // 400: '#939293',
-  // 500: '#727072',
+  // ...colors.zinc,
+  50: '#fafafa',
+  100: '#f5f5f5',
+  200: '#e5e5e5',
+  300: '#d4d4d4',
+  400: '#a3a3a3',
+  450: '#8B8B8B',
+  500: '#737373',
+  550: '#5a5759',
   600: '#403e41',
   700: '#2d2a2e',
   800: '#222022',
   850: '#1E1C1E',
-  900: '#19181A'
+  900: '#19181A',
+}
+const blue = {
+  ...colors.blue,
+  450: '#4E94F8',
+  550: '#3073F1',
 }
 
 module.exports = {
@@ -33,19 +43,8 @@ module.exports = {
       },
       colors: {
         gray,
-        day: {
-          DEFAULT: gray['50'],
-        },
-        night: {
-          DEFAULT: gray['900'],
-        },
-        hexo: {
-          background: gray['50'],
-          'background-dark': gray['900'],
-          'black-gray': gray['800'],
-          'light-gray': gray['10'],
-        },
-        primary: colors.blue,
+        blue: blue,
+        primary: blue,
       },
       fontFamily: {
         sans: ['Lexend', 'Noto Sans SC', ...defaultTheme.fontFamily.sans],

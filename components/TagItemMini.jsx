@@ -5,7 +5,7 @@ const TagItemMini = ({ tag, selected = false }) => {
        notion-item-${tag.color ?? 'gray'}`}
     >
       <div className='font-light'>
-        {selected && <i className='mr-1 fa-tag' />}
+        {selected && <span className='mr-1 fa-tag' />}
         {tag.name}
       </div>
     </span>

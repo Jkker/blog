@@ -69,14 +69,17 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
             console.warn(`redis error set "${cacheKey}"`, err.message)
           }
         }
-      // } else {
-      //   // note: we're purposefully not caching URI to pageId mappings for 404s
-      //   return {
-      //     error: {
-      //       message: `Not found "${rawPageId}"`,
-      //       statusCode: 404
-      //     }
-      //   }
+      } else {
+        // note: we're purposefully not caching URI to pageId mappings for 404s
+        return {
+          error: {
+            message: `Not found "${rawPageId}"`,
+            statusCode: 404,
+          },
+          site,
+          recordMap,
+          pageId: rawPageId,
+        }
       }
     }
   } else {

@@ -8,7 +8,8 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  html,
+  body {
     max-width: 100vw;
     /* overflow-x: hidden; */
     scroll-behavior: smooth;
@@ -44,7 +45,7 @@
     /* @apply bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md; */
   }
   .input {
-    @apply w-full text-sm p-3 rounded-lg transition focus:shadow-lg dark:text-gray-50 font-light leading-10 text-black bg-white dark:bg-gray-700 shadow-md outline-none;
+    @apply w-full text-sm p-3 rounded transition shadow-md hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30 focus:shadow-lg dark:text-gray-50 font-light leading-10 text-black bg-white dark:bg-gray-700 outline-none cursor-pointer focus-visible:outline-black;
   }
 
   .nc-int-icon-rotate {
@@ -80,6 +81,13 @@
   }
   .acrylic {
     backdrop-filter: blur(20px) saturate(180%);
+  }
+  .divide-spacer {
+    & > *:not(:last-child)::after {
+      content: '/';
+      display: block;
+      @apply text-gray-400 dark:text-gray-500 text-sm -mx-0.5;
+    }
   }
 }
 

@@ -24,6 +24,7 @@ export const getStaticProps = async () => {
     if (props.error) {
       throw props.error
     }
+    const rootBlock = props.recordMap.block[parsePageId(props.pageId)] ?? {}
     const collectionId = parsePageId(config.postsCollectionId)
     const recordMap = props.recordMap
     const getUrl = (pageId) =>
@@ -83,7 +84,7 @@ export const getStaticProps = async () => {
 
     props.postList = postList
 
-    return { props, revalidate: 10 }
+    return { props: { rootBlock, ...props }, revalidate: 10 }
   } catch (err) {
     console.error('page error', domain, err)
 
@@ -94,16 +95,15 @@ export const getStaticProps = async () => {
 }
 
 export default function NotionDomainPage(props) {
-  console.log(`🚀 postList`, props.postList)
+  console.log(`🚀 props`, props)
   const { locale } = useRouter()
 
   const date = dayjs(props.date).format(
     config.i18n[locale].dateFormat ?? 'YYYY-MM-DD'
   )
-  console.log(props)
 
   return (
-    <Layout>
+    <Layout {...props}>
       <div className='space-y-4 p-4'>
         {props.postList.map((post) => (
           <BlogPostCard key={post.id} {...post} date={date} />

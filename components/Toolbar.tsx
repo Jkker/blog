@@ -1,128 +1,84 @@
 import useGlobal from '@/utils/useGlobal'
-import cs from 'clsx'
-import { useDarkMode } from 'lib/use-dark-mode'
-import React from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import {
   RiArrowUpLine,
-  RiChat3Fill,
+  RiChat2Line,
   RiCloseFill,
   RiListCheck,
-  RiMoonFill,
-  RiSunFill,
 } from 'react-icons/ri'
+import Button from './Button'
 import Rotate from './Rotate'
-
-const Button = React.forwardRef<
-  HTMLButtonElement,
-  {
-    className?: string
-    active?: boolean
-  } & React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ children, className = '', active = false, ...props }, ref) => {
-  return (
-    <button
-      className={cs(
-        'w-9 h-9 flex-center text-xl transition-all duration-200 ease-in-out box-border outline-none',
-        'text-white acrylic',
-        active
-          ? 'bg-primary-500 dark:bg-primary-500 shadow-inner dark:shadow-inner'
-          : 'bg-primary-400 dark:bg-gray-900/80',
-        'hover:bg-primary-500 dark:hover:bg-primary-500 dark:focus:bg-primary-500 hover:text-white',
-        'active:shadow-inner dark:active:shadow-inner active:bg-primary-600/90 dark:active:bg-primary-600/80',
-        'hover:shadow-xl',
-        className
-      )}
-      ref={ref}
-      {...props}
-    >
-      {children}
-    </button>
-  )
-})
-Button.displayName = 'Button'
-
-const ToggleThemeButton = () => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode()
-
-  const onToggleTheme = React.useCallback(() => {
-    toggleDarkMode()
-  }, [toggleDarkMode])
-
-  return (
-    <Button onClick={onToggleTheme}>
-      <Rotate show={isDarkMode}>
-        <RiSunFill />
-        <RiMoonFill />
-      </Rotate>
-    </Button>
-  )
-}
+import ToggleThemeButton from './ToggleThemeButton'
+import useClickOutside from '@/utils/useClickOutside'
+import cx from 'clsx'
 
 const ToggleToc = ({ show, setShow }) => {
-  const buttonRef = React.useRef(null)
+  const buttonRef = useRef(null)
 
-  React.useEffect(() => {
-    const listener = (event) => {
-      const mobileToc = document.getElementById('toc') as HTMLElement
-
+  const handler = useCallback(
+    (event) => {
+      const mobileToc = document.getElementById('tableOfContent') as HTMLElement
       if (!mobileToc) return
-
       if (
         !document.activeElement ||
         (!mobileToc.contains(event.target) &&
           !buttonRef.current.contains(event.target))
       )
         setShow(false)
-    }
-    document.addEventListener('mousedown', listener)
-    document.addEventListener('touchstart', listener)
-    return () => {
-      document.removeEventListener('mousedown', listener)
-      document.removeEventListener('touchstart', listener)
-    }
-  }, [setShow])
+    },
+    [setShow]
+  )
+
+  useClickOutside(buttonRef, handler, true)
 
   return (
     <Button
       className='lg:hidden'
       onClick={() => setShow((show) => !show)}
-      active={show}
       ref={buttonRef}
-    >
-      <Rotate show={show}>
-        <RiCloseFill />
-        <RiListCheck />
-      </Rotate>
-    </Button>
+      icon={
+        <Rotate show={show}>
+          <RiCloseFill />
+          <RiListCheck />
+        </Rotate>
+      }
+    ></Button>
   )
 }
 
-export default function Toolbar({}) {
-  const [hasMounted, setHasMounted] = React.useState(false)
+export default function Toolbar({ hasToc = false, showNav }) {
+  const [hasMounted, setHasMounted] = useState(false)
   const { hasComment, isMobileTocVisible, setIsMobileTocVisible } = useGlobal()
 
-  React.useEffect(() => {
+  useEffect(() => {
     setHasMounted(true)
   }, [])
 
   if (!hasMounted) return null
 
   return (
-    <div className='flex flex-col fixed right-0 bottom-24 z-50 shadow-md first:rounded-t-md first:hidden'>
+    <div
+      className={cx(
+        'flex text-inherit flex-col fixed bottom-24 z-50 shadow-md transition-all duration-150',
+        showNav ? '-right-20' : 'right-0'
+      )}
+    >
       <ToggleThemeButton />
-      <ToggleToc show={isMobileTocVisible} setShow={setIsMobileTocVisible} />
+      {hasToc && (
+        <ToggleToc show={isMobileTocVisible} setShow={setIsMobileTocVisible} />
+      )}
       {hasComment && (
         <Button
           onClick={() =>
             document.getElementsByTagName('giscus-widget')[0].scrollIntoView()
           }
-        >
-          <RiChat3Fill />
-        </Button>
+          icon={<RiChat2Line />}
+        ></Button>
       )}
-      <Button onClick={() => window.scrollTo({ top: 0 })}>
-        <RiArrowUpLine />
-      </Button>
+      <Button
+        onClick={() => window.scrollTo({ top: 0 })}
+        icon={<RiArrowUpLine />}
+      ></Button>
     </div>
   )
 }

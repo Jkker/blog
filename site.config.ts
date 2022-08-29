@@ -33,7 +33,7 @@ export default siteConfig({
   // default notion icon and cover images for site-wide consistency (optional)
   // page-specific values will override these site-wide defaults
   defaultPageIcon: null,
-  defaultPageCover: null,
+  defaultPageCover: 'images/city.webp',
   defaultPageCoverPosition: 0.5,
 
   // whether or not to enable support for LQIP preview images (optional)
@@ -62,6 +62,7 @@ export default siteConfig({
     {
       title: 'About',
       pageId: '6ce65fc4d4be42e8b613cb8e6558c4cf',
+      url: '/about',
     },
   ],
   i18n: {
@@ -70,6 +71,38 @@ export default siteConfig({
     },
     'zh-CN': {
       dateFormat: 'YYYY年M月D日',
-    }
+    },
   },
+  toolList: [
+    {
+      title: 'NYU Unoccupied Space Finder',
+      description: `Find a place to chill-out when you're on campus`,
+      imgSrc: '/images/bobst-classroom.jpg',
+      href: '/projects/nyu-space',
+    },
+    {
+      title: 'NYU Academic Calendar Subscriber',
+      description: `Subscribe to NYU's Academic Calendar via Google Calendar or iCal.`,
+      imgSrc: '/images/nyu.jpg',
+      href: '/projects/nyu-academic-calendar',
+    },
+    {
+      title: 'NYU Auto Class Swap',
+      description: `Trust me, this can help you get into a class you want.`,
+      imgSrc: '/images/edwin-andrade-4V1dC_eoCwg-unsplash.jpg',
+      href: 'https://github.com/Jkker/albert-playwright',
+    },
+    {
+      title: 'Sunset Duration',
+      description: `Get the precise sunset duration of your current location`,
+      imgSrc: '/images/sunset.png',
+      href: '/api/sunset',
+    },
+    {
+      title: 'Metasearch',
+      description: `An customizable search engine aggregator`,
+      imgSrc: '/images/metasearch.jpg',
+      href: 'https://search.jerrykjia.com/',
+    },
+  ],
 })
