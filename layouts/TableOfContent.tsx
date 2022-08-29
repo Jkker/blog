@@ -4,6 +4,7 @@ import { TableOfContentsEntry, uuidToId } from 'notion-utils'
 import * as React from 'react'
 import { RiListCheck } from 'react-icons/ri'
 import useGlobal from '@/utils/useGlobal'
+import { InfoCard } from './InfoCard'
 
 export const TableOfContent: React.FC<{
   tableOfContent: Array<TableOfContentsEntry>
@@ -83,55 +84,62 @@ export const TableOfContent: React.FC<{
   return (
     <div
       className={cs(
-        'text-gray-900 dark:text-gray-100 space-y-2',
         'fixed lg:sticky z-20 flex-0 flex flex-col self-start',
-        'right-10 bottom-24 lg:bottom-0 lg:top-16 lg:right-0',
-        'transition-opacity duration-200 ease-in-out',
-        'p-4',
-        'acrylic bg-white/70 dark:bg-gray-800/80 shadow-md rounded lg:bg-white lg:dark:bg-gray-800',
-        isMobileTocVisible || 'mobile-hidden'
+        'right-10 bottom-24 lg:bottom-0 lg:top-8 lg:right-0 space-y-4'
       )}
-      id='tableOfContent'
     >
-      <h3 className='uppercase text-black dark:text-white text-xl whitespace-nowrap my-1 font-light flex items-center gap-1'>
-        <RiListCheck />
-        Table of Content
-      </h3>
-      <div className='h-4 w-full shadow-2xl bg-gray-400 font-sans'>
-        <div
-          className='h-4 bg-primary-400 duration-200'
-          style={{ width: `${percent}%` }}
-        >
-          <div className='text-right text-white text-xs'>{percent}%</div>
+      <InfoCard className='hidden lg:block'/>
+      <div
+        className={cs(
+          'text-gray-900 dark:text-gray-100 space-y-2',
+          // 'fixed lg:sticky z-20 flex-0 flex flex-col self-start',
+          'right-10 bottom-24 lg:bottom-0 lg:top-16 lg:right-0',
+          'transition-opacity duration-200 ease-in-out',
+          'p-4',
+          'acrylic bg-white/70 dark:bg-gray-800/80 shadow-md rounded lg:bg-white lg:dark:bg-gray-800',
+          isMobileTocVisible || 'mobile-hidden'
+        )}
+        id='tableOfContent'
+      >
+        <h3 className='uppercase text-black dark:text-white text-xl whitespace-nowrap my-1 font-light flex items-center gap-1'>
+          <RiListCheck />
+          Table of Content
+        </h3>
+        <div className='h-4 w-full shadow-2xl bg-gray-400 font-sans'>
+          <div
+            className='h-4 bg-primary-400 duration-200'
+            style={{ width: `${percent}%` }}
+          >
+            <div className='text-right text-white text-xs'>{percent}%</div>
+          </div>
         </div>
-      </div>
-      <nav className='max-h-[400px] overflow-y-auto'>
-        {tableOfContent.map((tocItem) => {
-          const id = uuidToId(tocItem.id)
-
-          return (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={cs(
-                'notion-table-of-contents-item',
-                `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
-                activeSection === id && 'notion-table-of-contents-active-item'
-              )}
-            >
-              <span
-                className='notion-table-of-contents-item-body'
-                style={{
-                  display: 'inline-block',
-                  marginLeft: tocItem.indentLevel * 16,
-                }}
+        <nav className='max-h-[400px] overflow-y-auto'>
+          {tableOfContent.map((tocItem) => {
+            const id = uuidToId(tocItem.id)
+            return (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={cs(
+                  'notion-table-of-contents-item',
+                  `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
+                  activeSection === id && 'notion-table-of-contents-active-item'
+                )}
               >
-                {tocItem.text}
-              </span>
-            </a>
-          )
-        })}
-      </nav>
+                <span
+                  className='notion-table-of-contents-item-body'
+                  style={{
+                    display: 'inline-block',
+                    marginLeft: tocItem.indentLevel * 16,
+                  }}
+                >
+                  {tocItem.text}
+                </span>
+              </a>
+            )
+          })}
+        </nav>
+      </div>
     </div>
   )
 }

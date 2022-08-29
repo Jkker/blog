@@ -54,13 +54,16 @@ function CoverImage({
           height: 'calc(100% - 48px)',
         }}
       >
-        <Tags className='flex ' tags={tags} />
+        <Tags
+          className='w-full items-center justify-start md:justify-center'
+          tags={tags}
+        />
 
         <div className='flex gap-1 md:gap-1.5 flex-col'>
           <h1 className='font-bold text-4xl text-white mb-1'>{title}</h1>
           <div className='text-white'>{description}</div>
           {date && (
-            <div className='text-white flex-center gap-1 mx-0.5'>
+            <div className='text-white flex items-center justify-start md:justify-center gap-1 mx-0.5'>
               <RiTimeLine />
               <time>{new Date(date).toLocaleDateString()}</time>
             </div>

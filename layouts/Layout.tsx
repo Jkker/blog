@@ -6,7 +6,6 @@ import CoverImage from './CoverImage'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { PageHTMLHead } from './PageHTMLHead'
-
 export function Layout({
   children,
   hasToc = false,
@@ -59,6 +58,7 @@ export function Layout({
         showNav={showNav}
         setShowNav={setShowNav}
       />
+
       <CoverImage
         coverImage={coverImage}
         title={title}
@@ -69,7 +69,7 @@ export function Layout({
       {/* <div className='bg-gray-500 h-64'></div> */}
       <div
         className={cx(
-          'flex max-w-screen-lg lg:gap-4 -mt-5 relative lg:m-4 w-full flex-1 justify-center bg-gray-50 dark:bg-gray-800 lg:bg-transparent lg:dark:bg-transparent rounded-2xl lg:rounded shadow-top lg:shadow-none',
+          'flex max-w-screen-lg lg:gap-4 -mt-5 relative lg:m-4 w-full flex-1 justify-center bg-gray-50 dark:bg-gray-900 lg:bg-transparent lg:dark:bg-transparent rounded-2xl lg:rounded shadow-top lg:shadow-none',
           {
             'p-4': !noPadding,
           }

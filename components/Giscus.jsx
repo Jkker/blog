@@ -1,10 +1,8 @@
-import { useEffect } from 'react'
-import { useDarkMode } from 'lib/use-dark-mode'
-import { useRouter } from 'next/router'
 import useGlobal from '@/utils/useGlobal'
+import { useDarkMode } from 'lib/use-dark-mode'
+import { useEffect } from 'react'
 
 const GiscusComponent = ({ className = undefined }) => {
-  const { locale } = useRouter()
   const { isDarkMode } = useDarkMode()
   const { setHasComment } = useGlobal()
 
@@ -25,7 +23,6 @@ const GiscusComponent = ({ className = undefined }) => {
         emitmetadata='0'
         inputposition='bottom'
         theme={isDarkMode ? 'transparent_dark' : 'light'}
-        lang={locale.includes('en') ? 'en' : locale.LOCALE}
         crossorigin='anonymous'
       ></giscus-widget>
     </section>

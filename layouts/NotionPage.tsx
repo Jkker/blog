@@ -9,10 +9,8 @@ import TweetEmbed from 'react-tweet-embed'
 import { NotionRenderer } from 'react-notion-x'
 
 // utils
-import * as config from 'lib/config'
 import { mapImageUrl } from 'lib/map-image-url'
 import { mapPageUrl } from 'lib/map-page-url'
-import { searchNotion } from 'lib/search-notion'
 import * as types from 'lib/types'
 import type { TableOfContentsEntry } from 'notion-utils'
 
@@ -20,6 +18,7 @@ import type { TableOfContentsEntry } from 'notion-utils'
 import { Loading } from './Loading'
 import { Page404 } from './Page404'
 import { TableOfContent } from './TableOfContent'
+import NextImage from 'next/image'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -111,6 +110,7 @@ export const NotionPage: React.FC<
 
   const components = React.useMemo(
     () => ({
+      nextImage: NextImage,
       nextLink: Link,
       Code,
       Collection,
@@ -136,7 +136,7 @@ export const NotionPage: React.FC<
 
   return (
     <>
-      <div className='flex flex-col lg:gap-4 max-w-full lg:max-w-3xl w-full'>
+      <div className='flex flex-col lg:gap-4 max-w-[100vw] overflow-hidden lg:max-w-3xl w-full'>
         <NotionRenderer
           components={components}
           recordMap={recordMap as any}

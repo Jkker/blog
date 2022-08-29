@@ -17,24 +17,12 @@ module.exports = withBundleAnalyzer({
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  i18n: {
-    // These are all the locales you want to support in
-    // your application
-    locales: ['en-US', 'zh-CN'],
-    // This is the default locale you want to be used when visiting
-    // a non-locale prefixed path e.g. `/hello`
-    defaultLocale: 'en-US',
-  },
-  webpack: (config, { dev, isServer }) => {
-    // Replace React with Preact only in client production build
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat',
-      })
-    }
-
-    return config
-  },
+  // i18n: {
+  //   // These are all the locales you want to support in
+  //   // your application
+  //   locales: ['en-US', 'zh-CN'],
+  //   // This is the default locale you want to be used when visiting
+  //   // a non-locale prefixed path e.g. `/hello`
+  //   defaultLocale: 'en-US',
+  // },
 })
