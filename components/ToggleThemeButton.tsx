@@ -21,6 +21,7 @@ const ToggleThemeButton = ({ className = '', ...props }) => {
     <Button
       onClick={onToggleTheme}
       className={className}
+      title={isDarkMode ? 'Light mode' : 'Dark mode'}
       {...props}
       icon={
         <Rotate show={isDarkMode}>

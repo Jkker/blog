@@ -11,22 +11,25 @@
   html,
   body {
     max-width: 100vw;
+
     /* overflow-x: hidden; */
     scroll-behavior: smooth;
   }
+
   #__next {
     @apply text-gray-900 bg-gray-100 dark:bg-gray-900 relative;
   }
 
   ::selection {
-    background-color: rgb(96 165 250 / 0.3);
+    background-color: rgb(96 165 250 / 30%);
   }
+
   input,
   textarea,
   button,
   select,
   a {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
   }
 }
 
@@ -34,6 +37,7 @@
   .notion-collection {
     @apply max-w-0;
   }
+
   .notion-code .notion-code-copy {
     pointer-events: none;
   }
@@ -41,9 +45,11 @@
   .notion-code:hover .notion-code-copy {
     pointer-events: unset;
   }
+
   .card {
     /* @apply bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md; */
   }
+
   .input {
     @apply w-full text-sm p-3 rounded transition shadow-md hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30 focus:shadow-lg dark:text-gray-50 font-light leading-10 text-black bg-white dark:bg-gray-700 outline-none cursor-pointer focus-visible:outline-black;
   }
@@ -58,34 +64,43 @@
     left: calc(50% - 0.5em);
     opacity: 0;
   }
+
   .nc-int-icon-rotate .nc-int-icon-a,
   .nc-int-icon-rotate .nc-int-icon-b {
     transition: opacity 0s calc(var(--animation-duration) / 2),
       transform var(--animation-duration);
     transform-origin: center center;
   }
+
   .nc-int-icon-rotate .nc-int-icon-b {
     transform: rotate(90deg) scale(0.6);
   }
+
   .nc-int-icon-state-b .nc-int-icon-a {
     opacity: 0;
   }
+
   .nc-int-icon-state-b .nc-int-icon-b {
     opacity: 1;
   }
+
   .nc-int-icon-rotate.nc-int-icon-state-b .nc-int-icon-a {
     transform: rotate(-90deg) scale(0.6);
   }
+
   .nc-int-icon-rotate.nc-int-icon-state-b .nc-int-icon-b {
     transform: rotate(0);
   }
+
   .acrylic {
     backdrop-filter: blur(20px) saturate(180%);
   }
+
   .divide-spacer {
     & > *:not(:last-child)::after {
       content: '/';
       display: block;
+
       @apply text-gray-400 dark:text-gray-500 text-sm -mx-0.5;
     }
   }
@@ -95,16 +110,18 @@
   a.disabled {
     @apply pointer-events-none opacity-20;
   }
+
   .shadow-text {
     text-shadow: 0.1em 0.1em 0.2em black;
   }
+
   .acrylic {
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
 
   .dark-mode .acrylic {
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
 
@@ -120,9 +137,9 @@
   }
 
   .shadow-card {
-    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
-      rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
-      rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    box-shadow: rgb(0 0 0 / 7%) 0 1px 2px, rgb(0 0 0 / 7%) 0 2px 4px,
+      rgb(0 0 0 / 7%) 0 4px 8px, rgb(0 0 0 / 7%) 0 8px 16px,
+      rgb(0 0 0 / 7%) 0 16px 32px, rgb(0 0 0 / 7%) 0 32px 64px;
   }
 
   .filter-dark {
@@ -132,43 +149,55 @@
   .filter-dark-1 {
     filter: invert(0.97) hue-rotate(173deg);
   }
+
   .space-y-responsive {
     @apply space-y-3 sm:space-y-4 lg:space-y-5;
   }
+
   .space-x-responsive {
     @apply space-x-3 sm:space-x-4 lg:space-x-5;
   }
+
   .gap-responsive {
     @apply gap-3 sm:gap-4 lg:gap-5;
   }
+
   .shadow-top-md {
-    box-shadow: 0px -9px 24px rgb(0 0 0 / 16%);
+    box-shadow: 0 -9px 24px rgb(0 0 0 / 16%);
   }
+
   .hover-text-primary {
     @apply hover:text-primary-400 dark:hover:text-primary-500;
   }
+
   .mobile-hidden {
     @media screen and (max-width: 1024px) {
       /* display: none; */
       visibility: hidden;
-
+      height: 0;
+      pointer-events: none;
       opacity: 0;
-      transition: visibility 0s, opacity 0.5s linear;
+      transition: visibility 0s, opacity 200ms ease-in-out,
+        height 200ms ease-in-out;
     }
   }
+
   .flex-center {
     @apply flex justify-center items-center;
   }
+
   .max-width-view {
     max-width: 100vw;
   }
+
   .vertical-centered {
     margin: 0;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
   }
+
   .shadow-top {
-    box-shadow: 0 -25px 50px 12px rgb(0 0 0 / 0.25);
+    box-shadow: 0 -25px 50px 12px rgb(0 0 0 / 25%);
   }
 }

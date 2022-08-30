@@ -37,14 +37,12 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
 
     const socialImage = mapImageUrl(
       getPageProperty<string>('Social Image', block, recordMap) ||
-        block.format?.page_cover ||
+        block?.format?.page_cover ||
         config.defaultPageCover,
       block
     )
 
-    const socialDescription =
-      getPageProperty<string>('Description', block, recordMap) ||
-      config.description
+    const description = getPageProperty<string>('Description', block, recordMap)
 
     const tableOfContent = getPageTableOfContents(block as PageBlock, recordMap)
     const title = getBlockTitle(block, recordMap) || site.name
@@ -53,15 +51,15 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
       .filter(
         ({ pageId }) => !(pageId === parsePageId(config.rootNotionPageId))
       )
-      .map(({ title, icon, active, pageId }) => ({
+      .map(({ title = '', icon, active, pageId }) => ({
         title,
-        icon: isUrl(icon) ? mapImageUrl(icon, block) : icon,
+        icon: (isUrl(icon) ? mapImageUrl(icon, block) : icon) ?? null,
         active,
         url: mapPageUrl(site, recordMap)(pageId),
         pageId,
       }))
 
-    const coverImageSrc = mapImageUrl(block.format?.page_cover, block)
+    const coverImageSrc = mapImageUrl(block?.format?.page_cover, block)
     const coverImage = coverImageSrc
       ? {
           src: coverImageSrc,
@@ -83,13 +81,12 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     return {
       props: {
         title,
-        description: socialDescription,
+        description,
         canonicalPageUrl,
         socialImage,
         tableOfContent,
         keys,
         recordMap,
-        pageId,
         site,
         breadcrumbs,
         is404,
@@ -135,17 +132,17 @@ export default function NotionDomainDynamicPage(props) {
   // console.log('NotionDomainDynamicPage', props)
   return (
     <Layout
-      hasToc={true}
       breadcrumbs={props.breadcrumbs}
       coverImage={props.coverImage}
       title={props.title}
       date={props.date}
       tags={props.tags}
-      pageId={props.pageId}
       site={props.site}
-      description={props.socialDescription}
+      description={props.description}
       socialImage={props.socialImage}
       url={props.canonicalPageUrl}
+      hasToc
+      hasComment
     >
       <NotionPage {...props} />
     </Layout>

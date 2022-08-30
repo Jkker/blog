@@ -30,7 +30,7 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
     if (curr)
       b.push(
         <li
-          className='whitespace-nowrap text-sm text-gray-600/80 dark:text-gray-300/80 p-2 flex-shrink-1 flex items-center sm:justify-center gap-1.5 overflow-hidden text-ellipsis max-w-full'
+          className='whitespace-nowrap text-sm p-2 flex-shrink-1 flex items-center sm:justify-center gap-1.5 overflow-hidden text-ellipsis max-w-full opacity-90 cursor-default'
           // gap={1}
           key={breadcrumbs.length}
         >

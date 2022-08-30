@@ -25,7 +25,6 @@ code[class*='language-'],
 pre[class*='language-'] {
   color: #333;
   background: none;
-  /* font-family: $font-stack; */
   text-align: left;
   white-space: pre;
   word-spacing: normal;

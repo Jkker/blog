@@ -1,14 +1,8 @@
-import useGlobal from '@/utils/useGlobal'
+import 'giscus'
 import { useDarkMode } from 'lib/use-dark-mode'
-import { useEffect } from 'react'
 
 const GiscusComponent = ({ className = undefined }) => {
   const { isDarkMode } = useDarkMode()
-  const { setHasComment } = useGlobal()
-
-  useEffect(() => {
-    import('giscus').then(() => setHasComment(true))
-  }, [setHasComment])
 
   return (
     <section className={className ?? ''}>

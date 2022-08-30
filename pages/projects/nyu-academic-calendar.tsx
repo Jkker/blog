@@ -1,6 +1,7 @@
 import Button from '@/components/Button'
 import { Layout } from '@/layouts'
 import Cover from '@/public/images/nyu.jpg'
+import { useState } from 'react'
 import {
   FaCopy as CopyIcon,
   FaDownload as DownloadIcon,
@@ -9,6 +10,7 @@ import {
 } from 'react-icons/fa'
 
 export default function NyuCal(props) {
+  const [copied, setCopied] = useState(false)
   return (
     <Layout
       {...props}
@@ -57,13 +59,16 @@ export default function NyuCal(props) {
                 navigator.clipboard?.writeText?.(
                   `https://raw.githubusercontent.com/Jkker/nyu-academic-calendar/main/data/nyu-academic-calendar.ics`
                 )
-                alert('Subscription URL copied to clipboard')
+                setCopied(true)
+                setTimeout(() => setCopied(false), 2000)
+                // alert('Subscription URL copied to clipboard')
               }}
               leftIcon={<CopyIcon />}
               title='Copy iCalendar subscription URL to clipboard'
               rounded
+              // className={copied ? 'text-gray-600/70 dark:text-gray-100/70' : ''}
             >
-              Copy ICS URL
+              {copied ? 'Copied!' : 'Copy ICS URL'}
             </Button>
             <Button
               leftIcon={<FaGithub />}

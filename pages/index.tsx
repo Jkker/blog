@@ -61,7 +61,7 @@ export const getStaticProps = async () => {
         const date =
           getPageProperty<number>('Published', block, recordMap) ??
           block.created_time
-        const coverImageSrc = mapImageUrl(block.format?.page_cover, block)
+        const coverImageSrc = mapImageUrl(block?.format?.page_cover, block)
 
         const coverImage = coverImageSrc
           ? {

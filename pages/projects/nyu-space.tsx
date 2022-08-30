@@ -57,7 +57,7 @@ export default function FindSpace({ buildings, ...props }) {
   }, [building])
 
   return (
-    <Layout title='NYU Unoccupied Space Finder' coverImage={Cover}>
+    <Layout title='NYU Unoccupied Space Finder' coverImage={Cover} hasComment>
       <div className='space-y-4 md:space-y-8 w-full p-2'>
         <p className='pb-2 font-bold p-1'>
           Find a place to chill-out when you are on campus.

@@ -2,55 +2,61 @@ import Toolbar from '@/components/Toolbar'
 import cx from 'clsx'
 
 import { useState } from 'react'
-import CoverImage from './CoverImage'
+import CoverImage from './Header'
 import { Footer } from './Footer'
-import { Header } from './Header'
+import { Header } from './NavBar'
 import { PageHTMLHead } from './PageHTMLHead'
+
 export function Layout({
   children,
-  hasToc = false,
-  breadcrumbs = [],
-  coverImage,
-  noPadding = false,
-  title,
-  date,
-  tags,
-  pageId,
+
   site,
-  socialDescription,
-  socialImage,
-  url,
+  breadcrumbs = [],
+
+  title,
   description,
+  tags,
+  date,
+  url,
+
+  socialImage,
+  coverImage,
+
+  noPadding = false,
+  hasToc = false,
+  hasComment = false,
 }: {
   children: React.ReactNode
-  hasToc?: boolean
+
+  site?: any
   breadcrumbs?: any
+
+  title?: string
+  description?: string
+  tags?: string[]
+  date?: string
+  url?: string
+  socialImage?: string
+
   coverImage?: {
     src: string
     dataURIBase64?: string
     blurDataURL?: string
   }
+
   noPadding?: boolean
-  title?: string
-  date?: string
-  tags?: string[]
-  pageId?: string
-  site?: any
-  socialDescription?: string
-  socialImage?: string
-  url?: string
-  description?: string
+  hasComment?: boolean
+  hasToc?: boolean
 }): JSX.Element {
   const [showNav, setShowNav] = useState(true)
 
   return (
     <div className={cx('flex-center flex-col w-full min-h-screen')}>
       <PageHTMLHead
-        pageId={pageId}
         site={site}
         title={title}
-        description={socialDescription}
-        image={socialImage}
+        description={description}
+        socialImage={socialImage}
         url={url}
       />
       <Header
@@ -79,7 +85,7 @@ export function Layout({
         {children}
       </div>
       <Footer />
-      <Toolbar hasToc={hasToc} showNav={showNav} />
+      <Toolbar hasToc={hasToc} showNav={showNav} hasComment={hasComment} />
     </div>
   )
 }

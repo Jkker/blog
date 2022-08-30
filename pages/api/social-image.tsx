@@ -71,7 +71,7 @@ export default withOGImage<'query', 'id'>({
       const author =
         getPageProperty<string>('Author', block, recordMap) || config.author
 
-      // const socialDescription =
+      // const description =
       //   getPageProperty<string>('Description', block, recordMap) ||
       //   config.description
 

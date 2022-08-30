@@ -1,23 +1,20 @@
-import pMap from 'p-map'
-import pMemoize from 'p-memoize'
 import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
 import { mergeRecordMaps } from 'notion-utils'
+import pMap from 'p-map'
+import pMemoize from 'p-memoize'
 
+import navigationLinks from '@/data/navLinks'
+import { isPreviewImageSupportEnabled } from './config'
 import { notion } from './notion-api'
 import { getPreviewImageMap } from './preview-images'
-import {
-  isPreviewImageSupportEnabled,
-  navigationStyle,
-  navigationLinks,
-} from './config'
 
 const getNavigationLinkPages = pMemoize(
   async (): Promise<ExtendedRecordMap[]> => {
-    const navigationLinkPageIds = (navigationLinks || [])
+    const navigationLinkPageIds = navigationLinks
       .map((link) => link.pageId)
       .filter(Boolean)
 
-    if (navigationStyle !== 'default' && navigationLinkPageIds.length) {
+    if (navigationLinkPageIds.length) {
       return pMap(
         navigationLinkPageIds,
         async (navigationLinkPageId) =>
@@ -40,19 +37,17 @@ const getNavigationLinkPages = pMemoize(
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   let recordMap = await notion.getPage(pageId)
 
-  if (navigationStyle !== 'default') {
-    // ensure that any pages linked to in the custom navigation header have
-    // their block info fully resolved in the page record map so we know
-    // the page title, slug, etc.
-    const navigationLinkRecordMaps = await getNavigationLinkPages()
+  // ensure that any pages linked to in the custom navigation header have
+  // their block info fully resolved in the page record map so we know
+  // the page title, slug, etc.
+  const navigationLinkRecordMaps = await getNavigationLinkPages()
 
-    if (navigationLinkRecordMaps?.length) {
-      recordMap = navigationLinkRecordMaps.reduce(
-        (map, navigationLinkRecordMap) =>
-          mergeRecordMaps(map, navigationLinkRecordMap),
-        recordMap
-      )
-    }
+  if (navigationLinkRecordMaps?.length) {
+    recordMap = navigationLinkRecordMaps.reduce(
+      (map, navigationLinkRecordMap) =>
+        mergeRecordMaps(map, navigationLinkRecordMap),
+      recordMap
+    )
   }
 
   if (isPreviewImageSupportEnabled) {

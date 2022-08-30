@@ -7,8 +7,6 @@ export type BreadCrumb = {
 }
 
 interface GlobalContextInterface {
-  hasComment: boolean
-  setHasComment: (hasComment: boolean) => void
   isMobileTocVisible: boolean
   setIsMobileTocVisible: (isMobileTocVisible: boolean) => void
   breadcrumbs: BreadCrumb[]
@@ -20,13 +18,10 @@ const GlobalContext = createContext<GlobalContextInterface>(
 )
 
 const GlobalContextProvider = ({ children }) => {
-  const [hasComment, setHasComment] = useState(false)
   const [isMobileTocVisible, setIsMobileTocVisible] = useState(false)
   const [breadcrumbs, setBreadcrumbs] = useState<BreadCrumb[]>([])
 
   const value = {
-    hasComment,
-    setHasComment,
     isMobileTocVisible,
     setIsMobileTocVisible,
     breadcrumbs,

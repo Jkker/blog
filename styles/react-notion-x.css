@@ -636,8 +636,7 @@ svg.notion-page-icon {
   background: var(--bg-color-2);
   border-radius: 3px;
   font-size: 85%;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
-    monospace;
+  @apply font-mono;
 }
 
 .notion-inline-underscore {
@@ -736,8 +735,7 @@ svg.notion-page-icon {
   box-sizing: border-box;
   overflow: auto;
   background: var(--bg-color-1);
-  font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier,
-    monospace;
+  @apply font-mono;
   & > code {
     margin: 0.25rem;
     padding: 0.75rem;
@@ -1622,7 +1620,7 @@ svg.notion-page-icon {
   display: flex;
   align-items: center;
 
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
 }

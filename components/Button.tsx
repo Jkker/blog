@@ -14,7 +14,7 @@ const bgColor = {
     'bg-primary-500', // background
     'hover:bg-primary-550 dark:hover:bg-primary-450 ', // hover
     'hover:shadow-primary-500/50', // shadow
-    'active:bg-primary-600 dark:active:bg-primary-400' // active
+    'active:bg-primary-600 dark:active:bg-primary-600' // active
   ),
   transparent: cx(
     'hover:bg-gray-500/10', // hover
@@ -22,9 +22,9 @@ const bgColor = {
   ),
   default: cx(
     'acrylic',
-    'bg-white/70 dark:bg-gray-600/70', // background
-    'hover:bg-gray-50/70 dark:hover:bg-gray-550', // hover
-    'active:bg-gray-200 dark:active:bg-gray-500', // active
+    'bg-white/70 dark:bg-gray-700/80', // background
+    'hover:bg-gray-white dark:hover:bg-gray-600/80', // hover
+    'active:bg-gray-100 active:shadow-inner dark:active:bg-gray-800/80', // active
     'hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30' // shadow
   ),
 }

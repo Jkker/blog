@@ -36,6 +36,7 @@ const ToggleToc = ({ show, setShow }) => {
       className='lg:hidden'
       onClick={() => setShow((show) => !show)}
       ref={buttonRef}
+      title={show ? 'Hide table of content' : 'Show table of content'}
       icon={
         <Rotate show={show}>
           <RiCloseFill />
@@ -46,9 +47,13 @@ const ToggleToc = ({ show, setShow }) => {
   )
 }
 
-export default function Toolbar({ hasToc = false, showNav }) {
+export default function Toolbar({
+  hasToc = false,
+  hasComment = false,
+  showNav,
+}) {
   const [hasMounted, setHasMounted] = useState(false)
-  const { hasComment, isMobileTocVisible, setIsMobileTocVisible } = useGlobal()
+  const { isMobileTocVisible, setIsMobileTocVisible } = useGlobal()
 
   useEffect(() => {
     setHasMounted(true)
@@ -60,7 +65,8 @@ export default function Toolbar({ hasToc = false, showNav }) {
     <div
       className={cx(
         'flex text-inherit flex-col fixed bottom-24 z-50 shadow-md transition-all duration-150',
-        showNav ? '-right-20' : 'right-0'
+        // showNav ? '-right-20' :
+        'right-0'
       )}
     >
       <ToggleThemeButton />
@@ -73,9 +79,11 @@ export default function Toolbar({ hasToc = false, showNav }) {
             document.getElementsByTagName('giscus-widget')[0].scrollIntoView()
           }
           icon={<RiChat2Line />}
+          title='Go to comments'
         ></Button>
       )}
       <Button
+        title='Go to top'
         onClick={() => window.scrollTo({ top: 0 })}
         icon={<RiArrowUpLine />}
       ></Button>

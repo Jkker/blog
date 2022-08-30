@@ -52,20 +52,9 @@ export default siteConfig({
   pageUrlOverrides: {
     '/acknowledgement-legal-information': 'ec61b821a2e74cb893df121f16cf8268',
     '/about': '6ce65fc4d4be42e8b613cb8e6558c4cf',
+    '/test': '067dd719a912471ea9a3ac10710e7fdf',
   },
-  // pageUrlOverrides: null,
 
-  // whether to use the default notion navigation style or a custom one with links to
-  // important pages
-  // navigationStyle: 'default'
-  navigationStyle: 'custom',
-  navigationLinks: [
-    {
-      title: 'About',
-      pageId: '6ce65fc4d4be42e8b613cb8e6558c4cf',
-      url: '/about',
-    },
-  ],
   i18n: {
     'en-US': {
       dateFormat: 'MMM D, YYYY',
@@ -78,7 +67,7 @@ export default siteConfig({
     {
       title: 'NYU Unoccupied Space Finder',
       description: `Find a place to chill-out when you're on campus`,
-      imgSrc: '/images/bobst-classroom.jpg',
+    imgSrc: '/images/bobst-classroom.jpg',
       href: '/projects/nyu-space',
     },
     {

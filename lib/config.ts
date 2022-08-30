@@ -7,12 +7,10 @@
 
 import { parsePageId } from 'notion-utils'
 import { getEnv, getSiteConfig } from './get-config-value'
-import { NavigationLink } from './site-config'
 import {
-  NavigationStyle,
   PageUrlOverridesInverseMap,
   PageUrlOverridesMap,
-  Site,
+  Site
 } from './types'
 
 export const rootNotionPageId: string = parsePageId(
@@ -88,16 +86,6 @@ export const includeNotionIdInUrls: boolean = getSiteConfig(
   !!isDev
 )
 
-export const navigationStyle: NavigationStyle = getSiteConfig(
-  'navigationStyle',
-  'default'
-)
-
-export const navigationLinks: Array<NavigationLink | null> = getSiteConfig(
-  'navigationLinks',
-  null
-)
-
 // Optional site search
 export const isSearchEnabled: boolean = getSiteConfig('isSearchEnabled', true)
 
@@ -144,13 +132,6 @@ export const site: Site = {
   rootNotionSpaceId,
   description,
 }
-
-export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID
-export const fathomConfig = fathomId
-  ? {
-      excludedDomains: ['localhost', 'localhost:3000'],
-    }
-  : undefined
 
 export const posthogId = process.env.NEXT_PUBLIC_POSTHOG_ID
 export const posthogConfig = {
