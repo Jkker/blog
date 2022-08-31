@@ -15,7 +15,7 @@ import * as types from 'lib/types'
 import type { TableOfContentsEntry } from 'notion-utils'
 
 // components
-import { Loading } from './Loading'
+import Loading from '@/components/Loading'
 import { Page404 } from './Page404'
 import { TableOfContent } from './TableOfContent'
 import NextImage from 'next/image'
@@ -127,7 +127,7 @@ export const NotionPage: React.FC<
   }, [site, recordMap])
 
   if (router.isFallback) {
-    return <Loading />
+    return <Loading fullscreen />
   }
 
   if (error) {

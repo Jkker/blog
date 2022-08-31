@@ -17,7 +17,7 @@
   }
 
   #__next {
-    @apply text-gray-900 bg-gray-100 dark:bg-gray-900 relative;
+    @apply text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 relative;
   }
 
   ::selection {
@@ -51,7 +51,7 @@
   }
 
   .input {
-    @apply w-full text-sm p-3 rounded transition shadow-md hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30 focus:shadow-lg dark:text-gray-50 font-light leading-10 text-black bg-white dark:bg-gray-700 outline-none cursor-pointer focus-visible:outline-black;
+    @apply w-full text-sm p-2.5 md:p-3 rounded transition-all shadow-md hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30 focus:shadow-lg font-light leading-10 text-black dark:text-gray-50  bg-white dark:bg-gray-700 outline-0 focus-visible:outline-1 cursor-pointer disabled:cursor-not-allowed outline-black dark:outline-white disabled:hover:shadow-none disabled:dark:hover:shadow-none;
   }
 
   .nc-int-icon-rotate {

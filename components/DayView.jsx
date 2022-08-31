@@ -1,43 +1,28 @@
 import cx from 'clsx'
 import {
   createContext,
-  useContext,
-  useRef,
   forwardRef,
-  useEffect,
+  useContext,
+  useLayoutEffect,
+  useRef,
   useState,
 } from 'react'
 // const getColorFromTitle = (title: string) => {}
 
 const WeekDayViewContext = createContext(null)
 const BG_COLORS = [
-  'bg-red-400',
-  'bg-orange-400',
-  'bg-yellow-400',
-  'bg-lime-400',
-  'bg-green-400',
-  'bg-teal-400',
-  'bg-cyan-400',
-  'bg-blue-400',
-  'bg-indigo-400',
-  'bg-purple-400',
-  'bg-fuchsia-400',
-  'bg-rose-400',
-]
-
-const TEXT_COLORS = [
-  'text-red-700',
-  'text-orange-700',
-  'text-yellow-700',
-  'text-lime-700',
-  'text-green-700',
-  'text-teal-700',
-  'text-cyan-700',
-  'text-blue-700',
-  'text-indigo-700',
-  'text-purple-700',
-  'text-fuchsia-700',
-  'text-rose-700',
+  'bg-red-400 dark:bg-red-500',
+  'bg-orange-400 dark:bg-orange-500',
+  'bg-yellow-400 dark:bg-yellow-500',
+  'bg-lime-400 dark:bg-lime-500',
+  'bg-green-400 dark:bg-green-500',
+  'bg-teal-400 dark:bg-teal-500',
+  'bg-cyan-400 dark:bg-cyan-500',
+  'bg-blue-400 dark:bg-blue-500',
+  'bg-indigo-400 dark:bg-indigo-500',
+  'bg-purple-400 dark:bg-purple-500',
+  'bg-fuchsia-400 dark:bg-fuchsia-500',
+  'bg-rose-400 dark:bg-rose-500',
 ]
 
 const getBgColor = (title) =>
@@ -97,31 +82,24 @@ function hash(str, seed = 0x811c9dc5) {
 }
 
 const NowIndicator = forwardRef((props, ref) => {
-  const {
-    scheduleContainerWidth,
-    scheduleContainerHeight,
-    blockHeight,
-    startHour: dayStartHour,
-  } = useWeekDayViewContext()
+  const { scheduleContainerWidth, blockHeight, startHour, endHour } =
+    useWeekDayViewContext()
   const now = new Date()
   const nowHour = now.getHours() + now.getMinutes() / 60
-  const top = (nowHour - dayStartHour) * 2 * blockHeight + blockHeight
+  const hour = Math.min(endHour + 0.15, Math.max(startHour - 0.15, nowHour))
+  const top = (hour - startHour) * 2 * blockHeight + blockHeight
   return (
     <mark
       className={cx(
-        'bg-white/70 h-1 absolute z-20 acrylic rounded shadow shadow-white'
+        'bg-gray-600/70 dark:bg-white/70 h-1 absolute z-20 acrylic rounded shadow'
         // 'before:block before:w-2 before:h-2 before:bg-red-400 before:-mp-1 before:-mt-1 before:position-absolute'
       )}
       style={{
-        marginTop:
-          top < 0
-            ? 0
-            : top > scheduleContainerHeight
-            ? scheduleContainerHeight
-            : top,
+        marginTop: top,
         width: scheduleContainerWidth,
       }}
       ref={ref}
+      id='now-indicator'
     >
       {/* {nowHour} */}
     </mark>
@@ -143,9 +121,9 @@ export const DaySchedule = ({ title, events }) => {
     >
       <h3
         className={cx(
-          'date-title p-4 text-xl flex h-full items-center text-ellipsis overflow-hidden border-r sticky top-0 z-20 bg-white/70 dark:bg-gray-900/60 acrylic shadow-md dark:shadow-lg',
-          borderColor,
-          blockHeightTW
+          'date-title py-4 p-1 md:p-4 text-sm md:text-xl flex h-full items-center text-ellipsis overflow-hidden border-r sticky top-0 z-20 bg-white/70 dark:bg-gray-900/60 acrylic shadow-md dark:shadow-lg',
+          borderColor
+          // blockHeightTW
         )}
       >
         {title}
@@ -215,12 +193,17 @@ export function DayViewContainer({
   const scheduleContainerHeight =
     scheduleContainerRef.current?.offsetHeight ?? 0
   const nowIndicatorRef = useRef(null)
-  useEffect(() => {
+  useLayoutEffect(() => {
     setScheduleContainerWidth(scheduleContainerRef.current?.offsetWidth ?? 0)
-  }, [scheduleContainerRef.current?.offsetWidth])
+  }, [scheduleContainerRef.current?.offsetWidth, children])
 
   return (
-    <div className={cx('flex w-full overflow-auto relative', className)}>
+    <div
+      className={cx(
+        'flex w-full overflow-auto relative dark:text-white',
+        className
+      )}
+    >
       {/* Time Scale */}
       <div className='sticky left-0 bg-white/70 dark:bg-gray-900/60 acrylic z-30 flex flex-none  h-full'>
         <div className='time-scale flex flex-col flex-none pl-2 text-right pr-1 -mt-3 w-auto'>
@@ -262,15 +245,20 @@ export function DayViewContainer({
           blockHeightTW,
           blockWidthTW,
           startHour,
+          endHour,
           times,
           minDuration,
           scheduleContainerWidth,
           scheduleContainerHeight,
         }}
       >
-        <div className={cx('flex relative')} ref={scheduleContainerRef}>
-          <NowIndicator ref={nowIndicatorRef} />
+        <div
+          className={cx('flex relative')}
+          ref={scheduleContainerRef}
+          id='schedule-container'
+        >
           {children}
+          <NowIndicator ref={nowIndicatorRef} />
         </div>
       </WeekDayViewContext.Provider>
     </div>
