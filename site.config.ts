@@ -67,21 +67,23 @@ export default siteConfig({
     {
       title: 'NYU Unoccupied Space Finder',
       description: `Find a place to chill-out when you're on campus`,
-    imgSrc: '/images/bobst-classroom.jpg',
+      imgSrc: '/images/bobst-classroom.jpg',
       href: '/projects/nyu-space',
+      icon: '/images/chair.png',
     },
     {
       title: 'NYU Academic Calendar Subscriber',
       description: `Subscribe to NYU's Academic Calendar via Google Calendar or iCal.`,
       imgSrc: '/images/nyu.jpg',
       href: '/projects/nyu-academic-calendar',
+      icon: '/images/calendar.png',
     },
-    {
-      title: 'NYU Auto Class Swap',
-      description: `Trust me, this can help you get into a class you want.`,
-      imgSrc: '/images/edwin-andrade-4V1dC_eoCwg-unsplash.jpg',
-      href: 'https://github.com/Jkker/albert-playwright',
-    },
+    // {
+    //   title: 'NYU Auto Class Swap',
+    //   description: `Trust me, this can help you get into a class you want.`,
+    //   imgSrc: '/images/edwin-andrade-4V1dC_eoCwg-unsplash.jpg',
+    //   href: 'https://github.com/Jkker/albert-playwright',
+    // },
     {
       title: 'Sunset Duration',
       description: `Get the precise sunset duration of your current location`,
