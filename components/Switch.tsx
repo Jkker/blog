@@ -29,7 +29,7 @@ function Switch(
       )}
       {...props}
     >
-      <HeadlessSwitch.Label className={cx('text-sm flex-center gap-1')}>
+      <HeadlessSwitch.Label className={cx('text-sm flex-center gap-0.5')}>
         {children || title}
       </HeadlessSwitch.Label>
       <HeadlessSwitch

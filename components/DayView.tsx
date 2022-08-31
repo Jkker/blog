@@ -3,7 +3,7 @@ import {
   createContext,
   forwardRef,
   useContext,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState,
 } from 'react'
@@ -81,7 +81,7 @@ function hash(str, seed = 0x811c9dc5) {
   return hval >>> 0
 }
 
-const NowIndicator = forwardRef((props, ref) => {
+const NowIndicator = forwardRef<HTMLElement>((props, ref) => {
   const { scheduleContainerWidth, blockHeight, startHour, endHour } =
     useWeekDayViewContext()
   const now = new Date()
@@ -193,7 +193,7 @@ export function DayViewContainer({
   const scheduleContainerHeight =
     scheduleContainerRef.current?.offsetHeight ?? 0
   const nowIndicatorRef = useRef(null)
-  useLayoutEffect(() => {
+  useEffect(() => {
     setScheduleContainerWidth(scheduleContainerRef.current?.offsetWidth ?? 0)
   }, [scheduleContainerRef.current?.offsetWidth, children])
 
@@ -263,4 +263,9 @@ export function DayViewContainer({
       </WeekDayViewContext.Provider>
     </div>
   )
+}
+
+export default {
+  DayViewContainer,
+  DaySchedule,
 }

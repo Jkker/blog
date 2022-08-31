@@ -51,7 +51,7 @@
   }
 
   .input {
-    @apply w-full text-sm p-2.5 md:p-3 rounded transition-all shadow-md hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30 focus:shadow-lg font-light leading-10 text-black dark:text-gray-50  bg-white dark:bg-gray-700 outline-0 focus-visible:outline-1 cursor-pointer disabled:cursor-not-allowed outline-black dark:outline-white disabled:hover:shadow-none disabled:dark:hover:shadow-none;
+    @apply w-full text-sm p-2.5 md:p-3 rounded transition-all shadow-md hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30 focus:shadow-lg font-light leading-10 text-black dark:text-gray-50  bg-white dark:bg-gray-700 outline-0 focus-visible:outline-1 cursor-pointer disabled:cursor-not-allowed outline-black dark:outline-white disabled:hover:shadow-none disabled:dark:hover:shadow-none disabled:opacity-50;
   }
 
   .nc-int-icon-rotate {

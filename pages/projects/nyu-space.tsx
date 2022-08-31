@@ -1,10 +1,9 @@
 import { DaySchedule, DayViewContainer } from '@/components/DayView'
-import vacancies from '@/data/Vacancy-2022fa.json'
-
 import Loading from '@/components/Loading'
 import Select from '@/components/Select'
 import Switch from '@/components/Switch'
 import locations from '@/data/location_list.json'
+import vacancies from '@/data/Vacancy-2022fa.json'
 import { Layout } from '@/layouts'
 import dayjs from '@/lib/dayjs'
 import Cover from '@/public/images/nyu.jpg'
