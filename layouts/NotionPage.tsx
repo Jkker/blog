@@ -19,7 +19,7 @@ import Loading from '@/components/Loading'
 import { Page404 } from './Page404'
 import { TableOfContent } from './TableOfContent'
 import NextImage from 'next/image'
-
+import defaultCoverImage from '@/data/defaultCoverImage'
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
@@ -147,6 +147,7 @@ export const NotionPage: React.FC<
           showTableOfContents={false}
           mapPageUrl={siteMapPageUrl}
           mapImageUrl={mapImageUrl}
+          defaultPageCover={defaultCoverImage.src}
           // searchNotion={(config.isSearchEnabled as any) ? searchNotion : null}
           className='lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'
         />
