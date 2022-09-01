@@ -25,12 +25,12 @@ const navLinks: NavLink[] = [
     icon: <RiUser3Fill />,
     pageId: '6ce65fc4d4be42e8b613cb8e6558c4cf',
   },
-  {
-    title: 'Test',
-    pageId: '067dd719a912471ea9a3ac10710e7fdf',
-    icon: <FaCode />,
-    url: '/test',
-  },
+  // {
+  //   title: 'Test',
+  //   pageId: '067dd719a912471ea9a3ac10710e7fdf',
+  //   icon: <FaCode />,
+  //   url: '/test',
+  // },
 ]
 
 export default navLinks

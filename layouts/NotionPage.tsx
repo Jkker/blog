@@ -147,7 +147,7 @@ export const NotionPage: React.FC<
           showTableOfContents={false}
           mapPageUrl={siteMapPageUrl}
           mapImageUrl={mapImageUrl}
-          defaultPageCover={defaultCoverImage.src}
+          defaultPageCover={`https://www.jerrykjia.com/images/city.webp`}
           // searchNotion={(config.isSearchEnabled as any) ? searchNotion : null}
           className='lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'
         />

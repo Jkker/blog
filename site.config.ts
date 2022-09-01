@@ -52,7 +52,7 @@ export default siteConfig({
   pageUrlOverrides: {
     '/acknowledgement-legal-information': 'ec61b821a2e74cb893df121f16cf8268',
     '/about': '6ce65fc4d4be42e8b613cb8e6558c4cf',
-    '/test': '067dd719a912471ea9a3ac10710e7fdf',
+    // '/test': '067dd719a912471ea9a3ac10710e7fdf',
   },
 
   i18n: {
