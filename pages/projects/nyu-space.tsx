@@ -7,7 +7,6 @@ import vacancies from '@/data/Vacancy-2022fa.json'
 import { Layout } from '@/layouts'
 import dayjs from '@/lib/dayjs'
 import Cover from '@/public/images/nyu.jpg'
-import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { GeolocatedResult } from 'react-geolocated'
@@ -16,17 +15,6 @@ import { MdOutlineLocationOn } from 'react-icons/md'
 const GeoLocate = dynamic(() => import('@/components/GeoLocate'), {
   ssr: false,
 })
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const locations = await fetch(
-    'https://raw.githubusercontent.com/Jkker/i-need-space/main/data/location_list.json'
-  ).then((res) => res.json())
-  return {
-    props: {
-      locations,
-    },
-  }
-}
 
 const WEEKDAYS = [
   'Monday',
@@ -74,7 +62,12 @@ function measure(lat1, lon1, lat2, lon2) {
   return d * 1000 // meters
 }
 
-const getNearest = (lat: number, lng: number, weekday: number) =>
+const getNearest = (
+  lat: number,
+  lng: number,
+  weekday: number,
+  now: Date = undefined
+) =>
   Object.entries(vacancies)
     .map(([key, location]) => ({
       key,
@@ -88,14 +81,59 @@ const getNearest = (lat: number, lng: number, weekday: number) =>
     .sort((a, b) => a.d - b.d)
     .filter(
       (location) =>
-        // @ts-ignore
-        // weekday in location.rooms && location.rooms[weekday].length > 0
         Object.values(location.rooms).reduce(
-          (acc, val) => acc + val[weekday].length,
+          (acc, days) =>
+            acc +
+            days[weekday].some(([start, end]) => start <= now && now <= end),
           0
         ) > 0
     )
     .slice(0, 15)
+
+const hourMinuteStr2Minute = (hourMinuteStr) => {
+  const [h, m] = hourMinuteStr.split(':')
+  return parseInt(h) * 60 + parseInt(m)
+}
+
+const durationFilter =
+  (duration) =>
+  ([start, end]) =>
+    hourMinuteStr2Minute(end) - hourMinuteStr2Minute(start) >= duration
+
+const weekdayFilter = (time: 'any' | 'now') => {
+  if (time === 'any') return () => true
+  const now = new Date()
+  const timeMinutes = now.getHours() * 60 + now.getMinutes()
+  return ([start, end]) => {
+    const s = hourMinuteStr2Minute(start)
+    const e = hourMinuteStr2Minute(end)
+    return s <= timeMinutes && timeMinutes <= e
+  }
+}
+
+const filter = (
+  rooms,
+  {
+    weekday,
+    time = 'now',
+    duration = 30,
+  }: {
+    weekday: number
+    time?: 'any' | 'now'
+    duration?: number
+  }
+) => {
+  const durationLongerThanMinimum = durationFilter(duration)
+  const durationIncludesTime = weekdayFilter(time)
+
+  return Object.entries(rooms)
+    .map(([room, weekdays]) => [
+      room,
+      weekdays[weekday].filter(durationLongerThanMinimum),
+    ])
+    .filter(([room, weekday]) => weekday.some(durationIncludesTime))
+  // .filter(([room, weekday]) => weekday.length > 0);
+}
 
 export default function FindSpace() {
   const now = useMemo(() => dayjs(), [])
@@ -103,6 +141,8 @@ export default function FindSpace() {
   const [building, setBuilding] = useState('Bobst Library')
   const [borough, setBorough] = useState('Manhattan')
   const [weekday, setWeekday] = useState(now.isoWeekday() - 1)
+  const [time, setTime] = useState<'any' | 'now'>('any')
+  console.log(`🚀 ~ file: nyu-space.tsx ~ line 133 ~ FindSpace ~ time`, time)
 
   const options = locations[borough].sort((a, b) => a.localeCompare(b))
 
@@ -124,7 +164,7 @@ export default function FindSpace() {
     setBorough(e.target.value)
   }
 
-  const onBuildingSelect = async ({ target }) => {
+  const onBuildingSelect = ({ target }) => {
     const b = target.value
     setBuilding(b)
     scrollIntoView()
@@ -134,6 +174,11 @@ export default function FindSpace() {
     setWeekday(d)
     scrollIntoView()
   }
+  const onTimeSelect = ({ target }) => {
+    const t = target.value
+    setTime(t)
+    scrollIntoView()
+  }
 
   useEffect(() => {
     if (isLBS && geoLocated.coords) {
@@ -141,10 +186,6 @@ export default function FindSpace() {
         geoLocated.coords.latitude,
         geoLocated.coords.longitude,
         weekday
-      )
-      console.log(
-        `🚀 ~ file: nyu-space.tsx ~ line 139 ~ useEffect ~ nearest`,
-        nearest
       )
       setBuildingOptions(
         nearest.map(({ key, d }) => ({
@@ -205,6 +246,20 @@ export default function FindSpace() {
                 label: weekday,
               }))}
             />
+            <Select
+              name='time'
+              placeholder='Select time'
+              label='Select Week Day'
+              onChange={onTimeSelect}
+              value={time}
+              options={[
+                { value: 'any', label: 'Any time' },
+                {
+                  value: 'now',
+                  label: 'Now',
+                },
+              ]}
+            />
           </div>
           <div className='hidden md:flex'>
             <Switch checked={isLBS} onChange={setIsLBS} loading={isLoading}>
@@ -220,7 +275,11 @@ export default function FindSpace() {
             className='sticky max-h-[75vh]'
           >
             {vacancies[building] &&
-              Object.entries(vacancies[building]?.rooms).map(([key, value]) => (
+              filter(vacancies[building]?.rooms, {
+                weekday,
+                time,
+                duration: 30,
+              }).map(([key, value]) => (
                 <DaySchedule
                   key={key}
                   title={key}
