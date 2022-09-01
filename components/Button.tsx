@@ -24,7 +24,7 @@ const bgColor = {
     'acrylic',
     'bg-white/70 dark:bg-gray-700/80', // background
     'hover:bg-gray-white dark:hover:bg-gray-600/80', // hover
-    'active:bg-gray-100 active:shadow-inner dark:active:bg-gray-800/80', // active
+    'active:bg-gray-100 dark:active:bg-gray-900/80', // active
     'hover:shadow-gray-500/30 dark:hover:shadow-gray-500/30' // shadow
   ),
 }
@@ -62,6 +62,7 @@ const Button = React.forwardRef<
     href?: string
     justify?: 'start' | 'center' | 'end'
     gap?: 0 | 1 | 2 | 3 | 4 | 8
+    position?: 'absolute' | 'relative' | 'static' | 'sticky' | 'fixed'
   } & (
     | React.ButtonHTMLAttributes<HTMLButtonElement>
     | React.AnchorHTMLAttributes<HTMLAnchorElement>
@@ -80,6 +81,7 @@ const Button = React.forwardRef<
       rounded = false,
       justify = 'center',
       gap = 2,
+      position = 'relative',
       ...props
     },
     ref
@@ -87,7 +89,7 @@ const Button = React.forwardRef<
     const isIcon = icon !== null
 
     const classNames = cx(
-      'relative flex items-center',
+      'flex items-center',
       'group transition-all duration-200 ease-in-out',
       'focus-visible:outline-1 outline-transparent focus-visible:outline-black focus-visible:dark:outline-white',
       color === 'transparent' || 'shadow-md active:shadow-none',
@@ -97,6 +99,7 @@ const Button = React.forwardRef<
       gapMap[gap],
       { rounded: rounded },
       sizeMap(isIcon)[size],
+      position,
       className
     )
 

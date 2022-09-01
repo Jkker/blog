@@ -13,6 +13,7 @@ import posthog from 'posthog-js'
 import { useEffect } from 'react'
 
 import { GlobalContextProvider } from '@/utils/useGlobal'
+import { ModalProvider } from '@/utils/useModal'
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -36,7 +37,9 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events])
   return (
     <GlobalContextProvider>
-      <Component {...pageProps} />
+      <ModalProvider>
+        <Component {...pageProps} />
+      </ModalProvider>
     </GlobalContextProvider>
   )
 }

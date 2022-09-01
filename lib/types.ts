@@ -3,7 +3,6 @@ import { ParsedUrlQuery } from 'querystring'
 
 export * from 'notion-types'
 
-
 export interface PageError {
   message?: string
   statusCode: number

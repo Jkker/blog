@@ -64,7 +64,7 @@ export default function Toolbar({
   return (
     <div
       className={cx(
-        'flex text-inherit flex-col fixed bottom-24 z-50 shadow-md transition-all duration-150',
+        'flex text-inherit flex-col fixed bottom-24 z-30 shadow-md transition-all duration-150',
         // showNav ? '-right-20' :
         'right-0'
       )}

@@ -3,7 +3,7 @@ import Loading from '@/components/Loading'
 import Select from '@/components/Select'
 import Switch from '@/components/Switch'
 import locations from '@/data/location_list.json'
-import vacancies from '@/data/Vacancy-2022fa.json'
+import vacancyData from '@/data/Vacancy-2022fa.json'
 import { Layout } from '@/layouts'
 import dayjs from '@/lib/dayjs'
 import Cover from '@/public/images/nyu.jpg'
@@ -11,6 +11,9 @@ import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { GeolocatedResult } from 'react-geolocated'
 import { MdOutlineLocationOn } from 'react-icons/md'
+import useModal from '@/utils/useModal'
+import Button from '@/components/Button'
+import { TiWarning } from 'react-icons/ti'
 
 const GeoLocate = dynamic(() => import('@/components/GeoLocate'), {
   ssr: false,
@@ -25,25 +28,6 @@ const WEEKDAYS = [
   'Saturday',
   'Sunday',
 ]
-
-type TimeSlots = {
-  [key in '0' | '1' | '2' | '3' | '4' | '5' | '6']: string[][]
-}
-
-type Location = {
-  lat: number
-  lng: number
-  address: string
-  id: string
-  url: string
-  name: string
-  name_nyu: string
-  city: string
-  borough: string
-  rooms: {
-    [id: string]: TimeSlots
-  }
-}
 
 // https://stackoverflow.com/a/11172685/8876594
 function measure(lat1, lon1, lat2, lon2) {
@@ -62,32 +46,14 @@ function measure(lat1, lon1, lat2, lon2) {
   return d * 1000 // meters
 }
 
-const getNearest = (
-  lat: number,
-  lng: number,
-  weekday: number,
-  now: Date = undefined
-) =>
-  Object.entries(vacancies)
+const getNearest = (lat: number, lng: number) =>
+  Object.entries(vacancyData)
     .map(([key, location]) => ({
       key,
       d: measure(lat, lng, location.lat, location.lng),
-      N: Object.values(location.rooms).reduce(
-        (acc, val) => acc + val[weekday].length,
-        0
-      ),
       ...location,
     }))
     .sort((a, b) => a.d - b.d)
-    .filter(
-      (location) =>
-        Object.values(location.rooms).reduce(
-          (acc, days) =>
-            acc +
-            days[weekday].some(([start, end]) => start <= now && now <= end),
-          0
-        ) > 0
-    )
     .slice(0, 15)
 
 const hourMinuteStr2Minute = (hourMinuteStr) => {
@@ -111,8 +77,8 @@ const weekdayFilter = (time: 'any' | 'now') => {
   }
 }
 
-const filter = (
-  rooms,
+const getVacancies = (
+  building: string,
   {
     weekday,
     time = 'now',
@@ -123,16 +89,17 @@ const filter = (
     duration?: number
   }
 ) => {
+  const rooms = vacancyData[building]?.rooms
   const durationLongerThanMinimum = durationFilter(duration)
   const durationIncludesTime = weekdayFilter(time)
-
-  return Object.entries(rooms)
-    .map(([room, weekdays]) => [
+  const filtered = Object.entries(rooms)
+    .map(([room, vacancies]) => [
       room,
-      weekdays[weekday].filter(durationLongerThanMinimum),
+      vacancies[weekday].filter(durationLongerThanMinimum),
     ])
-    .filter(([room, weekday]) => weekday.some(durationIncludesTime))
-  // .filter(([room, weekday]) => weekday.length > 0);
+    .filter(([room, vacancies]) => vacancies.some(durationIncludesTime))
+
+  return filtered
 }
 
 export default function FindSpace() {
@@ -142,7 +109,7 @@ export default function FindSpace() {
   const [borough, setBorough] = useState('Manhattan')
   const [weekday, setWeekday] = useState(now.isoWeekday() - 1)
   const [time, setTime] = useState<'any' | 'now'>('any')
-  console.log(`🚀 ~ file: nyu-space.tsx ~ line 133 ~ FindSpace ~ time`, time)
+  const { openModal, closeModal } = useModal()
 
   const options = locations[borough].sort((a, b) => a.localeCompare(b))
 
@@ -152,6 +119,10 @@ export default function FindSpace() {
 
   const [geoLocated, setGeoLocated] = useState<GeolocatedResult>(
     {} as GeolocatedResult
+  )
+  console.log(
+    `🚀 ~ file: nyu-space.tsx ~ line 122 ~ FindSpace ~ geoLocated`,
+    geoLocated
   )
   const [isLBS, setIsLBS] = useState(false)
 
@@ -184,18 +155,87 @@ export default function FindSpace() {
     if (isLBS && geoLocated.coords) {
       const nearest = getNearest(
         geoLocated.coords.latitude,
-        geoLocated.coords.longitude,
-        weekday
+        geoLocated.coords.longitude
       )
-      setBuildingOptions(
-        nearest.map(({ key, d }) => ({
-          value: key,
-          label: `${key} (${d < 500 ? d + 'm' : (d / 1000).toFixed(1) + 'km'})`,
-        }))
-      )
-      setBuilding(nearest[0].key)
+      if (nearest.length > 0) {
+        setBuildingOptions(
+          nearest.map(({ key, d }) => ({
+            value: key,
+            label: `${key} (${
+              d < 500 ? Math.round(d) + 'm' : (d / 1000).toFixed(1) + 'km'
+            })`,
+          }))
+        )
+        setBuilding(nearest[0]?.key)
+        setBorough(nearest[0]?.borough)
+      } else {
+        openModal({
+          title: <>No space found</>,
+          icon: <TiWarning />,
+          content: 'Sorry, no space is available nearby',
+          onClose: () => {
+            setIsLBS(false)
+          },
+        })
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLBS, geoLocated.coords, weekday])
+
+  const onGPSFailed = () =>
+    openModal({
+      title: <>Location is not enabled</>,
+      icon: <TiWarning />,
+      content: (
+        <>
+          <Button
+            href='https://www.google.com/search?q=how+to+turn+on+location'
+            color='primary'
+          >
+            Google how to enable on location
+          </Button>
+          <div className='grid grid-cols-2 gap-4'>
+            <Button
+              onClick={() => {
+                window.location.reload()
+              }}
+            >
+              Reload
+            </Button>
+            <Button
+              onClick={() => {
+                closeModal()
+                setIsLBS(false)
+                setIsLoading(false)
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </>
+      ),
+      onClose: () => {
+        setIsLBS(false)
+        setIsLoading(false)
+      },
+    })
+
+  useEffect(() => {
+    if (isLBS && geoLocated.isGeolocationEnabled === false) {
+      onGPSFailed()
+    }
+    if (isLBS) {
+      setTimeout(() => {
+        setGeoLocated((prev) => {
+          if (prev.isGeolocationEnabled === true && prev.coords === undefined) {
+            onGPSFailed()
+          }
+          return prev
+        })
+      }, 5000)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [geoLocated, isLBS])
 
   return (
     <Layout title='NYU Unoccupied Space Finder' coverImage={Cover} hasComment>
@@ -203,8 +243,8 @@ export default function FindSpace() {
         <GeoLocate setGeoLocated={setGeoLocated} setIsLoading={setIsLoading} />
       )}
       <div className='space-y-4 md:space-y-8 w-full p-2'>
-        <div className='flex space-between gap-2 items-center'>
-          <p className='pb-2 font-bold p-1'>
+        <div className='flex space-between gap-2 items-center w-full'>
+          <p className='pb-2 font-bold p-1 w-full'>
             Find a place to chill-out when you are on campus.
           </p>
           <div className='md:hidden'>
@@ -214,11 +254,10 @@ export default function FindSpace() {
           </div>
         </div>
         <div className='flex gap-4'>
-          <div className='flex-1 rounded grid gap-4 md:grid-cols-4'>
+          <div className='flex-1 rounded grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-5'>
             <Select
               name='borough'
               label='Borough'
-              className='w-full'
               options={Object.keys(locations).sort((a, b) =>
                 a.localeCompare(b)
               )}
@@ -228,8 +267,8 @@ export default function FindSpace() {
             />
             <Select
               name='building'
-              label='Select Building'
-              placeholder='Select building'
+              label='Building'
+              placeholder='Building'
               onChange={onBuildingSelect}
               value={building}
               options={isLBS ? buildingOptions : options}
@@ -237,8 +276,8 @@ export default function FindSpace() {
             />
             <Select
               name='weekday'
-              placeholder='Select weekday'
-              label='Select Week Day'
+              placeholder='Weekday'
+              label='Weekday'
               onChange={onWeekdaySelect}
               value={weekday}
               options={WEEKDAYS.map((weekday, idx) => ({
@@ -248,8 +287,8 @@ export default function FindSpace() {
             />
             <Select
               name='time'
-              placeholder='Select time'
-              label='Select Week Day'
+              placeholder='Time'
+              label='Time'
               onChange={onTimeSelect}
               value={time}
               options={[
@@ -274,18 +313,13 @@ export default function FindSpace() {
             endHour={22}
             className='sticky max-h-[75vh]'
           >
-            {vacancies[building] &&
-              filter(vacancies[building]?.rooms, {
-                weekday,
-                time,
-                duration: 30,
-              }).map(([key, value]) => (
-                <DaySchedule
-                  key={key}
-                  title={key}
-                  events={value[weekday] ?? []}
-                />
-              ))}
+            {getVacancies(building, {
+              weekday,
+              time,
+              duration: 30,
+            }).map(([room, vacancies]) => (
+              <DaySchedule key={room} title={room} events={vacancies ?? []} />
+            ))}
           </DayViewContainer>
         </div>
       </div>

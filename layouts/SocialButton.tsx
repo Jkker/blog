@@ -1,7 +1,9 @@
 import {
   RiGithubFill,
-  RiLinkedinBoxFill, RiMailFill,
-  RiRssFill, RiTelegramFill
+  RiLinkedinBoxFill,
+  RiMailFill,
+  RiRssFill,
+  RiTelegramFill,
 } from 'react-icons/ri'
 /**
  * 社交联系方式按钮组
