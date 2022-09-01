@@ -17,6 +17,8 @@ import {
   normalizeUrl,
   parsePageId,
 } from 'notion-utils'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export const getStaticProps: GetStaticProps<PageProps, Params> = async (
   context
@@ -129,6 +131,16 @@ export async function getStaticPaths() {
 }
 
 export default function NotionDomainDynamicPage(props) {
+  const router = useRouter()
+  useEffect(() => {
+    if (router.isReady) {
+      const { r } = router.query
+      if (r) {
+        window.location.href = `/api/revalidate?path=${window.location.pathname}&secret=${r}`
+      }
+    }
+  }, [router.isReady, router.query])
+
   // console.log('NotionDomainDynamicPage', props)
   return (
     <Layout
