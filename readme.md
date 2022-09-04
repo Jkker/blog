@@ -1,17 +1,16 @@
 <div align="center">
   <a href="https://www.jerrykjia.com">
-    <img src="https://github.com/Jkker/blog/raw/main/public/avatar.jpg" alt="Logo" width="80" height="80">
+    <img src="https://github.com/Jkker/blog/raw/main/public/avatar-circle.webp" alt="Logo" width="80" height="80">
   </a>
   <p align="center">
-    Personal Blog
+    <a href="https://www.jerrykjia.com/">www.jerrykjia.com</a>
   </p>
-  <a href="https://www.jerrykjia.com/">www.jerrykjia.com</a>
-    <br />
 </div>
 
 
-![Preview](https://github.com/Jkker/blog/raw/main/public/images/www.jerrykjia.com.webp)
-
+|                     Light                     |                    Dark                     |
+| :-------------------------------------------: | :-----------------------------------------: |
+| ![light](/public/previews/preview-light.webp) | ![dark](/public/previews/preview-dark.webp) |
 
 ## Acknowledgements
 
