@@ -13,6 +13,35 @@
 | :-------------------------------------------: | :-----------------------------------------: |
 | ![light](/public/previews/preview-light.webp) | ![dark](/public/previews/preview-dark.webp) |
 
+## Features
+
+- [x] Dark Mode
+- [x] Responsive Design
+- [x] Incremental Static Regeneration
+- [x] Image Optimization
+- [x] Low Quality Image Placeholders
+- [x] SEO
+- [x] Giscus Comments
+- [x] Notion as CMS
+- [x] Automatic social images
+- [x] Automatic pretty URLs
+- [x] Automatic table of contents
+- [x] RSS Feed
+- [ ] Localization
+
+### Near Perfect Lighthouse Score
+
+![lighthouse](/public/previews/lighthouse.webp)
+
+## Built With
+
+- TypeScript
+- Next.js
+- Tailwind CSS
+- Headless UI
+- react-notion-x
+- ❤
+
 ## Acknowledgements
 
 - Notion block rendering implementation forked from [nextjs-notion-starter-kit](https://github.com/transitive-bullshit/nextjs-notion-starter-kit)
