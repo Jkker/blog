@@ -161,8 +161,6 @@ export const DaySchedule = ({ title, events }) => {
 export function DayViewContainer({
   startHour,
   endHour,
-  // onEventClick,
-  // format = '24hr',
   blockHeight = 48,
   blockWidth = 192 / 2,
   minDuration = 30,

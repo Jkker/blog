@@ -4,7 +4,7 @@ import Collapse from '@/components/Collapse'
 import Rotate from '@/components/Rotate'
 import ToggleThemeButton from '@/components/ToggleThemeButton'
 import navigationLinks from '@/data/navLinks'
-import Avatar from '@/public/favicons/favicon-24x24.webp'
+import Avatar from '@/public/avatar.webp'
 import useClickOutside from '@/utils/useClickOutside'
 import cx from 'clsx'
 import throttle from 'lodash.throttle'
@@ -27,7 +27,7 @@ const AvatarIcon = ({ className = '' }) => (
         alt='avatar'
         height={24}
         width={24}
-        className='rounded-full '
+        className='rounded-full'
         priority
       />
     }

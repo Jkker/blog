@@ -24,7 +24,7 @@ const BlogPostCard = ({
           </h2>
 
           <div
-            className={`flex mt-2 items-center justify-start flex-wrap text-gray-400`}
+            className={`flex mt-2 items-center justify-start flex-wrap text-gray-500`}
           >
             {new Date(date).toLocaleDateString()}
           </div>

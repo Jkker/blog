@@ -1,20 +1,18 @@
 import BlogPostCard from '@/components/BlogPostCard'
+import defaultCoverImage from '@/data/defaultCoverImage'
 import { Layout } from '@/layouts'
-import dayjs from '@/lib/dayjs'
 import { getCanonicalPageId } from '@/lib/get-canonical-page-id'
 import { PageProps } from '@/lib/types'
 import config from '@/site.config'
 import { domain } from 'lib/config'
 import { mapImageUrl } from 'lib/map-image-url'
 import { resolveNotionPage } from 'lib/resolve-notion-page'
-import { useRouter } from 'next/router'
 import {
   getBlockTitle,
   getPageProperty,
   normalizeUrl,
   parsePageId,
 } from 'notion-utils'
-import defaultCoverImage from '@/data/defaultCoverImage'
 
 export const getStaticProps = async () => {
   try {
@@ -89,10 +87,6 @@ export const getStaticProps = async () => {
       .filter(Boolean)
 
     props.postList = postList
-    console.log(
-      `🚀 ~ file: index.tsx ~ line 93 ~ getStaticProps ~ props`,
-      props
-    )
 
     return { props, revalidate: 10 }
   } catch (err) {
@@ -105,12 +99,6 @@ export const getStaticProps = async () => {
 }
 
 export default function NotionDomainPage(props) {
-  console.log(
-    `🚀 ~ file: index.tsx ~ line 105 ~ NotionDomainPage ~ props`,
-    props
-  )
-  // return '123'
-
   return (
     <Layout
       {...props}

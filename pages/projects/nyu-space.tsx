@@ -1,3 +1,4 @@
+import Button from '@/components/Button'
 import { DaySchedule, DayViewContainer } from '@/components/DayView'
 import Loading from '@/components/Loading'
 import Select from '@/components/Select'
@@ -7,12 +8,11 @@ import vacancyData from '@/data/Vacancy-2022fa.json'
 import { Layout } from '@/layouts'
 import dayjs from '@/lib/dayjs'
 import Cover from '@/public/images/nyu.jpg'
+import useModal from '@/utils/useModal'
 import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { GeolocatedResult } from 'react-geolocated'
 import { MdOutlineLocationOn } from 'react-icons/md'
-import useModal from '@/utils/useModal'
-import Button from '@/components/Button'
 import { TiWarning } from 'react-icons/ti'
 
 const GeoLocate = dynamic(() => import('@/components/GeoLocate'), {
@@ -120,10 +120,7 @@ export default function FindSpace() {
   const [geoLocated, setGeoLocated] = useState<GeolocatedResult>(
     {} as GeolocatedResult
   )
-  console.log(
-    `🚀 ~ file: nyu-space.tsx ~ line 122 ~ FindSpace ~ geoLocated`,
-    geoLocated
-  )
+
   const [isLBS, setIsLBS] = useState(false)
 
   const scrollIntoView = useCallback(

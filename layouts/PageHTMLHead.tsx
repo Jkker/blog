@@ -72,12 +72,6 @@ export const PageHTMLHead: React.FC<
         href={rssFeedUrl}
         title={site?.name}
       />
-      <link
-        rel='stylesheet'
-        href='https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css'
-        integrity='sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X'
-        crossOrigin='anonymous'
-      />
       <link rel='preconnect' href='https://fonts.googleapis.com' />
       <link
         rel='preconnect'
