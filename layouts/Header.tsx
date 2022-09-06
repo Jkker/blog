@@ -59,7 +59,7 @@ function CoverImage({
             className='text-sm md:text-base items-center justify-start md:justify-center'
             tags={tags}
           />
-          <h1 className='font-bold text-2xl md:text-4xl text-white mb-1 text-center'>
+          <h1 className='font-bold text-3xl md:text-4xl text-white mb-1 text-center'>
             {title}
           </h1>
           <div className='text-sm md:text-base text-white'>{description}</div>

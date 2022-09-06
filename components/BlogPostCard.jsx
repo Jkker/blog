@@ -15,7 +15,7 @@ const BlogPostCard = ({
 }) => {
   return (
     <Link href={url}>
-      <a className='group w-full shadow-md hover:shadow-lg hover:shadow-gray-600/30 active:shadow-none rounded-xl bg-white dark:bg-gray-800 flex flex-col-reverse lg:flex-row justify-between duration-300 relative'>
+      <a className='group w-full shadow-md hover:shadow-lg dark:hover:shadow-black/40 active:shadow-none rounded-xl bg-white dark:bg-gray-800 flex flex-col-reverse lg:flex-row justify-between duration-300 relative'>
         <div className='lg:p-8 p-4 flex flex-col w-full'>
           <h2
             className={`replace cursor-pointer text-2xl font-sans leading-tight text-gray-700 dark:text-gray-100 group-hover:text-primary-400 dark:group-hover:text-primary-500 transition-colors`}

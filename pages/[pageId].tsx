@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     )
 
     const description = getPageProperty<string>('Description', block, recordMap)
-
+    const noBg = getPageProperty<string>('noBg', block, recordMap)
     const tableOfContent = getPageTableOfContents(block as PageBlock, recordMap)
     const title = getBlockTitle(block, recordMap) || site.name
 
@@ -96,6 +96,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
         coverImage,
         tags,
         date,
+        noBg,
       },
       revalidate: 10,
     }

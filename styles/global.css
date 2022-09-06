@@ -47,7 +47,7 @@
   }
 
   .card {
-    /* @apply bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md; */
+    @apply p-4 bg-white dark:bg-gray-800 rounded shadow-md;
   }
 
   .input {

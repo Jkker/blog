@@ -1,3 +1,4 @@
+import cx from 'clsx'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -104,8 +105,9 @@ export const NotionPage: React.FC<
     canonicalPageUrl: string
     socialImage: string
     tableOfContent: TableOfContentsEntry[]
+    noBg: boolean
   }
-> = ({ tableOfContent, recordMap, pageId, site, error }) => {
+> = ({ tableOfContent, recordMap, pageId, site, error, noBg = false }) => {
   const router = useRouter()
 
   const components = React.useMemo(
@@ -149,9 +151,18 @@ export const NotionPage: React.FC<
           mapImageUrl={mapImageUrl}
           defaultPageCover={`https://www.jerrykjia.com/images/city.webp`}
           // searchNotion={(config.isSearchEnabled as any) ? searchNotion : null}
-          className='lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'
+          className={cx(
+            noBg ||
+              'lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'
+          )}
         />
-        <div className='lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'>
+        <div
+          className={
+            noBg
+              ? 'card'
+              : 'lg:p-4 lg:bg-white lg:dark:bg-gray-800 rounded lg:shadow-md'
+          }
+        >
           <Comment />
         </div>
       </div>

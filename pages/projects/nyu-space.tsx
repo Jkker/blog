@@ -15,6 +15,10 @@ import type { GeolocatedResult } from 'react-geolocated'
 import { MdOutlineLocationOn } from 'react-icons/md'
 import { TiWarning } from 'react-icons/ti'
 
+const Comment = dynamic(() => import('@/components/Giscus'), {
+  ssr: false,
+})
+
 const GeoLocate = dynamic(() => import('@/components/GeoLocate'), {
   ssr: false,
 })
@@ -318,6 +322,9 @@ export default function FindSpace() {
               <DaySchedule key={room} title={room} events={vacancies ?? []} />
             ))}
           </DayViewContainer>
+        </div>
+        <div className='pt-8 md:card'>
+          <Comment />
         </div>
       </div>
     </Layout>
