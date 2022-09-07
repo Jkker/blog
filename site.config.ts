@@ -63,37 +63,35 @@ export default siteConfig({
       dateFormat: 'YYYY年M月D日',
     },
   },
-  toolList: [
+  projects: [
     {
       title: 'NYU Unoccupied Space Finder',
       description: `Find a place to chill-out when you're on campus`,
-      imgSrc: '/images/bobst-classroom.jpg',
+      coverImage: '/images/alesia-kazantceva-VWcPlbHglYc-unsplash.jpg',
       href: '/projects/nyu-space',
-      icon: '/images/chair.png',
+    },
+    {
+      title: 'Brightspace File Organizer',
+      description: `Organize your Brightspace files and content`,
+      href: '/projects/brightspace',
+      coverImage: '/images/alfons-morales-YLSwjSy7stw-unsplash.jpg',
     },
     {
       title: 'NYU Academic Calendar Subscriber',
       description: `Subscribe to NYU's Academic Calendar via Google Calendar or iCal.`,
-      imgSrc: '/images/nyu.jpg',
+      coverImage: '/images/nyu.jpg',
       href: '/projects/nyu-academic-calendar',
-      icon: '/images/calendar.png',
     },
-    // {
-    //   title: 'NYU Auto Class Swap',
-    //   description: `Trust me, this can help you get into a class you want.`,
-    //   imgSrc: '/images/edwin-andrade-4V1dC_eoCwg-unsplash.jpg',
-    //   href: 'https://github.com/Jkker/albert-playwright',
-    // },
     {
       title: 'Sunset Duration',
       description: `Get the precise sunset duration of your current location`,
-      imgSrc: '/images/sunset.png',
+      coverImage: '/images/sunset.png',
       href: '/api/sunset',
     },
     {
       title: 'Metasearch',
       description: `An customizable search engine aggregator`,
-      imgSrc: '/images/metasearch.jpg',
+      coverImage: '/images/metasearch.jpg',
       href: 'https://search.jerrykjia.com/',
     },
   ],

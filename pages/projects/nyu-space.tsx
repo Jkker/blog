@@ -7,10 +7,11 @@ import locations from '@/data/location_list.json'
 import vacancyData from '@/data/Vacancy-2022fa.json'
 import { Layout } from '@/layouts'
 import dayjs from '@/lib/dayjs'
-import Cover from '@/public/images/nyu.jpg'
+import config from '@/site.config'
 import useModal from '@/utils/useModal'
 import dynamic from 'next/dynamic'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { GetStaticProps } from 'next'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type { GeolocatedResult } from 'react-geolocated'
 import { MdOutlineLocationOn } from 'react-icons/md'
 import { TiWarning } from 'react-icons/ti'
@@ -106,7 +107,7 @@ const getVacancies = (
   return filtered
 }
 
-export default function FindSpace() {
+export default function FindSpace(props) {
   const now = useMemo(() => dayjs(), [])
   const [isLoading, setIsLoading] = useState(false)
   const [building, setBuilding] = useState('Bobst Library')
@@ -239,7 +240,7 @@ export default function FindSpace() {
   }, [geoLocated, isLBS])
 
   return (
-    <Layout title='NYU Unoccupied Space Finder' coverImage={Cover} hasComment>
+    <Layout {...props} hasComment>
       {isLBS && (
         <GeoLocate setGeoLocated={setGeoLocated} setIsLoading={setIsLoading} />
       )}
@@ -329,4 +330,14 @@ export default function FindSpace() {
       </div>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = () => {
+  return {
+    props: {
+      ...config.projects.find(
+        (tool) => tool.title === 'Unoccupied Space Finder'
+      ),
+    },
+  }
 }

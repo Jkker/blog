@@ -32,11 +32,11 @@ export interface SiteConfig {
   pageUrlOverrides?: types.PageUrlOverridesMap
   pageUrlAdditions?: types.PageUrlOverridesMap
 
-  toolList?: {
+  projects?: {
     title: string
     description?: string
     href?: string
-    imgSrc?: string
+    coverImage?: string
     icon?: string
   }[]
 

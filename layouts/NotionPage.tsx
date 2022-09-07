@@ -17,10 +17,9 @@ import type { TableOfContentsEntry } from 'notion-utils'
 
 // components
 import Loading from '@/components/Loading'
+import NextImage from 'next/image'
 import { Page404 } from './Page404'
 import { TableOfContent } from './TableOfContent'
-import NextImage from 'next/image'
-import defaultCoverImage from '@/data/defaultCoverImage'
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------

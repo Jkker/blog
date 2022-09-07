@@ -1,5 +1,8 @@
 import { createContext, useContext, useState } from 'react'
-import Modal, { ModalProps } from '@/components/Modal'
+import type { ModalProps } from '@/components/Modal'
+import dynamic from 'next/dynamic'
+
+const Modal = dynamic(() => import('@/components/Modal'))
 
 interface ModalContext {
   openModal: (props: Partial<ModalProps>) => void

@@ -18,6 +18,7 @@ import {
   getPageTableOfContents,
   normalizeUrl,
   parsePageId,
+  uuidToId,
 } from 'notion-utils'
 import { useEffect } from 'react'
 
@@ -47,7 +48,14 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
 
     const description = getPageProperty<string>('Description', block, recordMap)
     const noBg = getPageProperty<string>('noBg', block, recordMap)
-    const tableOfContent = getPageTableOfContents(block as PageBlock, recordMap)
+    const tableOfContent = getPageTableOfContents(
+      block as PageBlock,
+      recordMap
+    ).map(({ id, text, indentLevel }) => ({
+      id: uuidToId(id),
+      text,
+      indentLevel,
+    }))
     const title = getBlockTitle(block, recordMap) || site.name
 
     const breadcrumbs = getPageBreadcrumbs(recordMap, pageId)

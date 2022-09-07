@@ -1,11 +1,11 @@
+import Fade from '@/components/Fade'
+import useGlobal from '@/utils/useGlobal'
 import cs from 'clsx'
 import throttle from 'lodash.throttle'
-import { TableOfContentsEntry, uuidToId } from 'notion-utils'
+import type { TableOfContentsEntry } from 'notion-utils'
 import * as React from 'react'
 import { RiListCheck } from 'react-icons/ri'
-import useGlobal from '@/utils/useGlobal'
 import { InfoCard } from './InfoCard'
-import Fade from '@/components/Fade'
 
 export const TableOfContent: React.FC<{
   tableOfContent: Array<TableOfContentsEntry>
@@ -109,31 +109,27 @@ export const TableOfContent: React.FC<{
             </div>
           </div>
           <nav className='max-h-[400px] overflow-y-auto'>
-            {tableOfContent.map((tocItem) => {
-              const id = uuidToId(tocItem.id)
-              return (
-                <a
-                  key={id}
-                  href={`#${id}`}
-                  className={cs(
-                    'notion-table-of-contents-item',
-                    `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
-                    activeSection === id &&
-                      'notion-table-of-contents-active-item'
-                  )}
+            {tableOfContent.map(({ id, indentLevel, text }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={cs(
+                  'notion-table-of-contents-item',
+                  `notion-table-of-contents-item-indent-level-${indentLevel}`,
+                  activeSection === id && 'notion-table-of-contents-active-item'
+                )}
+              >
+                <span
+                  className='notion-table-of-contents-item-body'
+                  style={{
+                    display: 'inline-block',
+                    marginLeft: indentLevel * 16,
+                  }}
                 >
-                  <span
-                    className='notion-table-of-contents-item-body'
-                    style={{
-                      display: 'inline-block',
-                      marginLeft: tocItem.indentLevel * 16,
-                    }}
-                  >
-                    {tocItem.text}
-                  </span>
-                </a>
-              )
-            })}
+                  {text}
+                </span>
+              </a>
+            ))}
           </nav>
         </div>
       </Fade>

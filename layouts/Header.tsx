@@ -25,17 +25,23 @@ function CoverImage({
   tags,
   description,
 }: {
-  coverImage?: {
-    src: string
-    dataURIBase64?: string
-    blurDataURL?: string
-  }
+  coverImage?:
+    | {
+        src: string
+        dataURIBase64?: string
+        blurDataURL?: string
+      }
+    | string
   title?: string
   description?: string
   date?: string
   tags?: string[]
 }) {
-  const { src, dataURIBase64, blurDataURL } = coverImage
+  const {
+    src,
+    dataURIBase64 = undefined,
+    blurDataURL = undefined,
+  } = typeof coverImage === 'object' ? coverImage : { src: coverImage }
 
   return (
     <div className='w-full relative h-[280px] sm:h-[320px]'>

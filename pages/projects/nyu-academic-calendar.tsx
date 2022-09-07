@@ -1,8 +1,9 @@
 import Button from '@/components/Button'
 import { Layout } from '@/layouts'
-import Cover from '@/public/images/nyu.jpg'
+import config from '@/site.config'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { GetStaticProps } from 'next'
+import React, { useState } from 'react'
 import {
   FaCopy as CopyIcon,
   FaDownload as DownloadIcon,
@@ -17,12 +18,7 @@ const Comment = dynamic(() => import('@/components/Giscus'), {
 export default function NyuCal(props) {
   const [copied, setCopied] = useState(false)
   return (
-    <Layout
-      {...props}
-      title='NYU Academic Calendar Subscriber'
-      coverImage={Cover}
-      hasComment
-    >
+    <Layout {...props} hasComment>
       <div className='w-full flex-col gap-4 pt-4 mx-3 flex-center text-black dark:text-gray-100'>
         <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full'>
           <Button
@@ -101,4 +97,14 @@ export default function NyuCal(props) {
       </div>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = () => {
+  return {
+    props: {
+      ...config.projects.find(
+        (tool) => tool.title === 'NYU Academic Calendar Subscriber'
+      ),
+    },
+  }
 }

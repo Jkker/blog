@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from './Link'
 
-export const ProjectCard = ({ title, description, imgSrc, href }) => (
+export const ProjectCard = ({ title, description, coverImage, href }) => (
   <Link
     href={href}
     aria-label={`Link to ${title}`}
@@ -9,7 +9,7 @@ export const ProjectCard = ({ title, description, imgSrc, href }) => (
   >
     <Image
       alt={title}
-      src={imgSrc}
+      src={coverImage}
       objectFit='cover'
       className='object-cover object-center lg:h-48 md:h-36'
       width={576}

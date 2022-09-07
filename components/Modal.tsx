@@ -1,7 +1,7 @@
+import Button from '@/components/Button'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import Button from '@/components/Button'
-import { RiCloseFill, RiMenuFill } from 'react-icons/ri'
+import { RiCloseFill } from 'react-icons/ri'
 
 export interface ModalProps {
   isOpen: boolean
