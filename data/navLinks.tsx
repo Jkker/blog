@@ -1,5 +1,5 @@
-import { FaHome, FaProjectDiagram } from 'react-icons/fa'
-import { RiUser3Fill, RiCodeSSlashFill } from 'react-icons/ri'
+import { FaCode, FaHome, FaProjectDiagram } from 'react-icons/fa'
+import { RiUser3Fill } from 'react-icons/ri'
 
 type NavLink = {
   title: string
@@ -22,7 +22,7 @@ const navLinks: NavLink[] = [
   {
     title: 'Snippets',
     url: '/snippets',
-    icon: <RiCodeSSlashFill />,
+    icon: <FaCode />,
   },
   {
     title: 'About',

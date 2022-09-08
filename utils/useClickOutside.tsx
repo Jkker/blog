@@ -1,6 +1,10 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
-export default function useClickOutside(ref, handler, override = false) {
+export default function useClickOutside(
+  ref: React.MutableRefObject<HTMLElement>,
+  handler: (event?: MouseEvent) => void,
+  override = false
+) {
   useEffect(() => {
     const listener = (event) => {
       // Do nothing if clicking ref's element or descendent elements
