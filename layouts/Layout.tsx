@@ -2,9 +2,9 @@ import Toolbar from '@/components/Toolbar'
 import cx from 'clsx'
 
 import { useState } from 'react'
-import CoverImage from './Header'
+import CoverImage from './components/CoverImage'
 import { Footer } from './Footer'
-import { Header } from './NavBar'
+import { NavBar } from './NavBar'
 import { PageHTMLHead } from './PageHTMLHead'
 
 export function Layout({
@@ -59,7 +59,7 @@ export function Layout({
         socialImage={socialImage}
         url={url}
       />
-      <Header
+      <NavBar
         breadcrumbs={breadcrumbs}
         showNav={showNav}
         setShowNav={setShowNav}

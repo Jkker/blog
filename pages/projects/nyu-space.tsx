@@ -16,7 +16,7 @@ import type { GeolocatedResult } from 'react-geolocated'
 import { MdOutlineLocationOn } from 'react-icons/md'
 import { TiWarning } from 'react-icons/ti'
 
-const Comment = dynamic(() => import('@/components/Giscus'), {
+const Comment = dynamic(() => import('@/layouts/components/Giscus'), {
   ssr: false,
 })
 

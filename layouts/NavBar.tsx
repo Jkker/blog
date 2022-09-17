@@ -36,7 +36,7 @@ const AvatarIcon = ({ className = '' }) => (
   </Button>
 )
 
-export const Header = ({ breadcrumbs = [], showNav, setShowNav }) => {
+export const NavBar = ({ breadcrumbs = [], showNav, setShowNav }) => {
   const navRef = React.useRef()
   const breadCrumbRef = React.useRef<HTMLUListElement>()
 

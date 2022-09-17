@@ -24,7 +24,7 @@ import { TableOfContent } from './TableOfContent'
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
 
-const Comment = dynamic(() => import('@/components/Giscus'), {
+const Comment = dynamic(() => import('@/layouts/components/Giscus'), {
   ssr: false,
 })
 
@@ -166,9 +166,8 @@ export const NotionPage: React.FC<
         </div>
       </div>
       {tableOfContent.length > 0 && (
-        <div className=''>
-          <TableOfContent tableOfContent={tableOfContent} mobile />
-        </div>
+        <TableOfContent tableOfContent={tableOfContent} mobile />
+        // <div className=''></div>
       )}
     </>
   )

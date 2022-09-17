@@ -14,6 +14,19 @@
 
     /* overflow-x: hidden; */
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #a1a1a1 #e5e5e5;
+    &::-webkit-scrollbar {
+      width: 8px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply bg-gray-400 rounded dark:bg-gray-600;
+    }
+    &::-webkit-scrollbar-track {
+      @apply rounded bg-gray-100 dark:bg-gray-900;
+    }
   }
 
   #__next {
@@ -102,6 +115,22 @@
       display: block;
 
       @apply text-gray-400 dark:text-gray-500 text-sm -mx-0.5;
+    }
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #a1a1a1 #e5e5e5;
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 10px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply bg-gray-300 rounded dark:bg-gray-600;
+    }
+    &::-webkit-scrollbar-track {
+      @apply rounded dark:bg-transparent;
     }
   }
 }

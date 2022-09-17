@@ -34,7 +34,9 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     )
 
     const canonicalPageUrl =
-      !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
+    !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
+
+    console.log(`🚀 ~ file: [pageId].tsx ~ line 37 ~ canonicalPageUrl`, canonicalPageUrl)
 
     const keys = Object.keys(recordMap?.block || {})
     const block = recordMap?.block?.[keys[0]]?.value

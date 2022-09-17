@@ -11,7 +11,7 @@ import {
   FaGoogle,
 } from 'react-icons/fa'
 
-const Comment = dynamic(() => import('@/components/Giscus'), {
+const Comment = dynamic(() => import('@/layouts/components/Giscus'), {
   ssr: false,
 })
 

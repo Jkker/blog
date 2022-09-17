@@ -9,7 +9,7 @@ import React, { ReactNode, useState } from 'react'
 import { BiArchiveOut } from 'react-icons/bi'
 import { IoArrowDown } from 'react-icons/io5'
 
-const Comment = dynamic(() => import('@/components/Giscus'), {
+const Comment = dynamic(() => import('@/layouts/components/Giscus'), {
   ssr: false,
 })
 

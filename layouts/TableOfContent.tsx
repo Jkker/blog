@@ -5,7 +5,8 @@ import throttle from 'lodash.throttle'
 import type { TableOfContentsEntry } from 'notion-utils'
 import * as React from 'react'
 import { RiListCheck } from 'react-icons/ri'
-import { InfoCard } from './InfoCard'
+import { InfoCard } from './components/InfoCard'
+import {useMinWidth} from '@/utils/useMediaQuery'
 
 export const TableOfContent: React.FC<{
   tableOfContent: Array<TableOfContentsEntry>
@@ -13,6 +14,7 @@ export const TableOfContent: React.FC<{
   mobile?: boolean
 }> = ({ tableOfContent }) => {
   const { isMobileTocVisible } = useGlobal()
+  const isDesktop = useMinWidth('lg')
 
   const [activeSection, setActiveSection] = React.useState(null)
   const [percent, changePercent] = React.useState(0)
@@ -77,16 +79,16 @@ export const TableOfContent: React.FC<{
   return (
     <div
       className={cs(
-        'fixed lg:sticky z-20 flex-0 flex flex-col self-start',
-        'right-10 bottom-24 lg:bottom-0 lg:top-8 lg:right-0 space-y-4'
+        'fixed lg:sticky z-20 flex-0 flex flex-col-reverse self-start gap-4',
+        'right-10 bottom-24 lg:bottom-0 lg:top-5 lg:right-0'
       )}
     >
       <InfoCard className='hidden lg:block' />
-      <Fade show={isMobileTocVisible}>
+      <Fade show={isDesktop || isMobileTocVisible}>
         <div
           className={cs(
             'text-gray-900 dark:text-gray-100 space-y-2',
-            'right-10 bottom-24 lg:bottom-0 lg:top-16 lg:right-0',
+            'right-10 ',
             'p-4 overflow-hidden',
             'acrylic bg-white/70 dark:bg-gray-700/80 shadow-md rounded lg:bg-white lg:dark:bg-gray-800'
             // isMobileTocVisible ? 'p-4' : 'mobile-hidden'
@@ -96,19 +98,21 @@ export const TableOfContent: React.FC<{
           }}
           id='tableOfContent'
         >
-          <h3 className='uppercase text-black dark:text-white text-lg md:text-xl whitespace-nowrap my-1 font-light flex items-center gap-1'>
+          <h3 className='uppercase text-black dark:text-white text-lg whitespace-nowrap my-1 font-light flex items-center gap-1'>
             <RiListCheck />
             Table of Content
           </h3>
-          <div className='h-4 w-full shadow-2xl bg-gray-400 font-sans'>
+          <div className='h-4 w-full shadow-2xl bg-gray-400/90 dark:bg-gray-600 font-sans rounded'>
             <div
-              className='h-4 bg-primary-400 duration-100'
+              className='h-4 bg-primary-400 duration-100 rounded'
               style={{ width: `${percent}%` }}
             >
-              <div className='text-right text-white text-xs'>{percent}%</div>
+              <div className='text-right text-white text-xs px-0.5'>
+                {percent}%
+              </div>
             </div>
           </div>
-          <nav className='max-h-[400px] overflow-y-auto'>
+          <nav className='max-h-[400px] overflow-y-auto scrollbar-thin'>
             {tableOfContent.map(({ id, indentLevel, text }) => (
               <a
                 key={id}

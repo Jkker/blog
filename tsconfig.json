@@ -37,5 +37,5 @@
     "**/*.ts",
     "**/*.tsx",
     "site.config.ts"
-, "components/Giscus.jsx"  ]
+, "layouts/components/Giscus.jsx"  ]
 }
