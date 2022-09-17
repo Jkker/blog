@@ -34,16 +34,22 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
           // gap={1}
           key={breadcrumbs.length}
         >
-          {isUrl(curr.icon) ? (
-            <Image
-              alt={curr.title + ' icon'}
-              src={curr.icon}
-              width={26}
-              height={26}
-            />
-          ) : curr.icon ? (
-            <span>{curr.icon}</span>
-          ) : null}
+          {curr.icon &&
+            (isUrl(curr.icon) ? (
+              <Image
+                alt={curr.title + ' icon'}
+                src={curr.icon}
+                width={20}
+                height={20}
+              />
+            ) : (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: curr.icon,
+                }}
+                className='w-5 h-5 flex-center'
+              />
+            ))}
           <span className='overflow-hidden text-ellipsis max-w-full'>
             {curr.title}
           </span>

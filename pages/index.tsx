@@ -12,7 +12,9 @@ import {
   getPageProperty,
   normalizeUrl,
   parsePageId,
+  getBlockIcon,
 } from 'notion-utils'
+import getIcon from '@/lib/get-icon'
 
 export const getStaticProps = async () => {
   try {
@@ -45,6 +47,7 @@ export const getStaticProps = async () => {
         if (!isPublic) return false
 
         const title = getBlockTitle(block, props.recordMap)
+        const icon = getIcon(getBlockIcon(block, props.recordMap), block)
 
         const description = getPageProperty<string>(
           'Description',
@@ -73,6 +76,7 @@ export const getStaticProps = async () => {
           id,
           collectionId,
           title,
+          icon,
           coverImage,
           tags: tags.map((t) => ({
             name: t,

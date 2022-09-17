@@ -1,6 +1,6 @@
 import defaultCoverImage from '@/data/defaultCoverImage'
 import { Layout, NotionPage } from '@/layouts'
-import { isUrl } from '@/utils/link'
+import getIcon from '@/lib/get-icon'
 import * as config from 'lib/config'
 import { domain, isDev } from 'lib/config'
 import { getSiteMap } from 'lib/get-site-map'
@@ -34,9 +34,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
     )
 
     const canonicalPageUrl =
-    !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
-
-    console.log(`🚀 ~ file: [pageId].tsx ~ line 37 ~ canonicalPageUrl`, canonicalPageUrl)
+      !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
     const keys = Object.keys(recordMap?.block || {})
     const block = recordMap?.block?.[keys[0]]?.value
@@ -66,7 +64,7 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
       )
       .map(({ title = '', icon, active, pageId }) => ({
         title,
-        icon: (isUrl(icon) ? mapImageUrl(icon, block) : icon) ?? null,
+        icon: getIcon(icon, block),
         active,
         url: mapPageUrl(site, recordMap)(pageId),
         pageId,

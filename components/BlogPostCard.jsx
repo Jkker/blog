@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import TagItemMini from './TagItemMini'
 import Image from 'next/image'
+import { isUrl } from '@/utils/link'
 
 const BlogPostCard = ({
   date,
@@ -12,14 +13,35 @@ const BlogPostCard = ({
   title,
   tags,
   coverImage,
+  icon,
 }) => {
   return (
     <Link href={url}>
       <a className='group w-full shadow-md hover:shadow-lg dark:hover:shadow-black/40 active:shadow-none rounded-xl bg-white dark:bg-gray-800 flex flex-col-reverse lg:flex-row justify-between duration-300 relative'>
         <div className='lg:p-8 p-4 flex flex-col w-full'>
           <h2
-            className={`replace cursor-pointer text-2xl font-sans leading-tight text-gray-700 dark:text-gray-100 group-hover:text-primary-400 dark:group-hover:text-primary-500 transition-colors`}
+            className={`replace cursor-pointer text-xl lg:text-2xl font-sans leading-tight text-gray-700 dark:text-gray-100 group-hover:text-primary-400 dark:group-hover:text-primary-500 transition-colors gap-1 lg:gap-1.5 flex items-center`}
           >
+            {icon &&
+              (isUrl(icon) ? (
+                <Image
+                  alt={title + ' icon'}
+                  src={icon}
+                  width={20}
+                  height={20}
+                />
+              ) : (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: icon,
+                  }}
+                  className='flex-center -ml-1 h-6 w-6 lg:h-7 lg:w-7'
+                  // style={{
+                  //   height: 24,
+                  //   width: 24,
+                  // }}
+                />
+              ))}
             {title}
           </h2>
 
