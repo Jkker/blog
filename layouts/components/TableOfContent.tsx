@@ -5,7 +5,7 @@ import throttle from 'lodash.throttle'
 import type { TableOfContentsEntry } from 'notion-utils'
 import * as React from 'react'
 import { RiListCheck } from 'react-icons/ri'
-import { InfoCard } from './components/InfoCard'
+import { InfoCard } from '@/layouts/components/InfoCard'
 import {useMinWidth} from '@/utils/useMediaQuery'
 
 export const TableOfContent: React.FC<{

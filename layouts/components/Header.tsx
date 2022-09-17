@@ -55,7 +55,7 @@ function CoverImage({
         className='brightness-90 md:brightness-75'
       />
       <header
-        className='w-full absolute h-full top-12 left-0 flex-center pb-7 md:pb-0 px-2 z-10 flex-col gap-0.5 md:gap-1'
+        className='w-full absolute h-full top-10 left-0 flex-center pb-7 md:pb-0 px-4 z-10 flex-col gap-0.5 md:gap-1'
         style={{
           height: 'calc(100% - 48px)',
         }}
