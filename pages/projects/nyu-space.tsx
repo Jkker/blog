@@ -336,7 +336,7 @@ export const getStaticProps: GetStaticProps = () => {
   return {
     props: {
       ...config.projects.find(
-        (tool) => tool.title === 'Unoccupied Space Finder'
+        (tool) => tool.title === 'NYU Unoccupied Space Finder'
       ),
     },
   }

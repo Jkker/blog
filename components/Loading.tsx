@@ -22,7 +22,7 @@ function Loading({ isLoading = true, fullscreen = false }) {
           overflow: 'hidden',
         }}
         className={cx(
-          'flex-center bg-gray-900/50 text-white inset-0 acrylic gap-4 lg:gap-8 flex-col',
+          'flex-center bg-gray-900/80 text-white inset-0 acrylic gap-4 lg:gap-8 flex-col',
           fullscreen ? 'z-40' : 'z-30'
         )}
       >

@@ -31,6 +31,7 @@ const AvatarIcon = ({ className = '' }) => (
         priority
       />
     }
+    title="About Me"
   >
     Jerry K Jia
   </Button>
@@ -83,6 +84,7 @@ export const NavBar = ({ breadcrumbs = [], showNav, setShowNav }) => {
             leftIcon={icon}
             className='w-full space-x-4'
             justify='start'
+            title={title}
             // gap={3}
           >
             {title}
@@ -105,9 +107,9 @@ export const NavBar = ({ breadcrumbs = [], showNav, setShowNav }) => {
       onDoubleClick={() => window.scrollTo(0, 0)}
       ref={navRef}
     >
-      <div className='flex items-center justify-between px-2 py-1 lg:px-8'>
+      <div className='flex items-center justify-between px-2 py-1 xl:px-8'>
         <ul
-          className='items-center divide-spacer list-none hidden sm:flex flex-shrink-1 overflow-auto relative'
+          className='items-center divide-spacer list-none hidden sm:flex flex-shrink-1 overflow-auto relative scrollbar-hidden'
           ref={breadCrumbRef}
         >
           <li className='flex items-center flex-shrink-0'>

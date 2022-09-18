@@ -90,7 +90,7 @@ export const TableOfContent: React.FC<{
             'text-gray-900 dark:text-gray-100 space-y-2',
             'right-10 ',
             'p-4 overflow-hidden',
-            'acrylic bg-white/70 dark:bg-gray-700/80 shadow-md rounded lg:bg-white lg:dark:bg-gray-800'
+            'acrylic bg-white/70 dark:bg-gray-700/80 shadow-md rounded-md lg:bg-white lg:dark:bg-gray-800'
             // isMobileTocVisible ? 'p-4' : 'mobile-hidden'
           )}
           style={{
@@ -102,9 +102,9 @@ export const TableOfContent: React.FC<{
             <RiListCheck />
             Table of Content
           </h3>
-          <div className='h-4 w-full shadow-2xl bg-gray-400/90 dark:bg-gray-600 font-sans rounded'>
+          <div className='h-4 w-full shadow-2xl bg-gray-400/90 dark:bg-gray-600 font-sans rounded-md'>
             <div
-              className='h-4 bg-primary-400 duration-100 rounded'
+              className='h-4 bg-primary-400 duration-100 rounded-md'
               style={{ width: `${percent}%` }}
             >
               <div className='text-right text-white text-xs px-0.5'>

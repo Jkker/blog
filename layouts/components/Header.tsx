@@ -1,16 +1,20 @@
-import React from 'react'
-import Image from 'next/image'
 import defaultCoverImage from '@/data/defaultCoverImage'
-import TagItemMini, { Tag } from '@/components/TagItemMini'
-import { RiTimeLine } from 'react-icons/ri'
 import cx from 'clsx'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { RiCalendarLine, RiTimeLine } from 'react-icons/ri'
+import readingTime from 'reading-time'
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+
+const ReadingTime = dynamic(() => import('./ReadingTime'))
 
 const Tags = ({ tags, className }) => (
   <ul className={cx('flex gap-2', className)}>
     {tags?.map((tag) => (
       <li
         key={tag}
-        className='px-1.5 py-0.5 acrylic text-white bg-gray-300/30 dark:bg-gray-700/30 rounded-xl'
+        className='px-1.5 py-0.5 acrylic text-white bg-gray-500/50 rounded-xl whitespace-nowrap'
       >
         {tag}
       </li>
@@ -18,7 +22,7 @@ const Tags = ({ tags, className }) => (
   </ul>
 )
 
-function CoverImage({
+function Header({
   coverImage = defaultCoverImage,
   title,
   date,
@@ -42,7 +46,6 @@ function CoverImage({
     dataURIBase64 = undefined,
     blurDataURL = undefined,
   } = typeof coverImage === 'object' ? coverImage : { src: coverImage }
-
   return (
     <div className='w-full relative h-[280px] sm:h-[320px]'>
       <Image
@@ -52,33 +55,41 @@ function CoverImage({
         layout='fill'
         objectFit='cover'
         priority
-        className='brightness-90 md:brightness-75'
+        style={{
+          filter: `brightness(0.7)`,
+        }}
       />
       <header
-        className='w-full absolute h-full top-10 left-0 flex-center pb-7 md:pb-0 px-4 z-10 flex-col gap-0.5 md:gap-1'
+        className='w-full absolute h-full top-10 left-0 flex-center pb-5 md:pb-0 px-4 z-10 flex-col gap-0.5 md:gap-1'
         style={{
           height: 'calc(100% - 48px)',
         }}
       >
-        <div className='flex-center gap-1 md:gap-1.5 flex-col '>
-          <Tags
-            className='text-sm md:text-base items-center justify-start md:justify-center'
-            tags={tags}
-          />
-          <h1 className='font-bold text-3xl md:text-4xl text-white mb-1 text-center'>
+        <div className='flex-center gap-2 md:gap-2 flex-col max-w-[960px]'>
+          <h1 className='font-bold text-3xl md:text-4xl text-white mb-1 text-left lg:text-center'>
             {title}
           </h1>
-          <div className='text-sm md:text-base text-white'>{description}</div>
-          {date && (
-            <div className='text-sm md:text-base text-white flex items-center justify-start md:justify-center gap-1 mx-0.5'>
-              <RiTimeLine />
-              <time>{new Date(date).toLocaleDateString()}</time>
+          {description && (
+            <div className='text-sm md:text-base text-white mb-2 line-clamp-3 text-left lg:text-center w-full'>
+              {description}
             </div>
           )}
+          <div className='flex gap-2 w-full justify-between flex-wrap'>
+            <Tags className='text-sm md:text-base items-center' tags={tags} />
+            <ul className='flex gap-2 justify-center'>
+              {date && (
+                <li className='text-white flex items-center gap-1 mx-0.5'>
+                  <RiCalendarLine />
+                  <time>{new Date(date).toLocaleDateString()}</time>
+                </li>
+              )}
+              <ReadingTime />
+            </ul>
+          </div>
         </div>
       </header>
     </div>
   )
 }
 
-export default CoverImage
+export default Header

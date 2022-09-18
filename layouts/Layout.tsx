@@ -2,7 +2,7 @@ import Toolbar from '@/components/Toolbar'
 import cx from 'clsx'
 
 import { useState } from 'react'
-import CoverImage from './components/Header'
+import Header from './components/Header'
 import { Footer } from './components/Footer'
 import { NavBar } from './components/NavBar'
 import { PageHTMLHead } from './PageHTMLHead'
@@ -65,7 +65,7 @@ export function Layout({
         setShowNav={setShowNav}
       />
 
-      <CoverImage
+      <Header
         coverImage={coverImage}
         title={title}
         description={description}

@@ -86,7 +86,9 @@ export const PageHTMLHead: React.FC<
       <meta property='og:title' content={title} />
       <meta name='twitter:title' content={title} />
       <title>
-        {title} | {site?.name === title ? site?.description : site?.name}
+        {title || 'Loading...'} |{' '}
+        {(site?.name === title ? site?.description : site?.name) ||
+          'Anti-Involutionist'}
       </title>
     </Head>
   )
