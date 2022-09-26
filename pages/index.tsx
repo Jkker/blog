@@ -15,6 +15,7 @@ import {
   getBlockIcon,
 } from 'notion-utils'
 import getIcon from '@/lib/get-icon'
+import cover from '@/public/images/city.webp'
 
 export const getStaticProps = async () => {
   try {
@@ -108,6 +109,9 @@ export default function NotionDomainPage(props) {
       {...props}
       title={props.site.name}
       description={props.site.description}
+      coverImage={{
+        src: cover,
+      }}
     >
       <div className='space-y-4 lg:space-y-8 container'>
         {props.postList.map((post) => (

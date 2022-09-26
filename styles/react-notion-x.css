@@ -356,9 +356,11 @@
   opacity: 0;
   text-decoration: none;
   float: left;
-  margin-left: -20px;
-  padding-right: 4px;
+  margin-left: -16px;
+  padding-right: 2px;
+  margin-top: 6px;
   fill: var(--fg-color-icon);
+  transition: opacity 0.1s ease-in-out;
 }
 
 .notion-page-cover {
