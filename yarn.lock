@@ -71,10 +71,10 @@
     "@use-it/event-listener" "^0.1.2"
     use-persisted-state "^0.3.0"
 
-"@fontsource/jetbrains-mono@^4.5.10":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@fontsource/jetbrains-mono/-/jetbrains-mono-4.5.10.tgz#c237505aeea535cf6ce1462c4ea39258f0677c2b"
-  integrity sha512-dylbkBmAWL0fkjDpDoDbQCwTQ/W3DzLtVXmwGyAyttfKliPGSP2WpAmmMFYp9NpqFMF7CLprFyzppe8u39Orkw==
+"@fontsource/jetbrains-mono@^4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/jetbrains-mono/-/jetbrains-mono-4.5.11.tgz#e8055c18246576fbcbeddac4f0b7f8e4b8f45050"
+  integrity sha512-IW1qgWGkjlN1O6Jf+6LWF9DpcdXhyQEXhTlzfVKrWHX+ProuOT5FcrEAj34AR+19CgAb9Sheda2slORnybBsdw==
 
 "@fontsource/lexend@^4.5.12":
   version "4.5.12"
