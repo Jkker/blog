@@ -12,15 +12,9 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
           color='transparent'
           size='small'
           rounded
-          leftIcon={
-            isUrl(icon) ? (
-              <Image alt={title + ' icon'} src={icon} width={20} height={20} />
-            ) : (
-              <span>{icon}</span>
-            )
-          }
           className='w-full flex-nowrap whitespace-nowrap'
           justify='start'
+          title={title}
         >
           {title}
         </Button>
@@ -33,9 +27,10 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
           className='whitespace-nowrap text-sm p-2 flex-shrink-1 flex items-center sm:justify-center gap-1.5 overflow-hidden text-ellipsis max-w-full opacity-90 cursor-default'
           // gap={1}
           key={breadcrumbs.length}
+          title={curr.title}
         >
-          {curr.icon &&
-            (isUrl(curr.icon) ? (
+          {curr.icon ? (
+            isUrl(curr.icon) ? (
               <Image
                 alt={curr.title + ' icon'}
                 src={curr.icon}
@@ -49,7 +44,8 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
                 }}
                 className='w-5 h-5 flex-center'
               />
-            ))}
+            )
+          ) : null}
           <span className='overflow-hidden text-ellipsis max-w-full'>
             {curr.title}
           </span>
