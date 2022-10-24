@@ -3143,30 +3143,30 @@ normalize-url@^7.0.3:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-7.1.0.tgz#967f4c7345314d05cf9b2a05fb4948e140d491b2"
   integrity sha512-JgkdydFdLe1E5Q7DpLvKVyBZOOwXYGhIbMbOMm3lJ06XKzaiit+qo1HciO3z3IFklStfarzJHVQf9ZcNPTvZlw==
 
-notion-client@^6.13.8:
-  version "6.13.8"
-  resolved "https://registry.yarnpkg.com/notion-client/-/notion-client-6.13.8.tgz#00e57dd23eee021ab5bc8f927c394715eef26a11"
-  integrity sha512-E65Cvq+qSL3oifwb9F/8pw1wrPr1zKOofY6mJZCGlb/ujrZZWm+fO3J8TBj9UEcQmMKWdGKbA1Eu1JhNDBuFeQ==
+notion-client@^6.15.6:
+  version "6.15.6"
+  resolved "https://registry.yarnpkg.com/notion-client/-/notion-client-6.15.6.tgz#3dfd0cbd8d2256bdbc93b5549d9cb86e3c33ced3"
+  integrity sha512-/ze9bHNhi09IvSo+loAelGVf2VsrnPaXoGtea/VUQq0adTvgcQhC1u37BwaK5G8bS/crVC277+KWlgdJOBIxeQ==
   dependencies:
     got "^11.8.1"
-    notion-types "^6.13.4"
-    notion-utils "^6.13.4"
+    notion-types "^6.15.6"
+    notion-utils "^6.15.6"
     p-map "^5.3.0"
 
-notion-types@^6.13.4:
-  version "6.13.4"
-  resolved "https://registry.yarnpkg.com/notion-types/-/notion-types-6.13.4.tgz#7b845e923da9cb485035f6b6ad7cdaa502fc4e4e"
-  integrity sha512-Ci4r4xZDpwx9iGUV2rS8IpjN+vFnOi0jH+m1uSIk6ulgxd4e7XZYrJb4yDgZmWeDrf1dQMT8ea4lheHzyyAzDg==
+notion-types@^6.13.4, notion-types@^6.15.6:
+  version "6.15.6"
+  resolved "https://registry.yarnpkg.com/notion-types/-/notion-types-6.15.6.tgz#eabbb28e1c514f421f0ffbf06ecdecd90e8ec8e3"
+  integrity sha512-JgLWDN4oHg/1sNdHDCeKUfdPl1AYsjOTnYkq+Zn7vITPykxbhw7nIxbAJ7owWUTro1cYTPh+GVmdX0mPiZGujg==
 
-notion-utils@^6.13.4:
-  version "6.13.4"
-  resolved "https://registry.yarnpkg.com/notion-utils/-/notion-utils-6.13.4.tgz#0eaa38bce7d0815c25e57bde3aacfeab30b26e5c"
-  integrity sha512-PLgJTFP6lmTzk7xAhZPeacogqOmRQeNPeh6WuxvmG1w7OOO+Bi1Whpn+c6aLUJmnAlJ+ZuI8AkSadvyo5mafAg==
+notion-utils@^6.13.4, notion-utils@^6.15.6:
+  version "6.15.6"
+  resolved "https://registry.yarnpkg.com/notion-utils/-/notion-utils-6.15.6.tgz#d172faa2c29d62eac71b4e17ed01336d5e372d02"
+  integrity sha512-Ys7lQ5KWmrk9ZmpFquomQcVRdQqmZMRAl0aFhoqirVgeyKtq/i5IZoHCw8jCY8732WlaEAUnBid56nN33N2fRQ==
   dependencies:
     is-url-superb "^6.1.0"
     mem "^9.0.2"
     normalize-url "^7.0.3"
-    notion-types "^6.13.4"
+    notion-types "^6.15.6"
     p-queue "^7.2.0"
 
 npm-run-all@^4.1.5:
