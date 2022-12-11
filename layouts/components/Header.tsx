@@ -1,11 +1,9 @@
 import defaultCoverImage from '@/data/defaultCoverImage'
 import cx from 'clsx'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { RiCalendarLine, RiTimeLine } from 'react-icons/ri'
-import readingTime from 'reading-time'
-import { useRouter } from 'next/router'
-import dynamic from 'next/dynamic'
+import { RiCalendarLine } from 'react-icons/ri'
 
 const ReadingTime = dynamic(() => import('./ReadingTime'))
 
@@ -46,6 +44,10 @@ function Header({
     dataURIBase64 = undefined,
     blurDataURL = undefined,
   } = typeof coverImage === 'object' ? coverImage : { src: coverImage }
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   return (
     <div className='w-full relative h-[280px] sm:h-[320px]'>
       <Image
@@ -80,7 +82,9 @@ function Header({
               {date && (
                 <li className='text-white flex items-center gap-1 mx-0.5'>
                   <RiCalendarLine />
-                  <time>{new Date(date).toLocaleDateString()}</time>
+                  <time>
+                    {mounted ? new Date(date).toLocaleDateString() : ''}
+                  </time>
                 </li>
               )}
               <ReadingTime />

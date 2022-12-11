@@ -9,7 +9,6 @@ import { getCanonicalPageUrl, mapPageUrl } from 'lib/map-page-url'
 import { resolveNotionPage } from 'lib/resolve-notion-page'
 import { PageBlock, PageProps, Params } from 'lib/types'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import {
   getBlockTitle,
@@ -18,7 +17,7 @@ import {
   getPageTableOfContents,
   normalizeUrl,
   parsePageId,
-  uuidToId,
+  uuidToId
 } from 'notion-utils'
 import { useEffect } from 'react'
 
@@ -153,30 +152,20 @@ export default function NotionDomainDynamicPage(props) {
 
   // console.log('NotionDomainDynamicPage', props)
   return (
-    <>
-      <Head>
-        <link
-          rel='stylesheet'
-          href='https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css'
-          integrity='sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X'
-          crossOrigin='anonymous'
-        />
-      </Head>
-      <Layout
-        breadcrumbs={props.breadcrumbs}
-        coverImage={props.coverImage}
-        title={props.title}
-        date={props.date}
-        tags={props.tags}
-        site={props.site}
-        description={props.description}
-        socialImage={props.socialImage}
-        url={props.canonicalPageUrl}
-        hasToc
-        hasComment
-      >
-        <NotionPage {...props} />
-      </Layout>
-    </>
+    <Layout
+      breadcrumbs={props.breadcrumbs}
+      coverImage={props.coverImage}
+      title={props.title}
+      date={props.date}
+      tags={props.tags}
+      site={props.site}
+      description={props.description}
+      socialImage={props.socialImage}
+      url={props.canonicalPageUrl}
+      hasToc
+      hasComment
+    >
+      <NotionPage {...props} />
+    </Layout>
   )
 }

@@ -15,6 +15,10 @@ const BlogPostCard = ({
   coverImage,
   icon,
 }) => {
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
   return (
     <Link href={url}>
       <a className='group w-full shadow-md hover:shadow-lg dark:hover:shadow-black/40 active:shadow-none rounded-xl bg-white dark:bg-gray-800 flex flex-col-reverse lg:flex-row justify-between duration-300 relative'>
@@ -45,11 +49,11 @@ const BlogPostCard = ({
             {title}
           </h2>
 
-          <div
+          <time
             className={`flex mt-2 items-center justify-start flex-wrap text-gray-500`}
           >
-            {new Date(date).toLocaleDateString()}
-          </div>
+            {mounted ? new Date(date).toLocaleDateString() : ''}
+          </time>
 
           <p
             style={{

@@ -79,17 +79,10 @@ export const PageHTMLHead: React.FC<
         crossOrigin='anonymous'
       />
       {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-      <link
-        href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap'
-        rel='stylesheet'
-      />
+
       <meta property='og:title' content={title} />
       <meta name='twitter:title' content={title} />
-      <title>
-        {title || 'Loading...'} |{' '}
-        {(site?.name === title ? site?.description : site?.name) ||
-          'Anti-Involutionist'}
-      </title>
+      <title>{`${title} | ${site?.name}` || 'Loading...'}</title>
     </Head>
   )
 }

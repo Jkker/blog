@@ -2,20 +2,20 @@ import BlogPostCard from '@/components/BlogPostCard'
 import defaultCoverImage from '@/data/defaultCoverImage'
 import { Layout } from '@/layouts'
 import { getCanonicalPageId } from '@/lib/get-canonical-page-id'
+import getIcon from '@/lib/get-icon'
 import { PageProps } from '@/lib/types'
+import cover from '@/public/images/city.webp'
 import config from '@/site.config'
 import { domain } from 'lib/config'
 import { mapImageUrl } from 'lib/map-image-url'
 import { resolveNotionPage } from 'lib/resolve-notion-page'
 import {
+  getBlockIcon,
   getBlockTitle,
   getPageProperty,
   normalizeUrl,
   parsePageId,
-  getBlockIcon,
 } from 'notion-utils'
-import getIcon from '@/lib/get-icon'
-import cover from '@/public/images/city.webp'
 
 export const getStaticProps = async () => {
   try {
