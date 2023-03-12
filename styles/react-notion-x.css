@@ -1228,7 +1228,7 @@ svg.notion-page-icon {
 .notion-property-select,
 .notion-property-multi_select {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
 }
 
@@ -1468,6 +1468,8 @@ svg.notion-page-icon {
   align-items: center; */
   margin-left: 14px;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .notion-list-item-property .notion-property-date,
@@ -1987,7 +1989,7 @@ svg.notion-page-icon {
 
 .notion-list-item-property .notion-property-multi_select-item {
   margin-bottom: 0;
-  flex-wrap: none;
+  white-space: nowrap;
 }
 
 .notion-list-item-property .notion-property-multi_select-item:last-of-type {

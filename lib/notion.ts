@@ -34,12 +34,12 @@ class Notion extends NotionAPI {
   }
 
   async getPage(pageId: string, options?: any) {
-    // console.time(`📄 getPage ${pageId}`)
+    console.time(`📄 getPage ${pageId}`)
 
     const cacheKey = `notion-page-id:${pageId}`
     const cachedPage = await db.get(cacheKey)
     if (cachedPage) {
-      // console.timeEnd(`📄 getPage ${pageId}`)
+      console.timeEnd(`📄 getPage ${pageId}`)
       return cachedPage
     }
 
