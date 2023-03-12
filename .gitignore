@@ -38,10 +38,12 @@ yarn-error.log*
 # vercel
 .vercel
 
-
+# temp
 tmp*
-
 logs
 *.log
-
 cache.json
+
+# misc
+robots.txt
+sitemap.xml

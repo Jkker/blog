@@ -17,7 +17,7 @@ const config = {
 
   // basic site info (required)
   name: 'Anti-Involutionist',
-  domain: 'blog.jerrykjia.com',
+  domain: 'www.jerrykjia.com',
   author: 'Jerry K Jia',
   yearStarted: 2022,
 

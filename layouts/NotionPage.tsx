@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
-import TweetEmbed from 'react-tweet-embed'
-
 // core notion renderer
 import { NotionRenderer } from 'react-notion-x'
 
@@ -93,10 +91,6 @@ const Modal = dynamic(
   }
 )
 
-const Tweet = ({ id }: { id: string }) => {
-  return <TweetEmbed tweetId={id} />
-}
-
 export const NotionPage: React.FC<
   types.PageProps & {
     title: string
@@ -118,7 +112,6 @@ export const NotionPage: React.FC<
       Equation,
       Pdf,
       Modal,
-      Tweet,
     }),
     []
   )
