@@ -1,7 +1,7 @@
 import defaultCoverImage from '@/data/defaultCoverImage'
 import cx from 'clsx'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { useEffect, useState } from 'react'
 import { RiCalendarLine } from 'react-icons/ri'
 

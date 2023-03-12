@@ -3,12 +3,12 @@ import Button from '@/components/Button'
 import Collapse from '@/components/Collapse'
 import Rotate from '@/components/Rotate'
 import ToggleThemeButton from '@/components/ToggleThemeButton'
-import navigationLinks from '@/data/navLinks'
+import { navigationLinks } from '@/lib/config'
 import Avatar from '@/public/avatar.webp'
 import useClickOutside from '@/utils/useClickOutside'
 import cx from 'clsx'
 import throttle from 'lodash.throttle'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import * as React from 'react'
 import { RiCloseFill, RiMenuFill } from 'react-icons/ri'
 
@@ -31,7 +31,7 @@ const AvatarIcon = ({ className = '' }) => (
         priority
       />
     }
-    title="About Me"
+    title='About Me'
   >
     Jerry K Jia
   </Button>

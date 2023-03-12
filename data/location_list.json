@@ -89,9 +89,7 @@
     "14A Washington Mews",
     "725 Broadway"
   ],
-  "Cliffside Park": [
-    "5 Washington Pl"
-  ],
+  "Cliffside Park": ["5 Washington Pl"],
   "Brooklyn": [
     "Rogers Hall",
     "Jacobs Academic Building",
@@ -103,7 +101,5 @@
     "325 Gold Street",
     "Dibner"
   ],
-  "Mineola": [
-    "NYU Langone Long Island"
-  ]
+  "Mineola": ["NYU Langone Long Island"]
 }

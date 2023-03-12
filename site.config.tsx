@@ -1,6 +1,8 @@
-import { siteConfig } from '@/lib/config/site-config'
+import React from 'react'
+import { FaCode, FaHome, FaProjectDiagram } from 'react-icons/fa'
+import { RiUser3Fill } from 'react-icons/ri'
 
-export default siteConfig({
+const config = {
   // the site's root Notion page (required)
 
   // Blog
@@ -52,7 +54,7 @@ export default siteConfig({
   pageUrlOverrides: {
     '/acknowledgement-legal-information': 'ec61b821a2e74cb893df121f16cf8268',
     '/about': '6ce65fc4d4be42e8b613cb8e6558c4cf',
-    // '/test': '067dd719a912471ea9a3ac10710e7fdf',
+    '/snippets': '026ab99d63fd44e2bdfc1e1f0fccae62',
   },
 
   i18n: {
@@ -95,4 +97,30 @@ export default siteConfig({
       href: 'https://search.jerrykjia.com/',
     },
   ],
-})
+  navigationLinks: [
+    {
+      title: 'Home',
+      url: '/',
+      icon: <FaHome />,
+    },
+    {
+      title: 'Projects',
+      url: '/projects',
+      icon: <FaProjectDiagram />,
+    },
+    {
+      title: 'Snippets',
+      url: '/snippets',
+      icon: <FaCode />,
+      pageId: '026ab99d63fd44e2bdfc1e1f0fccae62',
+    },
+    {
+      title: 'About',
+      url: '/about',
+      icon: <RiUser3Fill />,
+      pageId: '6ce65fc4d4be42e8b613cb8e6558c4cf',
+    },
+  ],
+}
+
+export default config

@@ -8,7 +8,6 @@
   </p>
 </div>
 
-
 |                     Light                     |                    Dark                     |
 | :-------------------------------------------: | :-----------------------------------------: |
 | ![light](/public/previews/preview-light.webp) | ![dark](/public/previews/preview-dark.webp) |

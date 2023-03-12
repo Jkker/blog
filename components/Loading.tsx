@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import LoadingIcon from '@/public/loading-cat-transparent-120x120.gif'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Fade from './Fade'
 import cx from 'clsx'
 

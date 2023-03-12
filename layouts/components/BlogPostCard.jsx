@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import TagItemMini from '../../components/TagItemMini'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { isUrl } from '@/utils/link'
 
 const BlogPostCard = ({

@@ -25,4 +25,5 @@ const SizeMap = {
   '2xl': 1536,
 }
 
-export const useMinWidth = (size) => useMediaQuery(`(min-width: ${SizeMap[size]}px)`)
+export const useMinWidth = (size) =>
+  useMediaQuery(`(min-width: ${SizeMap[size]}px)`)

@@ -29,12 +29,14 @@ export const rootNotionSpaceId: string | null = parsePageId(
 )
 
 export const pageUrlOverrides = cleanPageUrlMap(
-  getSiteConfig('pageUrlOverrides', {}) || {},
+  {
+    ...getSiteConfig('pageUrlOverrides', {}),
+  },
   { label: 'pageUrlOverrides' }
 )
 
 export const pageUrlAdditions = cleanPageUrlMap(
-  getSiteConfig('pageUrlAdditions', {}) || {},
+  getSiteConfig('pageUrlAdditions', {}),
   { label: 'pageUrlAdditions' }
 )
 
@@ -137,6 +139,8 @@ export const posthogId = process.env.NEXT_PUBLIC_POSTHOG_ID
 export const posthogConfig = {
   api_host: 'https://app.posthog.com',
 }
+
+export const navigationLinks = getSiteConfig('navigationLinks', [])
 
 function cleanPageUrlMap(
   pageUrlMap: PageUrlOverridesMap,

@@ -1,9 +1,8 @@
-import navigationLinks from '@/data/navLinks'
 import { NotionAPI } from 'notion-client'
 import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
 import { mergeRecordMaps } from 'notion-utils'
 import pMap from 'p-map'
-import { isPreviewImageSupportEnabled } from './config'
+import { isPreviewImageSupportEnabled, navigationLinks } from './config'
 import db from './db'
 import { getPreviewImageMap } from './preview-images'
 

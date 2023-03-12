@@ -3,7 +3,7 @@ import SocialButton from './SocialButton'
 // import MenuGroupCard from './MenuGroupCard'
 import Link from 'next/link'
 import avatar from '@/public/avatar.jpg'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 export function InfoCard({ className = '' }) {
   return (

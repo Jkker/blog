@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Link from './Link'
 
 export const ProjectCard = ({ title, description, coverImage, href }) => (
