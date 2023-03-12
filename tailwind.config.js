@@ -47,7 +47,7 @@ module.exports = {
         primary: blue,
       },
       fontFamily: {
-        sans: ['Lexend', 'Noto Sans SC', ...defaultTheme.fontFamily.sans],
+        sans: ['Lexend', ...defaultTheme.fontFamily.sans],
         mono: ['Jetbrains Mono', ...defaultTheme.fontFamily.mono],
       },
     },

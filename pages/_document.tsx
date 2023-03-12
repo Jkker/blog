@@ -12,10 +12,10 @@ export default class MyDocument extends Document {
         </Head>
 
         <body>
-          <link
+          {/* <link
             href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap'
             rel='stylesheet'
-          />
+          /> */}
           <link
             rel='stylesheet'
             href='https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css'
