@@ -1,11 +1,64 @@
 import { ExtendedRecordMap } from 'notion-types'
 import { parsePageId } from 'notion-utils'
-
-import * as acl from './acl'
 import { environment, pageUrlAdditions, pageUrlOverrides, site } from './config'
-import { db } from './db'
+import db from './db'
 import { getSiteMap } from './get-site-map'
-import { getPage } from './notion'
+import notion from './notion'
+import { PageProps } from './types'
+
+export async function errorReport({
+  site,
+  recordMap,
+  pageId,
+}: PageProps): Promise<PageProps> {
+  if (!site) {
+    return {
+      error: {
+        statusCode: 404,
+        message: 'Unable to resolve notion site',
+      },
+    }
+  }
+
+  if (!recordMap) {
+    return {
+      error: {
+        statusCode: 404,
+        message: `Unable to resolve page for domain "${site.domain}". Notion page "${pageId}" not found.`,
+      },
+    }
+  }
+
+  const keys = Object.keys(recordMap.block)
+  const rootKey = keys[0]
+
+  if (!rootKey) {
+    return {
+      error: {
+        statusCode: 404,
+        message: `Unable to resolve page for domain "${site.domain}". Notion page "${pageId}" invalid data.`,
+      },
+    }
+  }
+
+  const rootValue = recordMap.block[rootKey]?.value
+  const rootSpaceId = rootValue?.space_id
+
+  if (
+    rootSpaceId &&
+    site.rootNotionSpaceId &&
+    rootSpaceId !== site.rootNotionSpaceId
+  ) {
+    if (process.env.NODE_ENV) {
+      return {
+        error: {
+          statusCode: 404,
+          message: `Notion page "${pageId}" doesn't belong to the Notion workspace owned by "${site.domain}".`,
+        },
+      }
+    }
+  }
+}
 
 export async function resolveNotionPage(domain: string, rawPageId?: string) {
   let pageId: string
@@ -44,7 +97,7 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
     }
 
     if (pageId) {
-      recordMap = await getPage(pageId)
+      recordMap = await notion.getPage(pageId)
     } else {
       // handle mapping of user-friendly canonical page paths to Notion page IDs
       // e.g., /developer-x-entrepreneur versus /71201624b204481f862630ea25ce62fe
@@ -56,7 +109,7 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
         // cached aggressively
         // recordMap = siteMap.pageMap[pageId]
 
-        recordMap = await getPage(pageId)
+        recordMap = await notion.getPage(pageId)
 
         if (useUriToPageIdCache) {
           try {
@@ -86,9 +139,9 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
     pageId = site.rootNotionPageId
 
     // console.log(site)
-    recordMap = await getPage(pageId)
+    recordMap = await notion.getPage(pageId)
   }
 
   const props = { site, recordMap, pageId }
-  return { ...props, ...(await acl.pageAcl(props)) }
+  return { ...props, ...errorReport(props) }
 }

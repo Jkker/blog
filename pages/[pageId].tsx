@@ -1,8 +1,8 @@
 import defaultCoverImage from '@/data/defaultCoverImage'
 import { Layout, NotionPage } from '@/layouts'
 import getIcon from '@/lib/get-icon'
-import * as config from 'lib/config'
-import { domain, isDev } from 'lib/config'
+import * as config from '@/lib/config'
+import { domain, isDev } from '@/lib/config'
 import { getSiteMap } from 'lib/get-site-map'
 import { mapImageUrl } from 'lib/map-image-url'
 import { getCanonicalPageUrl, mapPageUrl } from 'lib/map-page-url'
@@ -17,7 +17,7 @@ import {
   getPageTableOfContents,
   normalizeUrl,
   parsePageId,
-  uuidToId
+  uuidToId,
 } from 'notion-utils'
 import { useEffect } from 'react'
 
@@ -37,6 +37,9 @@ export const getStaticProps: GetStaticProps<PageProps, Params> = async (
 
     const keys = Object.keys(recordMap?.block || {})
     const block = recordMap?.block?.[keys[0]]?.value
+    if (!block) {
+      console.error('no block', rawPageId)
+    }
 
     const socialImage = mapImageUrl(
       getPageProperty<string>('Social Image', block, recordMap) ||
@@ -124,7 +127,9 @@ export async function getStaticPaths() {
     }
   }
 
+  console.log('getStaticPaths')
   const siteMap = await getSiteMap()
+  console.log('siteMap', siteMap)
 
   const staticPaths = {
     paths: Object.keys(siteMap.canonicalPageMap).map((pageId) => ({

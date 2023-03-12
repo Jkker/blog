@@ -1,4 +1,4 @@
-import * as types from './types'
+import * as types from '@/lib/types'
 
 export interface SiteConfig {
   rootNotionPageId: string
@@ -52,3 +52,5 @@ export interface NavigationLink {
 export const siteConfig = (config: SiteConfig): SiteConfig => {
   return config
 }
+
+

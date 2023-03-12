@@ -6,7 +6,7 @@ import { ExtendedRecordMap, PreviewImage, PreviewImageMap } from 'notion-types'
 import { getPageImageUrls, normalizeUrl } from 'notion-utils'
 
 import { defaultPageIcon, defaultPageCover } from './config'
-import { db } from './db'
+import db from './db'
 import { mapImageUrl } from './map-image-url'
 
 export async function getPreviewImageMap(
@@ -39,33 +39,18 @@ async function createPreviewImage(
   { cacheKey }: { cacheKey: string }
 ): Promise<PreviewImage | null> {
   try {
-    try {
-      const cachedPreviewImage = await db.get(cacheKey)
-      if (cachedPreviewImage) {
-        return cachedPreviewImage
-      }
-    } catch (err) {
-      // ignore redis errors
-      console.warn(`redis error get "${cacheKey}"`, err.message)
-    }
+    const cachedPreviewImage = await db.get(cacheKey)
+    if (cachedPreviewImage) return cachedPreviewImage
 
     const { body } = await got(url, { responseType: 'buffer' })
     const result = await lqip(body)
-    // console.log('lqip', { ...result.metadata, url, cacheKey })
 
     const previewImage = {
       originalWidth: result.metadata.originalWidth,
       originalHeight: result.metadata.originalHeight,
       dataURIBase64: result.metadata.dataURIBase64,
     }
-
-    try {
-      await db.set(cacheKey, previewImage)
-    } catch (err) {
-      // ignore redis errors
-      console.warn(`redis error set "${cacheKey}"`, err.message)
-    }
-
+    await db.set(cacheKey, previewImage)
     return previewImage
   } catch (err) {
     console.warn('failed to create preview image', url, err.message)

@@ -8,7 +8,7 @@ import {
 } from 'notion-utils'
 import { ExtendedRecordMap } from 'notion-types'
 
-import * as config from 'lib/config'
+import * as config from '@/lib/config'
 import { getSiteMap } from 'lib/get-site-map'
 import { getCanonicalPageUrl } from 'lib/map-page-url'
 import { getSocialImageUrl } from 'lib/get-social-image-url'

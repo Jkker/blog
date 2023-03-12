@@ -1,7 +1,6 @@
-// import BLOG from '@/blog.config'
 import Link from 'next/link'
 import React from 'react'
-import TagItemMini from './TagItemMini'
+import TagItemMini from '../../components/TagItemMini'
 import Image from 'next/image'
 import { isUrl } from '@/utils/link'
 
