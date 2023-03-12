@@ -2,6 +2,7 @@ import '@/styles/global.css'
 import '@fontsource/jetbrains-mono/400.css'
 import '@fontsource/lexend/400.css'
 import '@fontsource/lexend/700.css'
+import { ThemeProvider } from 'next-themes'
 
 import { posthogConfig, posthogId } from '@/lib/config'
 import type { AppProps } from 'next/app'
@@ -34,9 +35,17 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events])
   return (
     <GlobalContextProvider>
-      <ModalProvider>
-        <Component {...pageProps} />
-      </ModalProvider>
+      <ThemeProvider
+        attribute='class'
+        value={{
+          light: 'light-mode',
+          dark: 'dark-mode',
+        }}
+      >
+        <ModalProvider>
+          <Component {...pageProps} />
+        </ModalProvider>
+      </ThemeProvider>
     </GlobalContextProvider>
   )
 }

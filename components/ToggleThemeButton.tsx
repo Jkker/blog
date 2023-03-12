@@ -1,5 +1,5 @@
 import { useDarkMode } from 'lib/use-dark-mode'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiMoonFill, RiSunFill } from 'react-icons/ri'
 import Button from './Button'
 import Rotate from './Rotate'
@@ -12,14 +12,10 @@ const ToggleThemeButton = ({ className = '', ...props }) => {
     setMounted(true)
   }, [])
 
-  const onToggleTheme = useCallback(() => {
-    toggleDarkMode()
-  }, [toggleDarkMode])
-
   if (!mounted) return null
   return (
     <Button
-      onClick={onToggleTheme}
+      onClick={toggleDarkMode}
       className={className}
       title={isDarkMode ? 'Light mode' : 'Dark mode'}
       {...props}
