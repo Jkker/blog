@@ -1,12 +1,13 @@
 import Fade from '@/components/Fade'
+import { InfoCard } from '@/layouts/components/InfoCard'
 import useGlobal from '@/utils/useGlobal'
+import { useMinWidth } from '@/utils/useMediaQuery'
 import cs from 'clsx'
+import debounce from 'lodash.debounce'
 import throttle from 'lodash.throttle'
 import type { TableOfContentsEntry } from 'notion-utils'
-import * as React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RiListCheck } from 'react-icons/ri'
-import { InfoCard } from '@/layouts/components/InfoCard'
-import {useMinWidth} from '@/utils/useMediaQuery'
 
 export const TableOfContent: React.FC<{
   tableOfContent: Array<TableOfContentsEntry>
@@ -16,65 +17,80 @@ export const TableOfContent: React.FC<{
   const { isMobileTocVisible } = useGlobal()
   const isDesktop = useMinWidth('lg')
 
-  const [activeSection, setActiveSection] = React.useState(null)
-  const [percent, changePercent] = React.useState(0)
+  const [activeSection, setActiveSection] = useState(null)
+  const [percent, changePercent] = useState(0)
+  const tocRef = useRef<HTMLDivElement>(null)
 
-  const throttleMs = 100
+  const throttleMs = 25
+  const debounceMs = 500
 
-  React.useEffect(() => {
-    const actionSectionScrollSpy = throttle(() => {
+  const adjustTocScroll = debounce(
+    () => {
+      if (!tocRef.current) return
+      const activeElement = document.querySelector(
+        `.notion-table-of-contents-active-item`
+      ) as HTMLElement
+      // if activeElement is not in view, scroll to it
+      if (!activeElement) return
+      const tocRect = tocRef.current.getBoundingClientRect()
+      const activeRect = activeElement.getBoundingClientRect()
+      if (activeRect.top < tocRect.top || activeRect.bottom > tocRect.bottom) {
+        tocRef.current.scrollTo({
+          top: activeElement.offsetTop - tocRect.height / 2 - activeRect.height,
+          behavior: 'smooth',
+        })
+      }
+    },
+    debounceMs,
+    { leading: false, trailing: true }
+  )
+
+  useEffect(() => {
+    const actionSectionScrollSpy = throttle((event = {}) => {
+      if (event.isTrusted && event.eventPhase === 0) return
       const target =
         typeof window !== 'undefined' &&
         document.getElementById('main-container')
-      if (target) {
-        const clientHeight = target.clientHeight
-        const scrollY = window.pageYOffset
-        const fullHeight = clientHeight - window.outerHeight
-        let per = parseFloat(((scrollY / fullHeight) * 100).toFixed(0))
-        if (per > 100) per = 100
-        if (per < 0) per = 0
-        changePercent(per)
-      }
+      if (!target) return
 
+      // Update progress bar
+      const clientHeight = target.clientHeight
+      const scrollY = window.pageYOffset
+      const fullHeight = clientHeight - window.outerHeight
+      let per = parseFloat(((scrollY / fullHeight) * 100).toFixed(0))
+      if (per > 100) per = 100
+      if (per < 0) per = 0
+      changePercent(per)
+
+      // Update active section in toc
       const sections = document.getElementsByClassName('notion-h')
+      if (!sections || !sections.length) return
 
-      let prevBBox: DOMRect = null
-      let currentSectionId = activeSection
-
-      for (let i = 0; i < sections.length; ++i) {
+      let minDist = 1000
+      let minDistSectionIdx = null
+      for (let i = 0; i < sections.length; i++) {
         const section = sections[i]
-        if (!section || !(section instanceof Element)) continue
-
-        if (!currentSectionId) {
-          currentSectionId = section.getAttribute('data-id')
-        }
-
         const bbox = section.getBoundingClientRect()
-        const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
-        const offset = Math.max(150, prevHeight / 4)
-
-        // GetBoundingClientRect returns values relative to the viewport
-        if (bbox.top - offset < 0) {
-          currentSectionId = section.getAttribute('data-id')
-
-          prevBBox = bbox
-          continue
+        const absDist = Math.abs(bbox.top)
+        if (absDist < minDist && bbox.top > 0) {
+          minDist = absDist
+          minDistSectionIdx = i
         }
-
-        // No need to continue loop, if last element has been detected
-        break
       }
+      if (minDistSectionIdx === null) return
 
-      setActiveSection(currentSectionId)
+      setActiveSection(sections[minDistSectionIdx].getAttribute('data-id'))
+      adjustTocScroll()
     }, throttleMs)
-    window.addEventListener('scroll', actionSectionScrollSpy)
+    document.addEventListener('scroll', actionSectionScrollSpy)
 
     actionSectionScrollSpy()
 
     return () => {
-      window.removeEventListener('scroll', actionSectionScrollSpy)
+      document.removeEventListener('scroll', actionSectionScrollSpy)
     }
-  }, [activeSection])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div
@@ -112,7 +128,10 @@ export const TableOfContent: React.FC<{
               </div>
             </div>
           </div>
-          <nav className='max-h-[400px] overflow-y-auto scrollbar-thin'>
+          <nav
+            className='max-h-[400px] overflow-y-auto scrollbar-thin'
+            ref={tocRef}
+          >
             {tableOfContent.map(({ id, indentLevel, text }) => (
               <a
                 key={id}
@@ -122,6 +141,17 @@ export const TableOfContent: React.FC<{
                   `notion-table-of-contents-item-indent-level-${indentLevel}`,
                   activeSection === id && 'notion-table-of-contents-active-item'
                 )}
+                id={`toc-${id}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const element = document.getElementById(id)
+                  if (!element) return
+                  element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest',
+                  })
+                }}
               >
                 <span
                   className='notion-table-of-contents-item-body'

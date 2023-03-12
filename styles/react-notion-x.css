@@ -118,7 +118,6 @@
 }
 
 .notion-table-of-contents-item.notion-table-of-contents-active-item {
-  /* color: var(--select-color-0) !important; */
   @apply text-primary-400;
 }
 
@@ -603,7 +602,7 @@ svg.notion-page-icon {
 }
 
 .notion-page-link:hover {
-  background: var(--bg-color-0);
+  /* background: var(--bg-color-0); */
 }
 
 .notion-collection-card .notion-page-link {
@@ -1606,11 +1605,10 @@ svg.notion-page-icon {
 
 .notion-table-of-contents-item {
   /* opacity: 0.9; */
-  transition: background 100ms ease-in, opacity 100ms ease-in;
+  transition: all 100ms ease-in;
 
   text-decoration: none;
   user-select: none;
-  transition: background 20ms ease-in 0s;
   cursor: pointer;
   width: 100%;
 
