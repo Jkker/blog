@@ -14,27 +14,25 @@ export function InfoCard({ className = '' }) {
         className
       }
     >
-      <Link href='/about'>
-        <a
-          className='justify-center items-center flex dark:text-gray-100 font-sans transform duration-200 cursor-pointer'
-          aria-label='About Author'
-        >
-          <Image
-            src={avatar}
-            className='rounded-full'
-            width={90}
-            height={90}
-            alt='avatar'
-          />
-        </a>
+      <Link
+        href='/about'
+        className='justify-center items-center flex dark:text-gray-100 font-sans transform duration-200 cursor-pointer'
+        aria-label='About Author'
+      >
+        <Image
+          src={avatar}
+          className='rounded-full'
+          width={90}
+          height={90}
+          alt='avatar'
+        />
       </Link>
-      <Link href='/about'>
-        <a
-          className='text-center text-xl block hover-text-primary hover:scale-105 transition duration-150'
-          aria-label='About Author'
-        >
-          {config.author}
-        </a>
+      <Link
+        href='/about'
+        className='text-center text-xl block hover-text-primary hover:scale-105 transition duration-150'
+        aria-label='About Author'
+      >
+        {config.author}
       </Link>
       <div className='text-sm text-center'>{config.description}</div>
       {/* <MenuGroupCard {...props} /> */}

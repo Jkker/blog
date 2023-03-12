@@ -127,9 +127,9 @@ export async function getStaticPaths() {
     }
   }
 
-  console.log('getStaticPaths')
+  // console.log('getStaticPaths')
   const siteMap = await getSiteMap()
-  console.log('siteMap', siteMap)
+  // console.log('siteMap', siteMap)
 
   const staticPaths = {
     paths: Object.keys(siteMap.canonicalPageMap).map((pageId) => ({
