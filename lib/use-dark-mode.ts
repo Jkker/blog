@@ -12,10 +12,18 @@
 import { useTheme } from 'next-themes'
 
 export function useDarkMode() {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, systemTheme, setTheme } = useTheme()
+
+  const toggleDarkMode = () => {
+    if (systemTheme !== resolvedTheme) {
+      setTheme('system')
+    } else {
+      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+    }
+  }
 
   return {
-    isDarkMode: theme === 'dark',
-    toggleDarkMode: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+    isDarkMode: resolvedTheme === 'dark',
+    toggleDarkMode,
   }
 }

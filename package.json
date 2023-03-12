@@ -6,9 +6,6 @@
   "author": "Jkker <j@erry.dev>",
   "repository": "Jkker/blog",
   "license": "MIT",
-  "engines": {
-    "node": ">=14.17"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
