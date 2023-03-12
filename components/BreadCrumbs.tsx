@@ -1,6 +1,5 @@
 import Button from '@/components/Button'
-import { isUrl } from '@/utils/link'
-import Image from 'next/image'
+import Icon from '@/components/Icon'
 import React from 'react'
 
 function BreadCrumbs({ breadcrumbs, className = '' }) {
@@ -30,21 +29,7 @@ function BreadCrumbs({ breadcrumbs, className = '' }) {
           title={curr.title}
         >
           {curr.icon ? (
-            isUrl(curr.icon) ? (
-              <Image
-                alt={curr.title + ' icon'}
-                src={curr.icon}
-                width={20}
-                height={20}
-              />
-            ) : (
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: curr.icon,
-                }}
-                className='w-5 h-5 flex-center'
-              />
-            )
+            <Icon icon={curr.icon} sizeCls='w-5 h-5' size={20} dark />
           ) : null}
           <span className='overflow-hidden text-ellipsis max-w-full'>
             {curr.title}
