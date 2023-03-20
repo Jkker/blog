@@ -45,7 +45,7 @@
     "notion-utils": "^6.16.0",
     "p-map": "^5.5.0",
     "p-memoize": "^7.1.1",
-    "posthog-js": "^1.50.8",
+    "posthog-js": "^1.51.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-geolocated": "^4.0.3",
