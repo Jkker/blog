@@ -38,7 +38,7 @@
     "lodash.throttle": "^4.1.1",
     "lqip-modern": "^2.0.0",
     "next": "^13.2.4",
-    "next-sitemap": "^4.0.5",
+    "next-sitemap": "^4.0.6",
     "next-themes": "^0.2.1",
     "notion-client": "^6.16.0",
     "notion-types": "^6.16.0",
