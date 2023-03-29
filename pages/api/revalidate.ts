@@ -8,6 +8,7 @@ export default async function handler(
   if (req.query.secret !== process.env.REVALIDATE_SECRET) {
     return res.status(401).send('Invalid token')
   }
+  console.log('🔁 Revalidating', req.query.path)
 
   try {
     await res.revalidate(req.query.path as string)
